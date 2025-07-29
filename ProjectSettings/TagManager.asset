@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Wall
+  - Enemy
+  - Chieu1
+  - Chieu2
+  - Chieu3
+  - Chieu4
+  - Chieu
+  - Chieu5
+  - Coin
+  - Ladder
+  - Ground
+  - LoadMap1
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - isGrounded
+  - Water
+  - UI
+  - Enemy
+  - Ground
+  - MinimapLayer
+  - MinimapIcon
+  - iconquai
+  - iconLoad
+  - Player
+  - enemyLayer
+  - Bam
+  - Wall
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  m_RenderingLayers:
+  - Default

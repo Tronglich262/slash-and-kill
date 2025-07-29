@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scene/ThiTran.unity
+    guid: 8c14a4391b84c0c41a3532cb3de48fbc
+  - enabled: 1
+    path: Assets/Scene/Map1.unity
+    guid: 5546052b64161eb42b90f283d6bd65c6
+  - enabled: 1
+    path: Assets/Scene/Map2.unity
+    guid: a9a41b5cde714344fab8485bbe4e0f5d
+  - enabled: 1
+    path: Assets/Scene/Map4.unity
+    guid: 01542b619b6debd4cad258966721d99c
+  - enabled: 1
+    path: Assets/Scene/Map5.unity
+    guid: dfc3c0c2f92d2bb4fb811c0236da8add
+  - enabled: 1
+    path: Assets/Scene/Map6.unity
+    guid: 063aa32173b2af64da029f06e4bde723
+  - enabled: 1
+    path: Assets/Scene/Map7.unity
+    guid: 3e3865a5ae51f0240b5460d1647ab095
+  - enabled: 1
+    path: Assets/Scene/Map8.unity
+    guid: af6436c73cada134cb81dd8a0ec8bb14
+  - enabled: 1
+    path: Assets/Scene/MapBoss.unity
+    guid: e3712ea30231a254287cc16d0477799d
+  - enabled: 0
+    path: Assets/Scene/Map11.unity
+    guid: 385d77417811a2a4a94aa431d5182b0f
+  - enabled: 1
+    path: Assets/Scene/Load.unity
+    guid: 9292b2e61eaa2a843bd4326e9d1af3df
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_UseUCBPForAssetBundles: 0
