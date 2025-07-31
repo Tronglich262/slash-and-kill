@@ -40,7 +40,7 @@ public class Skill2 : MonoBehaviour
             skillButton.interactable = false;
             cooldownBar.fillAmount = 1; // Bắt đầu hiện thanh hồi chiêu
 
-            playerAnimator.SetBool("Attackskill", true);
+            playerAnimator.SetBool("AttackSkill1", true);
             StartCoroutine(SkilltimeDeley());
             StartCoroutine(ResetAttackSkill());
             StartCoroutine(Cooldown()); // Bắt đầu hồi chiêu
