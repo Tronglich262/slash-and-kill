@@ -1,10 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class PlayerJump : MonoBehaviour
 {
     public float jumpForce = 20f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
+
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
@@ -17,6 +19,7 @@ public class PlayerJump : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
+
     private bool isGrounded;
 
     void Start()
@@ -27,26 +30,19 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
-        // Kiểm tra chạm đất
+        // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         float verticalSpeed = rb.linearVelocity.y;
-        animator.SetFloat("VerticalSpeed", verticalSpeed);
 
-        // Đặt trạng thái Fall nếu đang rơi
-        if (!isGrounded && verticalSpeed < -0.1f)
-        {
-            animator.SetBool("Fall", true);
-        }
-        else
-        {
-            animator.SetBool("Fall", false);
-        }
+        // Set animator vertical speed
+        animator.SetFloat("VerticalSpeed", verticalSpeed);
+        animator.SetBool("IsJumping", !isGrounded);
+
+        // Set Fall
+        animator.SetBool("Fall", !isGrounded && verticalSpeed < -0.1f);
 
         // Coyote time
-        if (isGrounded)
-            coyoteTimeCounter = coyoteTime;
-        else
-            coyoteTimeCounter -= Time.deltaTime;
+        coyoteTimeCounter = isGrounded ? coyoteTime : coyoteTimeCounter - Time.deltaTime;
 
         // Jump buffer
         if (Input.GetButtonDown("Jump"))
@@ -54,7 +50,7 @@ public class PlayerJump : MonoBehaviour
         else
             jumpBufferCounter -= Time.deltaTime;
 
-        // Thực hiện nhảy
+        // Jump
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
