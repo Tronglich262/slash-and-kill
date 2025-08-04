@@ -30,7 +30,7 @@ public class ActiveUI : MonoBehaviour
     
     //character Ui
     public GameObject SkilCharacterUI;
-
+    public string TagerNameScene;
     public LevelSystem levelSystem;
     
     
@@ -116,13 +116,15 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleYes1()
     {
-        if (CoinManager.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
         {
-            if (CoinManager.Instance.coinCount >= 500)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 10)
             {
                 CoinManager.Instance.AddCoin(-500);
                 StartCoroutine(levelSystem.Dieukien());
-               // Time.timeScale = 1;
+                // Time.timeScale = 1;
+                SceneLoader.Instance.LoadScene("Map1");
+
             }
             else
             {
@@ -148,9 +150,9 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleYes2()
     {
-        if (CoinManager.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
         {
-            if (CoinManager.Instance.coinCount >= 500)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 20)
             {
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
@@ -180,9 +182,9 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleYes3()
     {
-        if (CoinManager.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
         {
-            if (CoinManager.Instance.coinCount >= 500)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 25)
             {
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
@@ -212,9 +214,9 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleYes4()
     {
-        if (CoinManager.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
         {
-            if (CoinManager.Instance.coinCount >= 500)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 30)
             {
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
@@ -245,9 +247,9 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleYes5()
     {
-        if (CoinManager.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
         {
-            if (CoinManager.Instance.coinCount >= 500)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 35)
             {
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
@@ -277,9 +279,9 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleYes6()
     {
-        if (CoinManager.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
         {
-            if (CoinManager.Instance.coinCount >= 500)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 40)
             {
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
@@ -309,9 +311,9 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleYes7()
     {
-        if (CoinManager.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
         {
-            if (CoinManager.Instance.coinCount >= 500)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 40)
             {
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());

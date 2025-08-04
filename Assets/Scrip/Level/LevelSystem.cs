@@ -39,7 +39,10 @@ public class LevelSystem : MonoBehaviour
     // thông báo nhận quà
     public GameObject dudieukien;
     public GameObject khongdudieukien;
-
+    public void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         LoadLevelData();

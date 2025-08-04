@@ -21881,6 +21881,7 @@ MonoBehaviour:
   Bangthanhtich: {fileID: 1889591135}
   buttonthanhtich1: {fileID: 1606113759}
   SkilCharacterUI: {fileID: 2016427461}
+  TagerNameScene: 
   levelSystem: {fileID: 786237842}
 --- !u!4 &1346069592
 Transform:
