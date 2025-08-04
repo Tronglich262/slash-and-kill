@@ -33,6 +33,11 @@ public class HealthSystem : MonoBehaviour
         if (currentHP < 0) currentHP = 0;
         UpdateHPUI();
         SaveHP();
+        PlayerAttack playerAttack = GetComponent<PlayerAttack>();
+        if (playerAttack != null)
+        {
+            playerAttack.ResetAttackState();
+        }
         StartCoroutine(deleyhurt());
         if (currentHP == 0)
         {
