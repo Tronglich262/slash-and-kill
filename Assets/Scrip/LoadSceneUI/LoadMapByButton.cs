@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class LoadMapByButton : MonoBehaviour
 {
@@ -7,3 +7,4 @@ public class LoadMapByButton : MonoBehaviour
         SceneLoader.Instance.LoadScene(sceneName);
     }
 }
+*/
