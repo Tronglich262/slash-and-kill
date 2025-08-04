@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      skadovsk-no noise30_0: 6695561041734864403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
