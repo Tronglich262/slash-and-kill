@@ -16845,6 +16845,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164099606}
   - component: {fileID: 1164099607}
+  - component: {fileID: 1164099608}
   m_Layer: 7
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -16898,7 +16899,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 5.4657264, y: -4.259845}
@@ -16913,6 +16914,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 8.987725, y: 0.43615294}
   m_EdgeRadius: 0
+--- !u!251 &1164099608
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164099605}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 1
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &1172859852
 GameObject:
   m_ObjectHideFlags: 0
@@ -19217,6 +19237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1396353969}
   - component: {fileID: 1396353970}
+  - component: {fileID: 1396353971}
   m_Layer: 7
   m_Name: GameObject (5)
   m_TagString: Untagged
@@ -19270,7 +19291,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 4.8064733, y: -4.2620296}
@@ -19285,6 +19306,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5.458289, y: 0.57954407}
   m_EdgeRadius: 0
+--- !u!251 &1396353971
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396353968}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 1
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &1429995466
 GameObject:
   m_ObjectHideFlags: 0
