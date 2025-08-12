@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemyFSMVII : MonoBehaviour
+public class EnemyFSM : MonoBehaviour
 {
     public Transform pointA, pointB; 
     public Transform player; 

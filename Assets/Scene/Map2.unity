@@ -4011,6 +4011,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &57070241 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 332574163529778137, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+  m_PrefabInstance: {fileID: 1665387925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &60376715
 GameObject:
   m_ObjectHideFlags: 0
@@ -6520,6 +6525,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: levelSystem
+      value: 
+      objectReference: {fileID: 1285691341}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 1936228439}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointB
+      value: 
+      objectReference: {fileID: 1101083917}
     - target: {fileID: 4381261093272694824, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
       propertyPath: levelSystem
       value: 
@@ -6580,6 +6605,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 1101083917}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointB
+      value: 
+      objectReference: {fileID: 1936228439}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6681,8 +6718,8 @@ GameObject:
   - component: {fileID: 264693961}
   - component: {fileID: 264693967}
   - component: {fileID: 264693966}
-  - component: {fileID: 264693965}
-  - component: {fileID: 264693968}
+  - component: {fileID: 264693969}
+  - component: {fileID: 264693970}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Untagged
@@ -6858,29 +6895,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &264693965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264693955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2eac7496bd4181479107f28460dbd36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1695859607}
-  maxHealth: 5000
-  currentHealth: 0
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 1285691341}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!114 &264693966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6924,7 +6938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 1285691341}
---- !u!114 &264693968
+--- !u!114 &264693969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6933,7 +6947,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 264693955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb4329de35a6e374ebda3819fa99f24d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1695859607}
+  maxHealth: 2000
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 1285691341}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &264693970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264693955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
@@ -7635,6 +7672,11 @@ RectTransform:
   m_AnchoredPosition: {x: 600, y: 341}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &305653720 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1429500040134460494, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+  m_PrefabInstance: {fileID: 1136288384459294250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &313425664
 GameObject:
   m_ObjectHideFlags: 0
@@ -15628,6 +15670,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876914738}
   m_CullTransparentMesh: 1
+--- !u!4 &878197057 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 332574163529778137, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+  m_PrefabInstance: {fileID: 1136288384459294250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &890884517
 GameObject:
   m_ObjectHideFlags: 0
@@ -18350,6 +18397,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: levelSystem
+      value: 
+      objectReference: {fileID: 1285691341}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 2000801026}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointB
+      value: 
+      objectReference: {fileID: 1712206723}
     - target: {fileID: 4381261093272694824, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
       propertyPath: levelSystem
       value: 
@@ -18410,6 +18477,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19271,6 +19342,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: levelSystem
+      value: 
+      objectReference: {fileID: 1285691341}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
     - target: {fileID: 4381261093272694824, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
       propertyPath: levelSystem
       value: 
@@ -19331,6 +19414,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19617,6 +19704,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096797685}
   m_CullTransparentMesh: 1
+--- !u!4 &1101083917 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 332574163529778137, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+  m_PrefabInstance: {fileID: 246894139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1120322675
 GameObject:
   m_ObjectHideFlags: 0
@@ -22426,6 +22518,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: levelSystem
+      value: 
+      objectReference: {fileID: 1285691341}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 2000801026}
     - target: {fileID: 4381261093272694824, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
       propertyPath: levelSystem
       value: 
@@ -22486,6 +22594,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22684,6 +22796,7 @@ MonoBehaviour:
   Bangthanhtich: {fileID: 1421805814}
   buttonthanhtich1: {fileID: 1924955736}
   SkilCharacterUI: {fileID: 1166581887}
+  TagerNameScene: 
   levelSystem: {fileID: 1285691341}
 --- !u!4 &1290917846
 Transform:
@@ -27795,6 +27908,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: levelSystem
+      value: 
+      objectReference: {fileID: 1285691341}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 2000801026}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointB
+      value: 
+      objectReference: {fileID: 1712206723}
     - target: {fileID: 4381261093272694824, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
       propertyPath: levelSystem
       value: 
@@ -27855,6 +27988,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 57070241}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointB
+      value: 
+      objectReference: {fileID: 2000801026}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28377,6 +28522,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705745360}
   m_CullTransparentMesh: 1
+--- !u!4 &1712206723 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 332574163529778137, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+  m_PrefabInstance: {fileID: 1276139496}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1712693150
 GameObject:
   m_ObjectHideFlags: 0
@@ -31754,6 +31904,11 @@ Transform:
   - {fileID: 1865854097}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1936228439 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1429500040134460494, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+  m_PrefabInstance: {fileID: 246894139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1936684110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32620,6 +32775,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992366163}
   m_CullTransparentMesh: 1
+--- !u!4 &2000801026 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1429500040134460494, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+  m_PrefabInstance: {fileID: 1665387925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2017872589
 GameObject:
   m_ObjectHideFlags: 0
@@ -34873,6 +35033,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949052806184406759, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: levelSystem
+      value: 
+      objectReference: {fileID: 1285691341}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 878197057}
+    - target: {fileID: 3893246858268945004, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointB
+      value: 
+      objectReference: {fileID: 305653720}
     - target: {fileID: 4381261093272694824, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
       propertyPath: levelSystem
       value: 
@@ -34937,6 +35117,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 266707268}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointA
+      value: 
+      objectReference: {fileID: 878197057}
+    - target: {fileID: 8037106461701737449, guid: 115183be50d76c9439854fb8e0c4279b, type: 3}
+      propertyPath: pointB
+      value: 
+      objectReference: {fileID: 305653720}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

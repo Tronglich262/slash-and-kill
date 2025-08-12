@@ -33,7 +33,7 @@ public class BossControllerTwo : MonoBehaviour
     private enum BossState { Idle, Chasing, Attacking, RangedAttacking, Dashing, Teleporting, Patrolling }
     private BossState currentState = BossState.Idle;
 
-    private EnemyHealthTwo enemyHealthTwo;
+    private EnemyHealth enemyHealthTwo;
     private int patrolIndex = 0;
     private float thinkDelay = 0.5f;
     private float nextThinkTime = 0f;
@@ -41,7 +41,7 @@ public class BossControllerTwo : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        enemyHealthTwo = GetComponent<EnemyHealthTwo>();
+        enemyHealthTwo = GetComponent<EnemyHealth>();
         UpdateAnimator();
     }
 
@@ -56,6 +56,7 @@ public class BossControllerTwo : MonoBehaviour
 
     void EvaluateState()
     {
+       
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         bool lowHealth = enemyHealthTwo.currentHealth <= enemyHealthTwo.maxHealth * 0.5f;
         bool criticalHealth = enemyHealthTwo.currentHealth <= enemyHealthTwo.maxHealth * 0.3f;

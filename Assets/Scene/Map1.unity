@@ -213,8 +213,8 @@ GameObject:
   - component: {fileID: 7983785}
   - component: {fileID: 7983784}
   - component: {fileID: 7983783}
-  - component: {fileID: 7983782}
-  - component: {fileID: 7983781}
+  - component: {fileID: 7983788}
+  - component: {fileID: 7983789}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -239,47 +239,6 @@ Transform:
   - {fileID: 875832266}
   m_Father: {fileID: 1694601606}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7983781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7983779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 305063545}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &7983782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7983779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 1439374763}
-  pointB: {fileID: 914010741}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
 --- !u!114 &7983783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,6 +402,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7983788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7983779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 305063545}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &7983789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7983779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 914010741}
+  pointB: {fileID: 1439374763}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &20715681
 GameObject:
   m_ObjectHideFlags: 0
@@ -7618,8 +7619,8 @@ GameObject:
   - component: {fileID: 423513168}
   - component: {fileID: 423513167}
   - component: {fileID: 423513166}
-  - component: {fileID: 423513165}
-  - component: {fileID: 423513164}
+  - component: {fileID: 423513171}
+  - component: {fileID: 423513172}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -7644,47 +7645,6 @@ Transform:
   - {fileID: 559517708}
   m_Father: {fileID: 856175283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &423513164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423513162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 110461232}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &423513165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423513162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 2017007901}
-  pointB: {fileID: 1883167880}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
 --- !u!114 &423513166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7848,6 +7808,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &423513171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423513162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 110461232}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &423513172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423513162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1883167880}
+  pointB: {fileID: 2017007901}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &426307493
 GameObject:
   m_ObjectHideFlags: 0
@@ -9639,8 +9641,8 @@ GameObject:
   - component: {fileID: 517601258}
   - component: {fileID: 517601257}
   - component: {fileID: 517601256}
-  - component: {fileID: 517601255}
-  - component: {fileID: 517601254}
+  - component: {fileID: 517601261}
+  - component: {fileID: 517601262}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -9665,47 +9667,6 @@ Transform:
   - {fileID: 1521687092}
   m_Father: {fileID: 1531450494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &517601254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 517601252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1567819000}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &517601255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 517601252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 1589388561}
-  pointB: {fileID: 709814298}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
 --- !u!114 &517601256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9869,6 +9830,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &517601261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517601252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1567819000}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &517601262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517601252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 709814298}
+  pointB: {fileID: 1589388561}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -18453,8 +18456,8 @@ GameObject:
   - component: {fileID: 1029444216}
   - component: {fileID: 1029444215}
   - component: {fileID: 1029444214}
-  - component: {fileID: 1029444213}
-  - component: {fileID: 1029444212}
+  - component: {fileID: 1029444219}
+  - component: {fileID: 1029444220}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -18479,47 +18482,6 @@ Transform:
   - {fileID: 1458158447}
   m_Father: {fileID: 1458880776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1029444212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029444210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 2033435817}
-  pointB: {fileID: 895742341}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
---- !u!114 &1029444213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029444210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 96325595}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!114 &1029444214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18683,6 +18645,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1029444219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029444210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 96325595}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1029444220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029444210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 2033435817}
+  pointB: {fileID: 895742341}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1034380057
 GameObject:
   m_ObjectHideFlags: 0
@@ -19009,8 +19013,8 @@ GameObject:
   - component: {fileID: 1060137886}
   - component: {fileID: 1060137885}
   - component: {fileID: 1060137884}
-  - component: {fileID: 1060137883}
-  - component: {fileID: 1060137882}
+  - component: {fileID: 1060137889}
+  - component: {fileID: 1060137890}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -19035,47 +19039,6 @@ Transform:
   - {fileID: 1877103258}
   m_Father: {fileID: 675345570}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1060137882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060137880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1621032738}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &1060137883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060137880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 645841365}
-  pointB: {fileID: 1306337917}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
 --- !u!114 &1060137884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19239,6 +19202,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1060137889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060137880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1621032738}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1060137890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060137880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1306337917}
+  pointB: {fileID: 645841365}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1067952773
 GameObject:
   m_ObjectHideFlags: 0
@@ -21150,8 +21155,8 @@ GameObject:
   - component: {fileID: 1170800068}
   - component: {fileID: 1170800067}
   - component: {fileID: 1170800066}
-  - component: {fileID: 1170800065}
-  - component: {fileID: 1170800064}
+  - component: {fileID: 1170800071}
+  - component: {fileID: 1170800072}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -21176,47 +21181,6 @@ Transform:
   - {fileID: 1079029427}
   m_Father: {fileID: 1879307273}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1170800064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170800062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 1660278626}
-  pointB: {fileID: 1416072261}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
---- !u!114 &1170800065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170800062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 444989298}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!114 &1170800066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21380,6 +21344,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1170800071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170800062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 444989298}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1170800072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170800062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1660278626}
+  pointB: {fileID: 1416072261}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1175937427
 GameObject:
   m_ObjectHideFlags: 0
@@ -26303,6 +26309,7 @@ MonoBehaviour:
   Bangthanhtich: {fileID: 1306277754}
   buttonthanhtich1: {fileID: 545513787}
   SkilCharacterUI: {fileID: 1504923206}
+  TagerNameScene: 
   levelSystem: {fileID: 45726814}
 --- !u!4 &1305480183
 Transform:
@@ -26618,8 +26625,8 @@ GameObject:
   - component: {fileID: 1319472304}
   - component: {fileID: 1319472303}
   - component: {fileID: 1319472302}
-  - component: {fileID: 1319472301}
-  - component: {fileID: 1319472300}
+  - component: {fileID: 1319472307}
+  - component: {fileID: 1319472308}
   m_Layer: 6
   m_Name: char1
   m_TagString: Untagged
@@ -26644,47 +26651,6 @@ Transform:
   - {fileID: 1280809525}
   m_Father: {fileID: 1738269757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1319472300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319472298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 455493158}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &1319472301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319472298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 515151666}
-  pointB: {fileID: 1086726327}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
 --- !u!114 &1319472302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26848,6 +26814,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1319472307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319472298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 455493158}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1319472308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319472298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 515151666}
+  pointB: {fileID: 1086726327}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1322361840
 GameObject:
   m_ObjectHideFlags: 0
@@ -28966,8 +28974,8 @@ GameObject:
   - component: {fileID: 1438937360}
   - component: {fileID: 1438937359}
   - component: {fileID: 1438937358}
-  - component: {fileID: 1438937357}
-  - component: {fileID: 1438937356}
+  - component: {fileID: 1438937363}
+  - component: {fileID: 1438937364}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -28992,47 +29000,6 @@ Transform:
   - {fileID: 1661950658}
   m_Father: {fileID: 2075476869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1438937356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438937354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 965269975}
-  pointB: {fileID: 1561777483}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
---- !u!114 &1438937357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438937354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 94732099}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!114 &1438937358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29196,6 +29163,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1438937363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438937354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 94732099}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1438937364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438937354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 965269975}
+  pointB: {fileID: 1561777483}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1439374762
 GameObject:
   m_ObjectHideFlags: 0
@@ -34914,8 +34923,8 @@ GameObject:
   - component: {fileID: 1661841504}
   - component: {fileID: 1661841503}
   - component: {fileID: 1661841502}
-  - component: {fileID: 1661841501}
-  - component: {fileID: 1661841500}
+  - component: {fileID: 1661841507}
+  - component: {fileID: 1661841508}
   m_Layer: 6
   m_Name: char1
   m_TagString: Untagged
@@ -34940,47 +34949,6 @@ Transform:
   - {fileID: 1479195272}
   m_Father: {fileID: 2012335275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1661841500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1661841498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1995198603}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &1661841501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1661841498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 602561094}
-  pointB: {fileID: 393036994}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
 --- !u!114 &1661841502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35144,6 +35112,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1661841507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661841498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 455493158}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1661841508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661841498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 393036994}
+  pointB: {fileID: 602561094}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1661950657
 GameObject:
   m_ObjectHideFlags: 0
@@ -35347,7 +35357,6 @@ GameObject:
   - component: {fileID: 1671357468}
   - component: {fileID: 1671357467}
   - component: {fileID: 1671357465}
-  - component: {fileID: 1671357464}
   - component: {fileID: 1671357473}
   - component: {fileID: 1671357474}
   m_Layer: 6
@@ -35357,19 +35366,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1671357464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671357463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96a8b83a17b6157428cf7cdca3e684a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &1671357465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35589,11 +35585,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1671357463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7cf33441fcefa8479c374b4440bf3b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1116671100}
-  maxHealth: 5000
+  maxHealth: 1000
+  currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
   baseDame2: 60
@@ -35839,8 +35836,8 @@ GameObject:
   - component: {fileID: 1691348924}
   - component: {fileID: 1691348923}
   - component: {fileID: 1691348922}
-  - component: {fileID: 1691348921}
-  - component: {fileID: 1691348920}
+  - component: {fileID: 1691348927}
+  - component: {fileID: 1691348928}
   m_Layer: 6
   m_Name: char1
   m_TagString: Untagged
@@ -35865,47 +35862,6 @@ Transform:
   - {fileID: 111464851}
   m_Father: {fileID: 1950252374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1691348920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691348918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1591330583}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &1691348921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691348918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 648099057}
-  pointB: {fileID: 426307494}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
 --- !u!114 &1691348922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36069,6 +36025,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1691348927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691348918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1591330583}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1691348928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691348918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 648099057}
+  pointB: {fileID: 426307494}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1693149379
 GameObject:
   m_ObjectHideFlags: 0
@@ -41381,8 +41379,8 @@ GameObject:
   - component: {fileID: 1957716954}
   - component: {fileID: 1957716953}
   - component: {fileID: 1957716952}
-  - component: {fileID: 1957716951}
-  - component: {fileID: 1957716950}
+  - component: {fileID: 1957716957}
+  - component: {fileID: 1957716958}
   m_Layer: 6
   m_Name: char1
   m_TagString: Enemy
@@ -41407,47 +41405,6 @@ Transform:
   - {fileID: 1564085506}
   m_Father: {fileID: 1355389016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1957716950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957716948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d00fe4dc60f1c4b84215affbd216b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 1773991155}
-  pointB: {fileID: 1901744411}
-  player: {fileID: 62794479}
-  speed: 2
-  attackRange: 2
-  retreatDistance: 1.5
-  attackDamage: 10
---- !u!114 &1957716951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957716948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b94c31055daef44bb8e0a781c8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1121763391}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 45726814}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!114 &1957716952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41611,6 +41568,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1957716957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957716948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1121763391}
+  maxHealth: 100
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 45726814}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1957716958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957716948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1773991155}
+  pointB: {fileID: 1901744411}
+  player: {fileID: 62794479}
+  speed: 2
+  attackRange: 2
+  retreatDistance: 1.5
+  attackDamage: 10
 --- !u!1 &1970658560
 GameObject:
   m_ObjectHideFlags: 0

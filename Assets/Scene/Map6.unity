@@ -7297,11 +7297,11 @@ GameObject:
   - component: {fileID: 480567068}
   - component: {fileID: 480567075}
   - component: {fileID: 480567074}
-  - component: {fileID: 480567073}
-  - component: {fileID: 480567072}
-  - component: {fileID: 480567071}
   - component: {fileID: 480567070}
   - component: {fileID: 480567069}
+  - component: {fileID: 480567073}
+  - component: {fileID: 480567071}
+  - component: {fileID: 480567076}
   m_Layer: 6
   m_Name: angel1
   m_TagString: Untagged
@@ -7412,28 +7412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 1146870479}
---- !u!114 &480567072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 480567067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25110528c76ec8f47ae1e680532e243d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 273453753}
-  maxHealth: 5000
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 1146870479}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!114 &480567073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7540,6 +7518,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &480567076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480567067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 273453753}
+  maxHealth: 3000
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 1146870479}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &504987594
 GameObject:
   m_ObjectHideFlags: 0
@@ -9320,11 +9321,11 @@ GameObject:
   - component: {fileID: 605787117}
   - component: {fileID: 605787116}
   - component: {fileID: 605787115}
-  - component: {fileID: 605787114}
-  - component: {fileID: 605787113}
-  - component: {fileID: 605787112}
-  - component: {fileID: 605787111}
   - component: {fileID: 605787110}
+  - component: {fileID: 605787111}
+  - component: {fileID: 605787119}
+  - component: {fileID: 605787118}
+  - component: {fileID: 605787120}
   m_Layer: 6
   m_Name: wizard-idle-1
   m_TagString: Untagged
@@ -9389,58 +9390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 1146870479}
---- !u!114 &605787112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605787108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca4f0ce06657d746b8bb2784eb1f461, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
---- !u!114 &605787113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605787108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25110528c76ec8f47ae1e680532e243d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1594206751}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 1146870479}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &605787114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605787108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48b913ea18ba7f46ab1bb25c1c8664e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 1030906642}
-  pointB: {fileID: 1495444254}
-  player: {fileID: 1805934606}
-  speed: 2
-  attackRange: 2
 --- !u!61 &605787115
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9564,6 +9513,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &605787118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605787108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1594206751}
+  maxHealth: 500
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 1146870479}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &605787119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605787108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26833aaa248c4842a527d9e5dd07983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1030906642}
+  pointB: {fileID: 1495444254}
+  player: {fileID: 1805934606}
+  speed: 2
+  attackRange: 2
+--- !u!114 &605787120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605787108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &606412446
 GameObject:
   m_ObjectHideFlags: 0
@@ -12275,11 +12277,11 @@ GameObject:
   - component: {fileID: 843715971}
   - component: {fileID: 843715970}
   - component: {fileID: 843715969}
-  - component: {fileID: 843715968}
-  - component: {fileID: 843715967}
-  - component: {fileID: 843715966}
-  - component: {fileID: 843715965}
   - component: {fileID: 843715964}
+  - component: {fileID: 843715965}
+  - component: {fileID: 843715973}
+  - component: {fileID: 843715972}
+  - component: {fileID: 843715974}
   m_Layer: 6
   m_Name: wizard-idle-1
   m_TagString: Untagged
@@ -12344,58 +12346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 1146870479}
---- !u!114 &843715966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843715962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca4f0ce06657d746b8bb2784eb1f461, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
---- !u!114 &843715967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843715962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25110528c76ec8f47ae1e680532e243d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1424120515}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 1146870479}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &843715968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843715962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48b913ea18ba7f46ab1bb25c1c8664e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 1394015376}
-  pointB: {fileID: 66647432}
-  player: {fileID: 1805934606}
-  speed: 2
-  attackRange: 2
 --- !u!61 &843715969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12519,6 +12469,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &843715972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843715962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1424120515}
+  maxHealth: 500
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 1146870479}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &843715973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843715962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26833aaa248c4842a527d9e5dd07983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1394015376}
+  pointB: {fileID: 66647432}
+  player: {fileID: 1805934606}
+  speed: 2
+  attackRange: 2
+--- !u!114 &843715974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843715962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &844581845
 GameObject:
   m_ObjectHideFlags: 0
@@ -19603,11 +19606,11 @@ GameObject:
   - component: {fileID: 1327566418}
   - component: {fileID: 1327566417}
   - component: {fileID: 1327566416}
-  - component: {fileID: 1327566415}
-  - component: {fileID: 1327566414}
-  - component: {fileID: 1327566413}
-  - component: {fileID: 1327566412}
   - component: {fileID: 1327566411}
+  - component: {fileID: 1327566412}
+  - component: {fileID: 1327566420}
+  - component: {fileID: 1327566419}
+  - component: {fileID: 1327566421}
   m_Layer: 6
   m_Name: wizard-idle-1
   m_TagString: Untagged
@@ -19672,58 +19675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 1146870479}
---- !u!114 &1327566413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327566409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca4f0ce06657d746b8bb2784eb1f461, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
---- !u!114 &1327566414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327566409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25110528c76ec8f47ae1e680532e243d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1854995198}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 1146870479}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &1327566415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327566409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48b913ea18ba7f46ab1bb25c1c8664e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 249512363}
-  pointB: {fileID: 1230225208}
-  player: {fileID: 1805934606}
-  speed: 2
-  attackRange: 2
 --- !u!61 &1327566416
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19847,6 +19798,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1327566419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327566409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1854995198}
+  maxHealth: 500
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 1146870479}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1327566420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327566409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26833aaa248c4842a527d9e5dd07983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1230225208}
+  pointB: {fileID: 249512363}
+  player: {fileID: 1805934606}
+  speed: 2
+  attackRange: 2
+--- !u!114 &1327566421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327566409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &1329395208
 GameObject:
   m_ObjectHideFlags: 0
@@ -26237,11 +26241,11 @@ GameObject:
   - component: {fileID: 1717435605}
   - component: {fileID: 1717435604}
   - component: {fileID: 1717435603}
-  - component: {fileID: 1717435602}
-  - component: {fileID: 1717435601}
-  - component: {fileID: 1717435600}
-  - component: {fileID: 1717435599}
   - component: {fileID: 1717435598}
+  - component: {fileID: 1717435599}
+  - component: {fileID: 1717435607}
+  - component: {fileID: 1717435606}
+  - component: {fileID: 1717435608}
   m_Layer: 6
   m_Name: wizard-idle-1
   m_TagString: Untagged
@@ -26306,58 +26310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 1146870479}
---- !u!114 &1717435600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717435596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca4f0ce06657d746b8bb2784eb1f461, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
---- !u!114 &1717435601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717435596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25110528c76ec8f47ae1e680532e243d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 2142084610}
-  maxHealth: 100
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 1146870479}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
---- !u!114 &1717435602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717435596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48b913ea18ba7f46ab1bb25c1c8664e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 106089537}
-  pointB: {fileID: 1458782359}
-  player: {fileID: 1805934606}
-  speed: 2
-  attackRange: 2
 --- !u!61 &1717435603
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26481,6 +26433,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1717435606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717435596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 2142084610}
+  maxHealth: 500
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 1146870479}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1717435607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717435596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26833aaa248c4842a527d9e5dd07983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1458782359}
+  pointB: {fileID: 106089537}
+  player: {fileID: 1805934606}
+  speed: 2
+  attackRange: 2
+--- !u!114 &1717435608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717435596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &1718902921
 GameObject:
   m_ObjectHideFlags: 0
@@ -32128,6 +32133,7 @@ MonoBehaviour:
   Bangthanhtich: {fileID: 291664414}
   buttonthanhtich1: {fileID: 55569055}
   SkilCharacterUI: {fileID: 731308906}
+  TagerNameScene: 
   levelSystem: {fileID: 1146870479}
 --- !u!4 &2002734219
 Transform:
@@ -35208,9 +35214,9 @@ Camera:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1929326979}
   - {fileID: 1105810101}
   - {fileID: 638540364}
+  - {fileID: 1929326979}
   - {fileID: 1455194169}
   - {fileID: 1949853089}
   - {fileID: 1534532309}

@@ -837,11 +837,11 @@ GameObject:
   - component: {fileID: 32048154}
   - component: {fileID: 32048153}
   - component: {fileID: 32048152}
-  - component: {fileID: 32048151}
-  - component: {fileID: 32048150}
   - component: {fileID: 32048149}
+  - component: {fileID: 32048150}
   - component: {fileID: 32048148}
-  - component: {fileID: 32048147}
+  - component: {fileID: 32048155}
+  - component: {fileID: 32048156}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -866,19 +866,6 @@ Transform:
   - {fileID: 1040806207}
   m_Father: {fileID: 1481332391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &32048147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32048145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51255ea58db1b704887c29abd554c99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &32048148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,28 +916,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 893491330}
---- !u!114 &32048151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32048145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 325213821}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &32048152
 Rigidbody2D:
   serializedVersion: 5
@@ -1079,6 +1044,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &32048155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32048145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 325213821}
+  maxHealth: 300
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &32048156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32048145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &32154342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4136,11 +4137,11 @@ GameObject:
   - component: {fileID: 172920249}
   - component: {fileID: 172920248}
   - component: {fileID: 172920247}
-  - component: {fileID: 172920246}
-  - component: {fileID: 172920245}
   - component: {fileID: 172920244}
+  - component: {fileID: 172920245}
   - component: {fileID: 172920243}
-  - component: {fileID: 172920242}
+  - component: {fileID: 172920250}
+  - component: {fileID: 172920251}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -4165,19 +4166,6 @@ Transform:
   - {fileID: 914239842}
   m_Father: {fileID: 1208552139}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &172920242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172920240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51255ea58db1b704887c29abd554c99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &172920243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4228,28 +4216,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 893491330}
---- !u!114 &172920246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172920240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 867238124}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &172920247
 Rigidbody2D:
   serializedVersion: 5
@@ -4378,6 +4344,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &172920250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172920240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 867238124}
+  maxHealth: 300
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &172920251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172920240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &179232523
 GameObject:
   m_ObjectHideFlags: 0
@@ -12710,10 +12712,10 @@ GameObject:
   - component: {fileID: 589349174}
   - component: {fileID: 589349173}
   - component: {fileID: 589349172}
-  - component: {fileID: 589349171}
   - component: {fileID: 589349170}
   - component: {fileID: 589349169}
   - component: {fileID: 589349168}
+  - component: {fileID: 589349175}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -12792,28 +12794,6 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 1.5
   attackDamage: 10
---- !u!114 &589349171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589349166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1556652218}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &589349172
 Rigidbody2D:
   serializedVersion: 5
@@ -12942,6 +12922,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &589349175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589349166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1556652218}
+  maxHealth: 200
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &593125895
 GameObject:
   m_ObjectHideFlags: 0
@@ -18415,11 +18418,11 @@ GameObject:
   - component: {fileID: 882135117}
   - component: {fileID: 882135116}
   - component: {fileID: 882135115}
-  - component: {fileID: 882135114}
-  - component: {fileID: 882135113}
   - component: {fileID: 882135112}
+  - component: {fileID: 882135113}
   - component: {fileID: 882135111}
-  - component: {fileID: 882135110}
+  - component: {fileID: 882135118}
+  - component: {fileID: 882135119}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -18444,19 +18447,6 @@ Transform:
   - {fileID: 1306210364}
   m_Father: {fileID: 1952358467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &882135110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882135108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51255ea58db1b704887c29abd554c99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &882135111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18507,28 +18497,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 893491330}
---- !u!114 &882135114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882135108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 956807852}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &882135115
 Rigidbody2D:
   serializedVersion: 5
@@ -18657,6 +18625,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &882135118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882135108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 956807852}
+  maxHealth: 300
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &882135119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882135108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &883431105
 GameObject:
   m_ObjectHideFlags: 0
@@ -21840,6 +21844,7 @@ MonoBehaviour:
   Bangthanhtich: {fileID: 1192766503}
   buttonthanhtich1: {fileID: 130803242}
   SkilCharacterUI: {fileID: 1352350881}
+  TagerNameScene: 
   levelSystem: {fileID: 893491330}
 --- !u!4 &1076046059
 Transform:
@@ -22729,11 +22734,11 @@ GameObject:
   - component: {fileID: 1107507019}
   - component: {fileID: 1107507018}
   - component: {fileID: 1107507017}
-  - component: {fileID: 1107507016}
-  - component: {fileID: 1107507015}
   - component: {fileID: 1107507014}
+  - component: {fileID: 1107507015}
   - component: {fileID: 1107507013}
-  - component: {fileID: 1107507012}
+  - component: {fileID: 1107507020}
+  - component: {fileID: 1107507021}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -22758,19 +22763,6 @@ Transform:
   - {fileID: 2065904773}
   m_Father: {fileID: 818052759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1107507012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107507010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51255ea58db1b704887c29abd554c99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &1107507013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22821,28 +22813,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 893491330}
---- !u!114 &1107507016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107507010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1886342639}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &1107507017
 Rigidbody2D:
   serializedVersion: 5
@@ -22971,6 +22941,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1107507020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107507010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1886342639}
+  maxHealth: 300
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1107507021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107507010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &1108915607
 GameObject:
   m_ObjectHideFlags: 0
@@ -27214,11 +27220,11 @@ GameObject:
   - component: {fileID: 1370019141}
   - component: {fileID: 1370019140}
   - component: {fileID: 1370019139}
-  - component: {fileID: 1370019138}
-  - component: {fileID: 1370019136}
   - component: {fileID: 1370019135}
+  - component: {fileID: 1370019136}
   - component: {fileID: 1370019142}
-  - component: {fileID: 1370019143}
+  - component: {fileID: 1370019144}
+  - component: {fileID: 1370019145}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -27278,28 +27284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 893491330}
---- !u!114 &1370019138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370019133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 739239551}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &1370019139
 Rigidbody2D:
   serializedVersion: 5
@@ -27443,7 +27427,7 @@ MonoBehaviour:
   player: {fileID: 794983480}
   attackRange: 1
   attackCooldown: 2
---- !u!114 &1370019143
+--- !u!114 &1370019144
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27452,7 +27436,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1370019133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51255ea58db1b704887c29abd554c99e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 739239551}
+  maxHealth: 300
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1370019145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370019133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
@@ -27903,10 +27910,10 @@ GameObject:
   - component: {fileID: 1415391207}
   - component: {fileID: 1415391212}
   - component: {fileID: 1415391214}
-  - component: {fileID: 1415391211}
   - component: {fileID: 1415391210}
   - component: {fileID: 1415391209}
   - component: {fileID: 1415391213}
+  - component: {fileID: 1415391215}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -28018,28 +28025,6 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 1.5
   attackDamage: 10
---- !u!114 &1415391211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415391206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 303657460}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!61 &1415391212
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28135,6 +28120,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1415391215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415391206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 303657460}
+  maxHealth: 200
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &1418549690
 GameObject:
   m_ObjectHideFlags: 0
@@ -31029,10 +31037,10 @@ GameObject:
   - component: {fileID: 1568322596}
   - component: {fileID: 1568322595}
   - component: {fileID: 1568322594}
-  - component: {fileID: 1568322593}
   - component: {fileID: 1568322592}
   - component: {fileID: 1568322591}
   - component: {fileID: 1568322590}
+  - component: {fileID: 1568322597}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -31111,28 +31119,6 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 1.5
   attackDamage: 10
---- !u!114 &1568322593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1568322588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 19888068}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &1568322594
 Rigidbody2D:
   serializedVersion: 5
@@ -31261,6 +31247,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1568322597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568322588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 19888068}
+  maxHealth: 200
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &1578007184
 GameObject:
   m_ObjectHideFlags: 0
@@ -31972,10 +31981,10 @@ GameObject:
   - component: {fileID: 1641314440}
   - component: {fileID: 1641314439}
   - component: {fileID: 1641314438}
-  - component: {fileID: 1641314437}
   - component: {fileID: 1641314436}
   - component: {fileID: 1641314435}
   - component: {fileID: 1641314434}
+  - component: {fileID: 1641314441}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -32054,28 +32063,6 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 1.5
   attackDamage: 10
---- !u!114 &1641314437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641314432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1978573436}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &1641314438
 Rigidbody2D:
   serializedVersion: 5
@@ -32204,6 +32191,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1641314441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641314432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1978573436}
+  maxHealth: 200
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &1653102514
 GameObject:
   m_ObjectHideFlags: 0
@@ -41282,10 +41292,10 @@ GameObject:
   - component: {fileID: 1717308211}
   - component: {fileID: 1717308210}
   - component: {fileID: 1717308209}
-  - component: {fileID: 1717308208}
   - component: {fileID: 1717308207}
   - component: {fileID: 1717308206}
   - component: {fileID: 1717308205}
+  - component: {fileID: 1717308212}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -41364,28 +41374,6 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 1.5
   attackDamage: 10
---- !u!114 &1717308208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717308203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1753105532}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &1717308209
 Rigidbody2D:
   serializedVersion: 5
@@ -41514,6 +41502,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1717308212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717308203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1753105532}
+  maxHealth: 200
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &1721179882
 GameObject:
   m_ObjectHideFlags: 0
@@ -42365,10 +42376,10 @@ GameObject:
   - component: {fileID: 1769581624}
   - component: {fileID: 1769581623}
   - component: {fileID: 1769581622}
-  - component: {fileID: 1769581621}
   - component: {fileID: 1769581620}
   - component: {fileID: 1769581619}
   - component: {fileID: 1769581618}
+  - component: {fileID: 1769581625}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -42447,28 +42458,6 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 1.5
   attackDamage: 10
---- !u!114 &1769581621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769581616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1784072653}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &1769581622
 Rigidbody2D:
   serializedVersion: 5
@@ -42597,6 +42586,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1769581625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769581616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1784072653}
+  maxHealth: 200
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &1771793673
 GameObject:
   m_ObjectHideFlags: 0
@@ -47921,11 +47933,11 @@ GameObject:
   - component: {fileID: 2015524936}
   - component: {fileID: 2015524935}
   - component: {fileID: 2015524934}
-  - component: {fileID: 2015524933}
-  - component: {fileID: 2015524932}
   - component: {fileID: 2015524931}
+  - component: {fileID: 2015524932}
   - component: {fileID: 2015524930}
-  - component: {fileID: 2015524929}
+  - component: {fileID: 2015524937}
+  - component: {fileID: 2015524938}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -47950,19 +47962,6 @@ Transform:
   - {fileID: 1501700366}
   m_Father: {fileID: 834890308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2015524929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015524927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51255ea58db1b704887c29abd554c99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &2015524930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48013,28 +48012,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 893491330}
---- !u!114 &2015524933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015524927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 1943606482}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &2015524934
 Rigidbody2D:
   serializedVersion: 5
@@ -48163,6 +48140,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2015524937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015524927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1943606482}
+  maxHealth: 300
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &2015524938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015524927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &2019076748
 GameObject:
   m_ObjectHideFlags: 0
@@ -49133,10 +49146,10 @@ GameObject:
   - component: {fileID: 2052870555}
   - component: {fileID: 2052870554}
   - component: {fileID: 2052870553}
-  - component: {fileID: 2052870552}
   - component: {fileID: 2052870551}
   - component: {fileID: 2052870550}
   - component: {fileID: 2052870549}
+  - component: {fileID: 2052870556}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -49215,28 +49228,6 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 1.5
   attackDamage: 10
---- !u!114 &2052870552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2052870547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39156355f54da09449eb54498570041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 258152334}
-  maxHealth: 300
-  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
-  baseDame1: 100
-  baseDame2: 60
-  baseDame3: 70
-  baseDame4: 50
-  baseDame5: 0
-  levelSystem: {fileID: 893491330}
-  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!50 &2052870553
 Rigidbody2D:
   serializedVersion: 5
@@ -49365,6 +49356,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2052870556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052870547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f701efa1cf8a46b3f1a5f73661485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 258152334}
+  maxHealth: 200
+  currentHealth: 0
+  damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  baseDame1: 100
+  baseDame2: 60
+  baseDame3: 70
+  baseDame4: 50
+  baseDame5: 0
+  levelSystem: {fileID: 893491330}
+  coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
 --- !u!1 &2054767203
 GameObject:
   m_ObjectHideFlags: 0
