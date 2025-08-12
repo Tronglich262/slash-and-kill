@@ -157,6 +157,8 @@ public class ActiveUI : MonoBehaviour
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
                 Time.timeScale = 1;
+                SceneLoader.Instance.LoadScene("Map2");
+
             }
             else
             {
@@ -189,6 +191,8 @@ public class ActiveUI : MonoBehaviour
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
                 Time.timeScale = 1;
+                SceneLoader.Instance.LoadScene("Map3");
+
             }
             else
             {
@@ -222,6 +226,8 @@ public class ActiveUI : MonoBehaviour
                 StartCoroutine(levelSystem.Dieukien());
 
                 Time.timeScale = 1;
+                SceneLoader.Instance.LoadScene("Map4");
+
             }
             else
             {
@@ -254,6 +260,8 @@ public class ActiveUI : MonoBehaviour
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
                 Time.timeScale = 1;
+                SceneLoader.Instance.LoadScene("Map5");
+
             }
             else
             {
@@ -286,6 +294,7 @@ public class ActiveUI : MonoBehaviour
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
                 Time.timeScale = 1;
+                SceneLoader.Instance.LoadScene("Map6");
             }
             else
             {
@@ -318,6 +327,8 @@ public class ActiveUI : MonoBehaviour
                 CoinManager.Instance.AddCoin(-500); 
                 StartCoroutine(levelSystem.Dieukien());
                 Time.timeScale = 1;
+                SceneLoader.Instance.LoadScene("Map7");
+
             }
             else
             {

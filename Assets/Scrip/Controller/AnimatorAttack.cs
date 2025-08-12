@@ -21,17 +21,17 @@ public class AnimatorAttack : MonoBehaviour
             Debug.LogError("⚠ attackPoint chưa được gán trong Inspector!");
             return;
         }
-//map2
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+       // map2
+                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            SkeletonsHealth skeleton = enemy.GetComponent<SkeletonsHealth>();
+            EnemyHealth skeleton = enemy.GetComponent<EnemyHealth>();
             if (skeleton != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton.TakeDamage(levelSystem.attack);
-                
+
             }
         }
         //map2Boss
@@ -40,12 +40,12 @@ public class AnimatorAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthTwo boss2 = enemy.GetComponent<EnemyHealthTwo>();
+            EnemyHealth boss2 = enemy.GetComponent<EnemyHealth>();
             if (boss2 != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 boss2.TakeDamage(levelSystem.attack);
-                
+
             }
         }
         //map11
@@ -53,12 +53,12 @@ public class AnimatorAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthOneFor skeleton1 = enemy.GetComponent<EnemyHealthOneFor>();
+            EnemyHealth skeleton1 = enemy.GetComponent<EnemyHealth>();
             if (skeleton1 != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton1.TakeDamage(levelSystem.attack);
-                
+
             }
         }
         //map1
@@ -66,12 +66,12 @@ public class AnimatorAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthOne skeleton0 = enemy.GetComponent<EnemyHealthOne>();
+            EnemyHealth skeleton0 = enemy.GetComponent<EnemyHealth>();
             if (skeleton0 != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton0.TakeDamage(levelSystem.attack);
-                
+
             }
         }
         //map4
@@ -79,12 +79,12 @@ public class AnimatorAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthFor skeleton4 = enemy.GetComponent<EnemyHealthFor>();
+            EnemyHealth skeleton4 = enemy.GetComponent<EnemyHealth>();
             if (skeleton4 != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton4.TakeDamage(levelSystem.attack);
-                
+
             }
         }
         //MAP5
@@ -92,12 +92,12 @@ public class AnimatorAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthV skeleton5 = enemy.GetComponent<EnemyHealthV>();
+            EnemyHealth skeleton5 = enemy.GetComponent<EnemyHealth>();
             if (skeleton5 != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton5.TakeDamage(levelSystem.attack);
-          
+
             }
         }
         //MAP6
@@ -105,12 +105,12 @@ public class AnimatorAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthVI skeleton6 = enemy.GetComponent<EnemyHealthVI>();
+            EnemyHealth skeleton6 = enemy.GetComponent<EnemyHealth>();
             if (skeleton6 != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton6.TakeDamage(levelSystem.attack);
-          
+
             }
         }
         //MAP7
@@ -118,12 +118,12 @@ public class AnimatorAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthVII skeleton7 = enemy.GetComponent<EnemyHealthVII>();
+            EnemyHealth skeleton7 = enemy.GetComponent<EnemyHealth>();
             if (skeleton7 != null)
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton7.TakeDamage(levelSystem.attack);
-            
+
             }
         }
         //MAP8
@@ -136,7 +136,7 @@ public class AnimatorAttack : MonoBehaviour
             {
                 float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
                 skeleton8.TakeDamage(levelSystem.attack);
-            
+
             }
         }
     }

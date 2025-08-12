@@ -6,7 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public Slider healthBar;
     public float maxHealth = 100f;
-    private float currentHealth;
+    public float currentHealth;
     public GameObject damageTextPrefab;
     private Animator animator;
 
