@@ -6,7 +6,7 @@ public class Play : MonoBehaviour
 {
     public GameObject Setting;
     public GameObject menuGame;
-    public GameObject dichuyen, tancong , dpg;
+    public GameObject dichuyen, tancong , dpg, amthanh;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public void PlayGame()
@@ -18,6 +18,7 @@ public class Play : MonoBehaviour
         Setting.SetActive(true);
         menuGame.SetActive(!menuGame.activeSelf);
         dpg.SetActive(true);
+        amthanh.SetActive(false);
         dichuyen.SetActive(false);
         tancong.SetActive(false);
     }
@@ -26,17 +27,26 @@ public class Play : MonoBehaviour
         Setting.SetActive(!Setting.activeSelf);
         menuGame.SetActive(!menuGame.activeSelf);
     }
+    public void ClickAmThanh()
+    {
+        amthanh.SetActive(true);
+        dichuyen.SetActive(false);
+        tancong.SetActive(false);
+        dpg.SetActive(false);
+    }
     public void Phim()
     {
         dichuyen.SetActive(true);
         tancong.SetActive(true);
         dpg.SetActive(false);
+        amthanh.SetActive(false);
     }
     public void Catdat()
     {
         dichuyen.SetActive(false);
         tancong.SetActive(false);
         dpg.SetActive(true);
+        amthanh.SetActive(false);
 
     }
     public void SetResolution1280x720()
