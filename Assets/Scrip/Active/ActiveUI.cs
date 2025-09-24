@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 
 public class ActiveUI : MonoBehaviour
 {
+    [Header("Gameobject của bản đồ")]
     public GameObject ActiveBando;
-
     public GameObject help;
     public GameObject ActiveCoins1;
     public GameObject ActiveCoins2;
@@ -17,329 +15,164 @@ public class ActiveUI : MonoBehaviour
     public GameObject ActiveCoins7;
     public GameObject gohome;
 
+    [Header("Tắt bật UI")]
     public GameObject anUI;
     public GameObject hienUI;
 
+    [Header("Setting UI")]
     public GameObject Buttonbando;
     public GameObject ButtonHelp;
     public GameObject Buttongohome;
     public GameObject Buttonthanhtich;
 
+    [Header("Bảng nhận thưởng nhiệm vụ")]
     public GameObject Bangthanhtich;
     public GameObject buttonthanhtich1;
-    
-    //character Ui
+
+    [Header("Trang bị , túi đồ, kỹ năng player")]
+    public GameObject buttontrangbi;
+    public GameObject buttontuidodung;
+    public GameObject buttonkynang;
+    public GameObject trangbipanel;
+    public GameObject tuidodungpanel;
+    public GameObject kynangpanel;
+
+    [Header("Character UI")]
     public GameObject SkilCharacterUI;
-    public string TagerNameScene;
-    public LevelSystem levelSystem;
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("LevelSystem")]
+    public LevelSystem levelSystem; // Gán LevelSystem trong inspector hoặc dùng LevelSystem.Instance
 
+    // ================= Character UI =================
     public void ToggleCharacterUI()
     {
         SkilCharacterUI.SetActive(!SkilCharacterUI.activeSelf);
     }
-
-    public void ToggleBando()
+    public void DisCharacterUI()
     {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
+        SkilCharacterUI.SetActive(false);
+    }
+    public void Trangbi()
+    {
+        trangbipanel.SetActive(true);
+        tuidodungpanel.SetActive(true);
+        kynangpanel.SetActive(false);
+    }
+    public void TuiDoDung()
+    {
+        trangbipanel.SetActive(true);
+        tuidodungpanel.SetActive(true);
+        kynangpanel.SetActive(false);
+    }
+    public void KyNang()
+    {
+        trangbipanel.SetActive(true);
+        tuidodungpanel.SetActive(false);
+        kynangpanel.SetActive(true);
     }
 
-    public void EndbanDo()
-    {
-        ActiveBando.SetActive(false);
-    }
-    public void toggleHelp()
-    {
-        help.SetActive(!help.activeSelf);
-    }
+    // ================= Map UI =================
+    public void ToggleBando() => ActiveBando.SetActive(!ActiveBando.activeSelf);
+    public void EndbanDo() => ActiveBando.SetActive(false);
 
-    public void EndHelp()
-    {
-        help.SetActive(false);
-    }
+    public void toggleHelp() => help.SetActive(!help.activeSelf);
+    public void EndHelp() => help.SetActive(false);
+
     public void ToggleGoHome()
     {
         gohome.SetActive(!gohome.activeSelf);
         Time.timeScale = gohome.activeSelf ? 0 : 1;
     }
-
     public void ToggleYes()
     {
         SceneManager.LoadScene("ThiTran");
         Time.timeScale = 1f;
     }
-
     public void ToggleNo()
     {
         gohome.SetActive(!gohome.activeSelf);
         Time.timeScale = gohome.activeSelf ? 0 : 1;
     }
 
-    public void Mapboss1()
+    public void Mapboss1() => LoadSceneWithTimeScale("Map2");
+    public void Mapboss2() => LoadSceneWithTimeScale("Map1");
+
+    private void LoadSceneWithTimeScale(string sceneName)
     {
-        
-        SceneManager.LoadScene("Map2");
         Time.timeScale = 1f;
-
-    }
-    public void Mapboss2()
-    {
-        SceneManager.LoadScene("Map1");
-        Time.timeScale = 1f;
-
-    }
-     //ToggleMApBoss1
-    public void ToggleCoin1()
-    {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
-        ActiveCoins1.SetActive(true);
-        
+        SceneManager.LoadScene(sceneName);
     }
 
-    public void ToggleNo1()
+    // ================= Coin Maps =================
+    private void OpenCoinPanel(GameObject coinPanel)
     {
-        ActiveCoins1.SetActive(false);
+        ActiveBando.SetActive(false);
+        coinPanel.SetActive(true);
+    }
+
+    private void CloseCoinPanel(GameObject coinPanel)
+    {
+        coinPanel.SetActive(false);
         ActiveBando.SetActive(true);
     }
 
-    public void ToggleYes1()
+    private void TryEnterMap(GameObject coinPanel, int requiredLevel, string sceneName)
     {
-        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
+        if (CoinManager.Instance != null && LevelSystem.Instance != null)
         {
-            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 10)
+            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= requiredLevel)
             {
                 CoinManager.Instance.AddCoin(-500);
-                StartCoroutine(levelSystem.Dieukien());
-                // Time.timeScale = 1;
-                SceneLoader.Instance.LoadScene("Map1");
-
+                StartCoroutine(LevelSystem.Instance.Dieukien());
+                Time.timeScale = 1f;
+                SceneManager.LoadScene(sceneName);
             }
             else
             {
-                StartCoroutine(levelSystem.khongduDieukien());
-                Debug.Log("Không đủ tiền vào Scene");
-                
+                StartCoroutine(LevelSystem.Instance.khongduDieukien());
+                Debug.Log("Không đủ tiền hoặc cấp độ vào Scene");
             }
         }
-    }
-    //ToggleMApBoss2
-    public void ToggleCoin2()
-    {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
-        ActiveCoins2.SetActive(true);
-        
+        CloseCoinPanel(coinPanel);
     }
 
-    public void ToggleNo2()
-    {
-        ActiveCoins2.SetActive(false);
-        ActiveBando.SetActive(true);
-    }
+    // Coin1
+    public void ToggleCoin1() => OpenCoinPanel(ActiveCoins1);
+    public void ToggleNo1() => CloseCoinPanel(ActiveCoins1);
+    public void ToggleYes1() => TryEnterMap(ActiveCoins1, 10, "Map1");
 
-    public void ToggleYes2()
-    {
-        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
-        {
-            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 20)
-            {
-                CoinManager.Instance.AddCoin(-500); 
-                StartCoroutine(levelSystem.Dieukien());
-                Time.timeScale = 1;
-                SceneLoader.Instance.LoadScene("Map2");
+    // Coin2
+    public void ToggleCoin2() => OpenCoinPanel(ActiveCoins2);
+    public void ToggleNo2() => CloseCoinPanel(ActiveCoins2);
+    public void ToggleYes2() => TryEnterMap(ActiveCoins2, 20, "Map2");
 
-            }
-            else
-            {
-                StartCoroutine(levelSystem.khongduDieukien());
-                Debug.Log("Không đủ tiền vào Scene");
-                
-            }
-        }
-    }
-    //ToggleMApBoss3
-    public void ToggleCoin3()
-    {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
-        ActiveCoins3.SetActive(true);
-        
-    }
+    // Coin3
+    public void ToggleCoin3() => OpenCoinPanel(ActiveCoins3);
+    public void ToggleNo3() => CloseCoinPanel(ActiveCoins3);
+    public void ToggleYes3() => TryEnterMap(ActiveCoins3, 25, "Map3");
 
-    public void ToggleNo3()
-    {
-        ActiveCoins3.SetActive(false);
-        ActiveBando.SetActive(true);
-    }
+    // Coin4
+    public void ToggleCoin4() => OpenCoinPanel(ActiveCoins4);
+    public void ToggleNo4() => CloseCoinPanel(ActiveCoins4);
+    public void ToggleYes4() => TryEnterMap(ActiveCoins4, 30, "Map4");
 
-    public void ToggleYes3()
-    {
-        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
-        {
-            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 25)
-            {
-                CoinManager.Instance.AddCoin(-500); 
-                StartCoroutine(levelSystem.Dieukien());
-                Time.timeScale = 1;
-                SceneLoader.Instance.LoadScene("Map3");
+    // Coin5
+    public void ToggleCoin5() => OpenCoinPanel(ActiveCoins5);
+    public void ToggleNo5() => CloseCoinPanel(ActiveCoins5);
+    public void ToggleYes5() => TryEnterMap(ActiveCoins5, 35, "Map5");
 
-            }
-            else
-            {
-                StartCoroutine(levelSystem.khongduDieukien());
-                Debug.Log("Không đủ tiền vào Scene");
-                
-            }
-        }
-    }
-    //ToggleMApBoss4
-    public void ToggleCoin4()
-    {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
-        ActiveCoins4.SetActive(true);
-        
-    }
+    // Coin6
+    public void ToggleCoin6() => OpenCoinPanel(ActiveCoins6);
+    public void ToggleNo6() => CloseCoinPanel(ActiveCoins6);
+    public void ToggleYes6() => TryEnterMap(ActiveCoins6, 40, "Map6");
 
-    public void ToggleNo4()
-    {
-        ActiveCoins4.SetActive(false);
-        ActiveBando.SetActive(true);
-    }
+    // Coin7
+    public void ToggleCoin7() => OpenCoinPanel(ActiveCoins7);
+    public void ToggleNo7() => CloseCoinPanel(ActiveCoins7);
+    public void ToggleYes7() => TryEnterMap(ActiveCoins7, 40, "Map7");
 
-    public void ToggleYes4()
-    {
-        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
-        {
-            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 30)
-            {
-                CoinManager.Instance.AddCoin(-500); 
-                StartCoroutine(levelSystem.Dieukien());
-
-                Time.timeScale = 1;
-                SceneLoader.Instance.LoadScene("Map4");
-
-            }
-            else
-            {
-                StartCoroutine(levelSystem.khongduDieukien());
-                Debug.Log("Không đủ tiền vào Scene");
-                
-            }
-        }
-    }
-    //ToggleMApBoss5
-    public void ToggleCoin5()
-    {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
-        ActiveCoins5.SetActive(true);
-        
-    }
-
-    public void ToggleNo5()
-    {
-        ActiveCoins5.SetActive(false);
-        ActiveBando.SetActive(true);
-    }
-
-    public void ToggleYes5()
-    {
-        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
-        {
-            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 35)
-            {
-                CoinManager.Instance.AddCoin(-500); 
-                StartCoroutine(levelSystem.Dieukien());
-                Time.timeScale = 1;
-                SceneLoader.Instance.LoadScene("Map5");
-
-            }
-            else
-            {
-                StartCoroutine(levelSystem.khongduDieukien());
-                Debug.Log("Không đủ tiền vào Scene");
-                
-            }
-        }
-    }
-    //ToggleMApBoss6
-    public void ToggleCoin6()
-    {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
-        ActiveCoins6.SetActive(true);
-        
-    }
-
-    public void ToggleNo6()
-    {
-        ActiveCoins6.SetActive(false);
-        ActiveBando.SetActive(true);
-    }
-
-    public void ToggleYes6()
-    {
-        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
-        {
-            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 40)
-            {
-                CoinManager.Instance.AddCoin(-500); 
-                StartCoroutine(levelSystem.Dieukien());
-                Time.timeScale = 1;
-                SceneLoader.Instance.LoadScene("Map6");
-            }
-            else
-            {
-                StartCoroutine(levelSystem.khongduDieukien());
-                Debug.Log("Không đủ tiền vào Scene");
-                
-            }
-        }
-    }
-    //ToggleMApBoss7
-    public void ToggleCoin7()
-    {
-        ActiveBando.SetActive(!ActiveBando.activeSelf);
-        ActiveCoins7.SetActive(true);
-        
-    }
-
-    public void ToggleNo7()
-    {
-        ActiveCoins7.SetActive(false);
-        ActiveBando.SetActive(true);
-    }
-
-    public void ToggleYes7()
-    {
-        if (CoinManager.Instance != null && LevelSystem.Instance != null && SceneLoader.Instance != null) // check tiền
-        {
-            if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= 40)
-            {
-                CoinManager.Instance.AddCoin(-500); 
-                StartCoroutine(levelSystem.Dieukien());
-                Time.timeScale = 1;
-                SceneLoader.Instance.LoadScene("Map7");
-
-            }
-            else
-            {
-                StartCoroutine(levelSystem.khongduDieukien());
-                Debug.Log("Không đủ tiền vào Scene");
-                
-            }
-        }
-    }
-   //bat tắt button ui game
-    public void AnUI()  
+    // ================= UI Buttons =================
+    public void AnUI()
     {
         Buttonbando.SetActive(false);
         ButtonHelp.SetActive(false);
@@ -348,6 +181,7 @@ public class ActiveUI : MonoBehaviour
         anUI.SetActive(false);
         hienUI.SetActive(true);
     }
+
     public void HienUI()
     {
         Buttonbando.SetActive(true);
@@ -357,16 +191,8 @@ public class ActiveUI : MonoBehaviour
         hienUI.SetActive(false);
         anUI.SetActive(true);
     }
-    //bảng thành tích
-    public void ToggleThanhTich()
-    {
-        Bangthanhtich.SetActive(!Bangthanhtich.activeSelf);
-    }
 
-    public void endThanhTich()
-    {
-        Bangthanhtich.SetActive(false);
-    }
-    //butotn thanh tich khi lv = 10
-    
+    // ================= Thành tích =================
+    public void ToggleThanhTich() => Bangthanhtich.SetActive(!Bangthanhtich.activeSelf);
+    public void endThanhTich() => Bangthanhtich.SetActive(false);
 }
