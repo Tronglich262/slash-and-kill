@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance;
-    public int coinCount = 0;
-    public Text coinText;
+    [SerializeField] public int coinCount = 0;
+    [SerializeField] public Text coinText;
 
     void Awake()
     {

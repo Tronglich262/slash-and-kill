@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static InventoryItem;
@@ -31,6 +32,9 @@ public class ShopManager : MonoBehaviour
     [Header("Chi Số đồ")]
     public TextMeshProUGUI Deschisodo;
 
+    [Header("Text Thông báo mua đô ")]
+    public TextMeshProUGUI textthongbaobuy;
+
     private void Awake()
     {
         Instance = this;
@@ -39,6 +43,7 @@ public class ShopManager : MonoBehaviour
             playerInventory = ScriptableObject.CreateInstance<Inventory>();
             Debug.LogWarning("playerInventory chưa gán, tạo mới runtime");
         }
+        textthongbaobuy.text = "";
     }
 
     // Load danh sách item của NPC vào slot icon
@@ -156,11 +161,28 @@ public class ShopManager : MonoBehaviour
             SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
 
             Debug.Log("Mua thành công: " + currentItem.itemName);
+            StartCoroutine(Thongbaotc());
         }
         else
         {
             Debug.Log("Không đủ vàng!");
+            StartCoroutine(Thongbaotctb());
+
         }
+    }
+    IEnumerator Thongbaotc()
+    {
+        
+        textthongbaobuy.text = "Đã mua thành công";
+        yield return new WaitForSeconds(2f);
+        textthongbaobuy.text = "";
+    }
+    IEnumerator Thongbaotctb()
+    {
+
+        textthongbaobuy.text = "Không đủ vàng, mua thất bại!";
+        yield return new WaitForSeconds(2f);
+        textthongbaobuy.text = "";
     }
 
 }
