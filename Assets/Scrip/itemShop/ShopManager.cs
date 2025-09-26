@@ -55,7 +55,7 @@ public class ShopManager : MonoBehaviour
             Destroy(child.gameObject);
 
         // Khi load shop
-        if (npc.sellType == ItemType.thoren)
+        if (npc.sellTypes != null && npc.sellTypes.Length == 1 && npc.sellTypes[0] == ItemType.thoren)
         {
             foreach (var invItem in playerInventory.items)
             {
@@ -91,18 +91,26 @@ public class ShopManager : MonoBehaviour
             // Shop bình thường
             foreach (var item in npc.allItems)
             {
-                if (item.itemType == npc.sellType)
+                if (System.Array.Exists(npc.sellTypes, t => t == item.itemType))
                 {
                     var slot = Instantiate(itemSlotPrefab, itemContainer);
                     slot.GetComponent<ShopItemUI>().Setup(item);
+
+                    // Khi click vào item slot
+                    slot.GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        ShowItemDetail(item);
+                        dapdo.onClick.RemoveAllListeners();
+                        dapdo.onClick.AddListener(BuyItem);
+                    });
                 }
             }
+
             dapdo.onClick.RemoveAllListeners();
-          
             Dapdo.text = "Buy";
             desdapdo.text = "";
-
         }
+
 
         ClearItemDetail();
     }

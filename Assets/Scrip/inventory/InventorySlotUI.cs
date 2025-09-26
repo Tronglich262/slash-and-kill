@@ -1,13 +1,13 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
 public class InventorySlotUI : MonoBehaviour
 {
     public Image icon;
     public TextMeshProUGUI quantityText;
     public Button button;
-
     private InventoryItem item;
     private ItemDetailPanel detailPanel;
 
@@ -36,4 +36,7 @@ public class InventorySlotUI : MonoBehaviour
             detailPanel.ShowItemDetail(item);
         }
     }
+  
+
+
 }

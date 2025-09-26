@@ -15,13 +15,14 @@ public class NPCManager : MonoBehaviour
     public TextMeshProUGUI npcDescriptionText;
     public Image npcAvatarImage;
 
-    private NPC currentNPC; 
+    private NPC currentNPC;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         npcInfoPanel.SetActive(false);
     }
+
 
     public void ShowNPC(NPC npc)
     {
@@ -32,9 +33,9 @@ public class NPCManager : MonoBehaviour
         npcDescriptionText.text = npc.npcData.npcDescription;
         npcAvatarImage.sprite = npc.npcData.npcAvatar;
 
-        if (npc.Shope != null)
+        if (npc.shopUI != null)
         {
-            npc.Shope.SetActive(true);
+            npc.shopUI.SetActive(true);
         }
         ShopManager.Instance.LoadShop(npc);
 
@@ -44,9 +45,9 @@ public class NPCManager : MonoBehaviour
     {
         npcInfoPanel.SetActive(false);
 
-        if (currentNPC != null && currentNPC.Shope != null)
+        if (currentNPC != null && currentNPC.shopUI != null)
         {
-            currentNPC.Shope.SetActive(false);
+            currentNPC.shopUI.SetActive(false);
         }
 
         currentNPC = null; // reset NPC hiện tại

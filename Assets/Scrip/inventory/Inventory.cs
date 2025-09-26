@@ -9,6 +9,11 @@ public class Inventory : ScriptableObject
     // Thêm item
     public void AddItem(ItemData newItem, int amount = 1)
     {
+        if (newItem == null)
+        {
+            return;
+        }
+
         foreach (var invItem in items)
         {
             if (invItem.itemID == newItem.itemID)
@@ -27,6 +32,7 @@ public class Inventory : ScriptableObject
         items.Add(temp);
     }
 
+
     // Khi load từ PlayerPrefs, link lại itemData
     public void LinkItemData()
     {
@@ -35,4 +41,10 @@ public class Inventory : ScriptableObject
             invItem.itemData = ItemDatabase.Instance.GetItemByID(invItem.itemID);
         }
     }
+
+    public void RemoveItem(InventoryItem item)
+    {
+        items.Remove(item);
+    }
+
 }

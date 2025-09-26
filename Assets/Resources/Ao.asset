@@ -23,4 +23,4 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 8b3a30b86c0bda44ba6d101f45b2664c, type: 3}
   price: 1000
   leveledo: 0
-  itemType: 0
+  itemType: 1

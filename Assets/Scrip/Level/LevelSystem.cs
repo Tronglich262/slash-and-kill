@@ -8,12 +8,15 @@ public class LevelSystem : MonoBehaviour
 {
     public static LevelSystem Instance;
 
-    public int level;
-    public int currentExp;
-    public int expToNextLevel;
-    public int statPoints;
-    public int attack;
-    public int maxHP;
+    [SerializeField] public int level;
+    [SerializeField] public int currentExp;
+    [SerializeField] public int expToNextLevel;
+    [SerializeField] public int statPoints;
+    [SerializeField] public int attack;
+    [SerializeField] public int maxHP;
+    [SerializeField] public int Phongthu;
+    [SerializeField] public int netranh;
+    [SerializeField] public int tocdo;
     public HealthSystem healthSystem;
 
     public TextMeshProUGUI levelText;
@@ -38,6 +41,7 @@ public class LevelSystem : MonoBehaviour
 
     public GameObject dudieukien;
     public GameObject khongdudieukien;
+
 
     private void Awake()
     {
@@ -239,6 +243,41 @@ public class LevelSystem : MonoBehaviour
         if (khongdudieukien != null) khongdudieukien.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         if (khongdudieukien != null) khongdudieukien.SetActive(false);
+    }
+    public void ApplyItemStats(ItemData item)
+    {
+        if (item == null) return;
+
+        attack += item.attack;
+        maxHP += item.hp;
+        Phongthu += item.phongthu;
+        netranh += item.netranh;
+        tocdo += item.tocdo;
+
+        if (healthSystem != null)
+            healthSystem.UpdateMaxHP(maxHP);
+
+        UpdateUI();
+
+        Debug.Log($"[LevelSystem] Đã cộng stats từ item {item.itemName} | ATK: {attack}, HP: {maxHP}");
+    }
+
+    public void RemoveItemStats(ItemData item)
+    {
+        if (item == null) return;
+
+        attack -= item.attack;
+        maxHP -= item.hp;
+        Phongthu -= item.phongthu;
+        netranh -= item.netranh;
+        tocdo -= item.tocdo;
+
+        if (healthSystem != null)
+            healthSystem.UpdateMaxHP(maxHP);
+
+        UpdateUI();
+
+        Debug.Log($"[LevelSystem] Đã trừ stats từ item {item.itemName} | ATK: {attack}, HP: {maxHP}");
     }
 
 }

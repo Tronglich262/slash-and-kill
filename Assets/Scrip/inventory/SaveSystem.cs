@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using static InventoryItem;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class SaveSystem
 {
+    // ---------------- INVENTORY ----------------
     public static void SaveInventory(Inventory inventory)
     {
         foreach (var item in inventory.items)
@@ -31,7 +32,6 @@ public static class SaveSystem
         }
     }
 
-    //  Thêm hàm ResetInventory vào đây
     public static void ResetInventory(Inventory inventory)
     {
         inventory.items.Clear();
@@ -39,4 +39,35 @@ public static class SaveSystem
         PlayerPrefs.Save();
     }
 
+    // ---------------- EQUIPMENT ----------------
+    public static void SaveEquipment(List<EquipmentSaveData> equipmentList)
+    {
+        string json = JsonUtility.ToJson(new EquipmentSaveWrapper { equipments = equipmentList });
+        PlayerPrefs.SetString("PlayerEquipment", json);
+        PlayerPrefs.Save();
+    }
+
+    public static List<EquipmentSaveData> LoadEquipment()
+    {
+        if (PlayerPrefs.HasKey("PlayerEquipment"))
+        {
+            string json = PlayerPrefs.GetString("PlayerEquipment");
+            EquipmentSaveWrapper wrapper = JsonUtility.FromJson<EquipmentSaveWrapper>(json);
+            return wrapper.equipments;
+        }
+        return null;
+    }
+
+    public static void ResetEquipment()
+    {
+        PlayerPrefs.DeleteKey("PlayerEquipment");
+        PlayerPrefs.Save();
+    }
+
+    // Wrapper để JsonUtility serialize List
+    [System.Serializable]
+    private class EquipmentSaveWrapper
+    {
+        public List<EquipmentSaveData> equipments;
+    }
 }

@@ -6,8 +6,15 @@
 /// </summary>
 public class NPCClick : MonoBehaviour
 {
+    public ActiveUI activeUI;
     void Update()
     {
+        if ((NPCManager.Instance != null && NPCManager.Instance.npcInfoPanel.activeSelf) ||
+         (activeUI != null && activeUI.SkilCharacterUI != null && activeUI.SkilCharacterUI.activeSelf))
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0)) // click chuột trái
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -23,7 +30,7 @@ public class NPCClick : MonoBehaviour
                 else
                 {
                     // Click vào object khác, ẩn UI
-                    NPCManager.Instance.HideNPC();
+                    //NPCManager.Instance.HideNPC();
                 }
             }
            /* else

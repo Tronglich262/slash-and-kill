@@ -33,20 +33,32 @@ public class ActiveUI : MonoBehaviour
     public GameObject buttontrangbi;
     public GameObject buttontuidodung;
     public GameObject buttonkynang;
+    public GameObject buttonChiso;
     public GameObject trangbipanel;
     public GameObject tuidodungpanel;
     public GameObject kynangpanel;
+    public GameObject Chisopanel;
 
     [Header("Character UI")]
     public GameObject SkilCharacterUI;
 
     [Header("LevelSystem")]
     public LevelSystem levelSystem; // Gán LevelSystem trong inspector hoặc dùng LevelSystem.Instance
+    public static ActiveUI instance;
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     // ================= Character UI =================
     public void ToggleCharacterUI()
     {
         SkilCharacterUI.SetActive(!SkilCharacterUI.activeSelf);
+
     }
     public void DisCharacterUI()
     {
@@ -57,18 +69,28 @@ public class ActiveUI : MonoBehaviour
         trangbipanel.SetActive(true);
         tuidodungpanel.SetActive(true);
         kynangpanel.SetActive(false);
+        Chisopanel.SetActive(false);
     }
     public void TuiDoDung()
     {
         trangbipanel.SetActive(true);
         tuidodungpanel.SetActive(true);
         kynangpanel.SetActive(false);
+        Chisopanel.SetActive(false) ;
     }
     public void KyNang()
     {
         trangbipanel.SetActive(true);
         tuidodungpanel.SetActive(false);
         kynangpanel.SetActive(true);
+        Chisopanel.SetActive(false ) ;
+    }
+    public void ChiSo()
+    {
+        trangbipanel.SetActive(true);
+        tuidodungpanel.SetActive(false);
+        kynangpanel.SetActive(false);
+        Chisopanel.SetActive(true);
     }
 
     // ================= Map UI =================
@@ -195,4 +217,5 @@ public class ActiveUI : MonoBehaviour
     // ================= Thành tích =================
     public void ToggleThanhTich() => Bangthanhtich.SetActive(!Bangthanhtich.activeSelf);
     public void endThanhTich() => Bangthanhtich.SetActive(false);
+
 }

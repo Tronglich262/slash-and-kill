@@ -2,7 +2,13 @@
 
 public enum ItemType
 {
-    quanao,
+    quan,
+    ao,
+    giay,
+    gang,
+    mu,
+    vong,
+    nhan,
     Vukhi,
     vatpham,
     thoren,
