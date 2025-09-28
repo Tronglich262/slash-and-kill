@@ -1,13 +1,18 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LadderClimb : MonoBehaviour
 {
     public float climbSpeed = 4f;
 
-    private bool isClimbing = false;
+    public bool isClimbing = false;
     private float inputVertical;
     private Rigidbody2D rb;
     private Animator animator;
+    public static LadderClimb instance;
+    public void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {

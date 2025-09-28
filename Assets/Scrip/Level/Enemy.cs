@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public LevelSystem levelSystem; 
+    public LevelSystem levelSystem;
+    public void Start()
+    {
 
+        if (levelSystem == null)
+        {
+            levelSystem = FindObjectOfType<LevelSystem>();
+        }
+    }
     private void OnDestroy() 
     {
         if (levelSystem != null)

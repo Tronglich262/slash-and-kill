@@ -45,14 +45,19 @@ public class ActiveUI : MonoBehaviour
     [Header("LevelSystem")]
     public LevelSystem levelSystem; // Gán LevelSystem trong inspector hoặc dùng LevelSystem.Instance
     public static ActiveUI instance;
+    public string spawnPointName = "TownGate"; // Đặt tên spawn point ở map thị trấn
+
     public void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
+
 
     // ================= Character UI =================
     public void ToggleCharacterUI()
@@ -102,12 +107,13 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleGoHome()
     {
-        gohome.SetActive(!gohome.activeSelf);
-        Time.timeScale = gohome.activeSelf ? 0 : 1;
+        gohome.SetActive(!gohome.activeSelf);   
     }
     public void ToggleYes()
     {
+        SpawnManager.nextSpawnPoint = spawnPointName;
         SceneManager.LoadScene("ThiTran");
+        gohome.SetActive(false);
         Time.timeScale = 1f;
     }
     public void ToggleNo()
@@ -135,10 +141,10 @@ public class ActiveUI : MonoBehaviour
     private void CloseCoinPanel(GameObject coinPanel)
     {
         coinPanel.SetActive(false);
-        ActiveBando.SetActive(true);
+        ActiveBando.SetActive(false);
     }
 
-    private void TryEnterMap(GameObject coinPanel, int requiredLevel, string sceneName)
+    private void TryEnterMap(GameObject coinPanel, int requiredLevel, string sceneName, string spawnPointName)
     {
         if (CoinManager.Instance != null && LevelSystem.Instance != null)
         {
@@ -146,8 +152,8 @@ public class ActiveUI : MonoBehaviour
             {
                 CoinManager.Instance.AddCoin(-500);
                 StartCoroutine(LevelSystem.Instance.Dieukien());
-                Time.timeScale = 1f;
-                SceneManager.LoadScene(sceneName);
+                GoToMap(sceneName, spawnPointName);
+                
             }
             else
             {
@@ -158,40 +164,41 @@ public class ActiveUI : MonoBehaviour
         CloseCoinPanel(coinPanel);
     }
 
+
     // Coin1
     public void ToggleCoin1() => OpenCoinPanel(ActiveCoins1);
     public void ToggleNo1() => CloseCoinPanel(ActiveCoins1);
-    public void ToggleYes1() => TryEnterMap(ActiveCoins1, 10, "Map1");
+    public void ToggleYes1() => TryEnterMap(ActiveCoins1, 10, "Map1", "SpawnMap1");
 
     // Coin2
     public void ToggleCoin2() => OpenCoinPanel(ActiveCoins2);
     public void ToggleNo2() => CloseCoinPanel(ActiveCoins2);
-    public void ToggleYes2() => TryEnterMap(ActiveCoins2, 20, "Map2");
+    public void ToggleYes2() => TryEnterMap(ActiveCoins2, 20, "Map2", "SpawnMap2");
 
     // Coin3
     public void ToggleCoin3() => OpenCoinPanel(ActiveCoins3);
     public void ToggleNo3() => CloseCoinPanel(ActiveCoins3);
-    public void ToggleYes3() => TryEnterMap(ActiveCoins3, 25, "Map3");
+    public void ToggleYes3() => TryEnterMap(ActiveCoins3, 25, "Map4", "SpawnMap4");
 
     // Coin4
     public void ToggleCoin4() => OpenCoinPanel(ActiveCoins4);
     public void ToggleNo4() => CloseCoinPanel(ActiveCoins4);
-    public void ToggleYes4() => TryEnterMap(ActiveCoins4, 30, "Map4");
+    public void ToggleYes4() => TryEnterMap(ActiveCoins4, 30, "Map5", "SpawnMap5");
 
     // Coin5
     public void ToggleCoin5() => OpenCoinPanel(ActiveCoins5);
     public void ToggleNo5() => CloseCoinPanel(ActiveCoins5);
-    public void ToggleYes5() => TryEnterMap(ActiveCoins5, 35, "Map5");
+    public void ToggleYes5() => TryEnterMap(ActiveCoins5, 35, "Map6", "SpawnMap6");
 
     // Coin6
     public void ToggleCoin6() => OpenCoinPanel(ActiveCoins6);
     public void ToggleNo6() => CloseCoinPanel(ActiveCoins6);
-    public void ToggleYes6() => TryEnterMap(ActiveCoins6, 40, "Map6");
+    public void ToggleYes6() => TryEnterMap(ActiveCoins6, 40, "Map7", "SpawnMap7");
 
     // Coin7
     public void ToggleCoin7() => OpenCoinPanel(ActiveCoins7);
     public void ToggleNo7() => CloseCoinPanel(ActiveCoins7);
-    public void ToggleYes7() => TryEnterMap(ActiveCoins7, 40, "Map7");
+    public void ToggleYes7() => TryEnterMap(ActiveCoins7, 40, "Map8", "SpawnMap8");
 
     // ================= UI Buttons =================
     public void AnUI()
@@ -217,5 +224,11 @@ public class ActiveUI : MonoBehaviour
     // ================= Thành tích =================
     public void ToggleThanhTich() => Bangthanhtich.SetActive(!Bangthanhtich.activeSelf);
     public void endThanhTich() => Bangthanhtich.SetActive(false);
-
+    //Hàm dùng chung để load map + set spawn
+    public void GoToMap(string sceneName, string spawnPointName)
+    {
+        SpawnManager.nextSpawnPoint = spawnPointName; // Lưu vị trí spawn
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
+    }
 }

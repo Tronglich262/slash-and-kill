@@ -3,7 +3,13 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public LevelSystem levelSystem; // Kéo vào từ Inspector
-
+    public void Start()
+    {
+        if(levelSystem == null)
+        {
+            levelSystem = FindObjectOfType<LevelSystem>();
+        }
+    }
     private void OnDestroy() // Khi boss chết
     {
         if (levelSystem != null)

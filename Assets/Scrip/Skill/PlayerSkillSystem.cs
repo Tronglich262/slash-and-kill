@@ -14,7 +14,7 @@ public class PlayerSkillSystem : MonoBehaviour
         // Thường dùng cho attack skill
         public GameObject skillPrefab;
         public float offsetX = 1f;
-        public float spawnY = 0.5f;
+        public float spawnY = 0.5f; 
         public float skillDuration = 2f;
         public bool followPlayer = false;
 

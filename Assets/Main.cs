@@ -1,18 +1,19 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public delegate void thongbao();
-    public event thongbao thongbaoload;
-    void Start()
-    {
-        thongbaoload?.Invoke();
-    }
+    private static Main instance;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Giữ lại khi load scene
+        }
+        else
+        {
+            Destroy(gameObject); // Nếu đã có instance thì phá bỏ cái mới
+        }
     }
 }
