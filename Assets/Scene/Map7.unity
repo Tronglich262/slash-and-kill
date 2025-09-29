@@ -384,10 +384,10 @@ GameObject:
   - component: {fileID: 32048153}
   - component: {fileID: 32048152}
   - component: {fileID: 32048149}
-  - component: {fileID: 32048150}
   - component: {fileID: 32048148}
   - component: {fileID: 32048155}
   - component: {fileID: 32048156}
+  - component: {fileID: 32048157}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -449,19 +449,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &32048150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32048145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!50 &32048152
 Rigidbody2D:
   serializedVersion: 5
@@ -626,6 +613,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &32048157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32048145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &32154342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,10 +1330,10 @@ GameObject:
   - component: {fileID: 172920248}
   - component: {fileID: 172920247}
   - component: {fileID: 172920244}
-  - component: {fileID: 172920245}
   - component: {fileID: 172920243}
   - component: {fileID: 172920250}
   - component: {fileID: 172920251}
+  - component: {fileID: 172920252}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -1393,19 +1395,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &172920245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172920240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!50 &172920247
 Rigidbody2D:
   serializedVersion: 5
@@ -1570,6 +1559,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &172920252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172920240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &194001347
 GameObject:
   m_ObjectHideFlags: 0
@@ -5066,9 +5070,9 @@ GameObject:
   - component: {fileID: 589349173}
   - component: {fileID: 589349172}
   - component: {fileID: 589349170}
-  - component: {fileID: 589349169}
   - component: {fileID: 589349168}
   - component: {fileID: 589349175}
+  - component: {fileID: 589349176}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -5115,19 +5119,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &589349169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589349166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &589349170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5298,6 +5289,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &589349176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589349166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &593125895
 GameObject:
   m_ObjectHideFlags: 0
@@ -6753,10 +6759,10 @@ GameObject:
   - component: {fileID: 882135116}
   - component: {fileID: 882135115}
   - component: {fileID: 882135112}
-  - component: {fileID: 882135113}
   - component: {fileID: 882135111}
   - component: {fileID: 882135118}
   - component: {fileID: 882135119}
+  - component: {fileID: 882135120}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -6818,19 +6824,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &882135113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882135108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!50 &882135115
 Rigidbody2D:
   serializedVersion: 5
@@ -6995,6 +6988,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &882135120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882135108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &891117422
 GameObject:
   m_ObjectHideFlags: 0
@@ -8312,10 +8320,10 @@ GameObject:
   - component: {fileID: 1107507018}
   - component: {fileID: 1107507017}
   - component: {fileID: 1107507014}
-  - component: {fileID: 1107507015}
   - component: {fileID: 1107507013}
   - component: {fileID: 1107507020}
   - component: {fileID: 1107507021}
+  - component: {fileID: 1107507022}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -8377,19 +8385,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1107507015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107507010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!50 &1107507017
 Rigidbody2D:
   serializedVersion: 5
@@ -8554,6 +8549,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &1107507022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107507010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &1127861212
 GameObject:
   m_ObjectHideFlags: 0
@@ -9576,10 +9586,10 @@ GameObject:
   - component: {fileID: 1370019140}
   - component: {fileID: 1370019139}
   - component: {fileID: 1370019135}
-  - component: {fileID: 1370019136}
   - component: {fileID: 1370019142}
   - component: {fileID: 1370019144}
   - component: {fileID: 1370019145}
+  - component: {fileID: 1370019146}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -9626,19 +9636,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1370019136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370019133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!50 &1370019139
 Rigidbody2D:
   serializedVersion: 5
@@ -9818,6 +9815,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &1370019146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370019133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &1378415303
 GameObject:
   m_ObjectHideFlags: 0
@@ -10055,9 +10067,9 @@ GameObject:
   - component: {fileID: 1415391212}
   - component: {fileID: 1415391214}
   - component: {fileID: 1415391210}
-  - component: {fileID: 1415391209}
   - component: {fileID: 1415391213}
   - component: {fileID: 1415391215}
+  - component: {fileID: 1415391216}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -10137,19 +10149,6 @@ Transform:
   - {fileID: 744566608}
   m_Father: {fileID: 163372335}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1415391209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415391206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &1415391210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10287,6 +10286,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1415391216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415391206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &1431958493
 GameObject:
   m_ObjectHideFlags: 0
@@ -11176,9 +11190,9 @@ GameObject:
   - component: {fileID: 1568322595}
   - component: {fileID: 1568322594}
   - component: {fileID: 1568322592}
-  - component: {fileID: 1568322591}
   - component: {fileID: 1568322590}
   - component: {fileID: 1568322597}
+  - component: {fileID: 1568322598}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -11225,19 +11239,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1568322591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1568322588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &1568322592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11408,6 +11409,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1568322598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568322588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &1578007184
 GameObject:
   m_ObjectHideFlags: 0
@@ -11633,9 +11649,9 @@ GameObject:
   - component: {fileID: 1641314439}
   - component: {fileID: 1641314438}
   - component: {fileID: 1641314436}
-  - component: {fileID: 1641314435}
   - component: {fileID: 1641314434}
   - component: {fileID: 1641314441}
+  - component: {fileID: 1641314442}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -11682,19 +11698,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1641314435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641314432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &1641314436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11865,6 +11868,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1641314442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641314432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &1654377058
 GameObject:
   m_ObjectHideFlags: 0
@@ -21200,9 +21218,9 @@ GameObject:
   - component: {fileID: 1717308210}
   - component: {fileID: 1717308209}
   - component: {fileID: 1717308207}
-  - component: {fileID: 1717308206}
   - component: {fileID: 1717308205}
   - component: {fileID: 1717308212}
+  - component: {fileID: 1717308213}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -21249,19 +21267,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1717308206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717308203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &1717308207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21432,6 +21437,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1717308213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717308203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &1742869413
 GameObject:
   m_ObjectHideFlags: 0
@@ -21610,9 +21630,9 @@ GameObject:
   - component: {fileID: 1769581623}
   - component: {fileID: 1769581622}
   - component: {fileID: 1769581620}
-  - component: {fileID: 1769581619}
   - component: {fileID: 1769581618}
   - component: {fileID: 1769581625}
+  - component: {fileID: 1769581626}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -21659,19 +21679,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1769581619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769581616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &1769581620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21842,6 +21849,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1769581626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769581616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &1771793673
 GameObject:
   m_ObjectHideFlags: 0
@@ -22985,10 +23007,10 @@ GameObject:
   - component: {fileID: 2015524935}
   - component: {fileID: 2015524934}
   - component: {fileID: 2015524931}
-  - component: {fileID: 2015524932}
   - component: {fileID: 2015524930}
   - component: {fileID: 2015524937}
   - component: {fileID: 2015524938}
+  - component: {fileID: 2015524939}
   m_Layer: 6
   m_Name: Cay
   m_TagString: Untagged
@@ -23050,19 +23072,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2015524932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015524927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!50 &2015524934
 Rigidbody2D:
   serializedVersion: 5
@@ -23227,6 +23236,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &2015524939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015524927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &2019076748
 GameObject:
   m_ObjectHideFlags: 0
@@ -23414,9 +23438,9 @@ GameObject:
   - component: {fileID: 2052870554}
   - component: {fileID: 2052870553}
   - component: {fileID: 2052870551}
-  - component: {fileID: 2052870550}
   - component: {fileID: 2052870549}
   - component: {fileID: 2052870556}
+  - component: {fileID: 2052870557}
   m_Layer: 6
   m_Name: bee-1
   m_TagString: Untagged
@@ -23463,19 +23487,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2052870550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2052870547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422da1f430a54b9438c7826a49862339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &2052870551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23646,6 +23657,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &2052870557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052870547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!1 &2054767203
 GameObject:
   m_ObjectHideFlags: 0

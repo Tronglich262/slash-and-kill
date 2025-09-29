@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61fbe87cbc4ae0f4eb42f51057a4de5e, type: 3}
+  m_Name: Vukhi 5
+  m_EditorClassIdentifier: 
+  itemID: 12
+  itemName: "V\u0169 Kh\xED pixel 5"
+  itemDescription: "T\u0103ng S\xE1t Th\u01B0\u01A1ng"
+  hp: 5
+  attack: 30
+  phongthu: 10
+  netranh: 5
+  tocdo: 25
+  itemIcon: {fileID: -2908368970367659042, guid: d331e0fab9137a54e85c2fc56737d572, type: 3}
+  price: 3000
+  leveledo: 0
+  itemType: 7

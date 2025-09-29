@@ -1267,8 +1267,8 @@ GameObject:
   - component: {fileID: 480567070}
   - component: {fileID: 480567069}
   - component: {fileID: 480567073}
-  - component: {fileID: 480567071}
   - component: {fileID: 480567076}
+  - component: {fileID: 480567077}
   m_Layer: 6
   m_Name: angel1
   m_TagString: Untagged
@@ -1366,19 +1366,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.22, y: 1.17}
   m_EdgeRadius: 0
---- !u!114 &480567071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 480567067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534ba659ac7af28468cc031435ce5be2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &480567073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1508,6 +1495,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &480567077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480567067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 10000
+  max: 20000
 --- !u!1 &541504318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,6 +1876,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!61 &605787115
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2940,6 +2944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!61 &843715969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20319,6 +20325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!61 &1327566416
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21369,6 +21377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSystem: {fileID: 0}
+  min: 500
+  max: 1000
 --- !u!61 &1717435603
 BoxCollider2D:
   m_ObjectHideFlags: 0

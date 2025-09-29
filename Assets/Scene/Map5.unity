@@ -1262,9 +1262,9 @@ GameObject:
   - component: {fileID: 624698708}
   - component: {fileID: 624698709}
   - component: {fileID: 624698706}
-  - component: {fileID: 624698711}
   - component: {fileID: 624698713}
   - component: {fileID: 624698714}
+  - component: {fileID: 624698715}
   m_Layer: 6
   m_Name: Bringer-of-Death-SpritSheet_0
   m_TagString: Untagged
@@ -1467,19 +1467,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &624698711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624698702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534ba659ac7af28468cc031435ce5be2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &624698713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1516,6 +1503,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &624698715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624698702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 10000
+  max: 20000
 --- !u!1 &628905390
 GameObject:
   m_ObjectHideFlags: 0
@@ -7668,8 +7670,8 @@ GameObject:
   - component: {fileID: 1850671487}
   - component: {fileID: 1850671486}
   - component: {fileID: 1850671490}
-  - component: {fileID: 1850671488}
   - component: {fileID: 1850671493}
+  - component: {fileID: 1850671494}
   m_Layer: 6
   m_Name: angel1
   m_TagString: Untagged
@@ -7767,19 +7769,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.22, y: 1.17}
   m_EdgeRadius: 0
---- !u!114 &1850671488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1850671484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534ba659ac7af28468cc031435ce5be2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
 --- !u!114 &1850671490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7909,6 +7898,21 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+--- !u!114 &1850671494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850671484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSystem: {fileID: 0}
+  min: 10000
+  max: 20000
 --- !u!1 &1896313842
 GameObject:
   m_ObjectHideFlags: 0

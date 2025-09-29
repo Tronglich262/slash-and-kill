@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61fbe87cbc4ae0f4eb42f51057a4de5e, type: 3}
+  m_Name: Vong
+  m_EditorClassIdentifier: 
+  itemID: 52
+  itemName: "V\xF2ng pixel 0"
+  itemDescription: "T\u0103ng N\xE9 Tranh"
+  hp: 5
+  attack: 5
+  phongthu: 5
+  netranh: 20
+  tocdo: 5
+  itemIcon: {fileID: -7317851993616575858, guid: d86e7336ec7921941b2fc5f9520afbb4, type: 3}
+  price: 1000
+  leveledo: 0
+  itemType: 5

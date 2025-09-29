@@ -20,7 +20,7 @@ MonoBehaviour:
   phongthu: 0
   netranh: 0
   tocdo: 0
-  itemIcon: {fileID: 21300000, guid: 1866500c4a6a4c44192a4267e704a2e1, type: 3}
+  itemIcon: {fileID: 4297501051531341716, guid: 99820eb249007bd4980b916dd2192930, type: 3}
   price: 2000
   leveledo: 0
   itemType: 8
