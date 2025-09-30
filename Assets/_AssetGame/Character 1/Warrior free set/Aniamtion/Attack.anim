@@ -110,7 +110,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1
+  - time: 1.1
     functionName: EnableCombo_Attack01
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -497,7 +497,22 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Agis_0: 858086424201570730
+      Agis_1: -6370931440440523898
+      Agis_10: 9077543457994603161
+      Agis_11: 1274538348036656558
+      Agis_12: 7799786883195768703
+      Agis_13: -8258482466192155030
+      Agis_14: -633582079021005476
+      Agis_2: -8584394610199438716
+      Agis_3: 3078804454902804229
+      Agis_4: -1812118881656161925
+      Agis_5: 8066437687192066556
+      Agis_6: 6701719294234715542
+      Agis_7: -4705481355044263178
+      Agis_8: -4909491823623662109
+      Agis_9: -2589681477192054344
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
