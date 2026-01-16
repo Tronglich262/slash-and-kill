@@ -31,28 +31,42 @@ public class EquipmentItemPanel : MonoBehaviour
         currentSlot = slot;
         panel.SetActive(true);
 
-        var data = slot.currentItem.itemData;
+        InventoryItem invItem = slot.currentItem;
+
+        // đảm bảo itemData không null
+        if (invItem.itemData == null)
+            invItem.itemData = ItemDatabase.Instance.GetItemByID(invItem.itemID);
+
+        ItemData data = invItem.itemData;
+
         itemIcon.sprite = data.itemIcon;
         itemNameText.text = data.itemName;
+
+        //  STAT PHẢI LẤY TỪ InventoryItem (có levelDo)
         itemDescriptionText.text =
             $"{data.itemDescription}\n" +
-            $"HP: {data.hp}\n" +
-            $"Tấn Công: {data.attack}\n" +
-            $"Phòng Thủ: {data.phongthu}\n" +
-            $"Né Tránh: {data.netranh}\n" +
-            $"Tốc Độ: {data.tocdo}";
-        itemLevelDo.text = "Cấp: " + data.leveledo;
+            $"HP: {invItem.GetHP()}\n" +
+            $"Tấn Công: {invItem.GetAttack()}\n" +
+            $"Phòng Thủ: {invItem.GetPhongThu()}\n" +
+            $"Né Tránh: {invItem.GetNeTranh()}\n" +
+            $"Tốc Độ: {invItem.GetTocDo()}";
+
+        //  LEVEL PHẢI LẤY TỪ InventoryItem
+        itemLevelDo.text = "Cấp: +" + invItem.levelDo;
+
         Price.text = "Price: " + data.price;
 
         // Hiển thị quantity trong inventory nếu có
-        var invItem = InventoryManager.Instance.playerInventory.items
-            .Find(x => x.itemID == data.itemID);
-        int qty = invItem != null ? invItem.quantity : 1;
+        var invInBag = InventoryManager.Instance.playerInventory.items
+            .Find(x => x.itemID == invItem.itemID);
+
+        int qty = invInBag != null ? invInBag.quantity : 1;
 
         // Nút Tháo
         unequipButton.onClick.RemoveAllListeners();
         unequipButton.onClick.AddListener(OnClickUnequip);
     }
+
 
     public void HidePanel()
     {
@@ -64,29 +78,26 @@ public class EquipmentItemPanel : MonoBehaviour
     {
         if (currentSlot == null || currentSlot.currentItem == null) return;
 
-        var invItem = currentSlot.currentItem;
+        InventoryItem invItem = currentSlot.currentItem;
 
-        // Tháo khỏi slot
+        // tháo khỏi slot
         currentSlot.Unequip();
 
-        // Nếu inventory đã có item → cộng quantity
-        InventoryItem existing = InventoryManager.Instance.playerInventory.items
-            .Find(x => x.itemID == invItem.itemID);
-
-        if (existing != null)
+        //  THÊM THẲNG 1 ITEM MỚI – KHÔNG GỘP
+        InventoryManager.Instance.playerInventory.items.Add(new InventoryItem
         {
-            existing.quantity += invItem.quantity;
-        }
-        else
-        {
-            InventoryManager.Instance.playerInventory.AddItem(invItem.itemData, invItem.quantity);
-        }
+            itemID = invItem.itemID,
+            itemData = invItem.itemData,
+            levelDo = invItem.levelDo,
+            quantity = 1
+        });
 
-        // Lưu trạng thái
+        // lưu
         EquipmentManager.Instance.SaveEquipment();
         SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
 
         InventoryManager.Instance.RefreshInventory();
         HidePanel();
     }
+
 }

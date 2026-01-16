@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 305063545}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -445,7 +445,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &48534155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 178428500}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1396,7 +1396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 210726928}
   - component: {fileID: 210726929}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - First
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1519,7 +1519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 219504962}
   - component: {fileID: 219504961}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1757,7 +1757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 309093788}
   - component: {fileID: 309093789}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: VINES - Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2219,7 +2219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 382654436}
   - component: {fileID: 382654437}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Third
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2620,7 +2620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 110461232}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -2648,7 +2648,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &426307493
 GameObject:
   m_ObjectHideFlags: 0
@@ -3349,7 +3349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1567819000}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -3377,7 +3377,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &530402431
 GameObject:
   m_ObjectHideFlags: 0
@@ -3568,7 +3568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 563382234}
   - component: {fileID: 563382235}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BUSH - BACKGROUND
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4003,7 +4003,7 @@ GameObject:
   m_Component:
   - component: {fileID: 706019184}
   - component: {fileID: 706019185}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - First
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4121,7 +4121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 717422416}
   - component: {fileID: 717422417}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BUSH - BACKGROUND
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4208,7 +4208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 761504774}
   - component: {fileID: 761504775}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BUSH - BACKGROUND
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4326,7 +4326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 763527195}
   - component: {fileID: 763527196}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4484,7 +4484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804591473}
   - component: {fileID: 804591474}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - First
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5663,7 +5663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 96325595}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -5691,7 +5691,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1040689943
 GameObject:
   m_ObjectHideFlags: 0
@@ -5703,7 +5703,7 @@ GameObject:
   - component: {fileID: 1040689944}
   - component: {fileID: 1040689946}
   - component: {fileID: 1040689945}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: FlyingObelisk_no_lightnings_no_letter_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6056,7 +6056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1621032738}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -6084,7 +6084,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1067952773
 GameObject:
   m_ObjectHideFlags: 0
@@ -6131,7 +6131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1069820728}
   - component: {fileID: 1069820729}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: VINES - Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6763,7 +6763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1127263098}
   - component: {fileID: 1127263099}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Third
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6850,7 +6850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1136185294}
   - component: {fileID: 1136185295}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: VINES - Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7232,7 +7232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 444989298}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -7260,7 +7260,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1185450567
 GameObject:
   m_ObjectHideFlags: 0
@@ -7511,7 +7511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220445323}
   - component: {fileID: 1220445324}
-  m_Layer: 15
+  m_Layer: 7
   m_Name: GameObject (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7665,7 +7665,7 @@ GameObject:
   - component: {fileID: 1274604172}
   - component: {fileID: 1274604174}
   - component: {fileID: 1274604173}
-  m_Layer: 3
+  m_Layer: 17
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15895,7 +15895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 455493158}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -15923,7 +15923,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1322361840
 GameObject:
   m_ObjectHideFlags: 0
@@ -16007,7 +16007,7 @@ GameObject:
   - component: {fileID: 1359782409}
   - component: {fileID: 1359782408}
   - component: {fileID: 1359782407}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Trutele
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16691,7 +16691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 94732099}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -16719,7 +16719,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1439374762
 GameObject:
   m_ObjectHideFlags: 0
@@ -17330,7 +17330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1486639343}
   - component: {fileID: 1486639344}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Fourth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17748,7 +17748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1526370990}
   - component: {fileID: 1526370991}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Fourth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18127,7 +18127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1572060780}
   - component: {fileID: 1572060781}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BACKGROUND
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18214,7 +18214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1574348268}
   - component: {fileID: 1574348269}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18509,7 +18509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1599443684}
   - component: {fileID: 1599443685}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18671,7 +18671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1615266949}
   - component: {fileID: 1615266950}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Fourth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19252,7 +19252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 455493158}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -19280,7 +19280,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1661950657
 GameObject:
   m_ObjectHideFlags: 0
@@ -20024,7 +20024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1591330583}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -20052,7 +20052,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1694601605
 GameObject:
   m_ObjectHideFlags: 0
@@ -20097,7 +20097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1703180775}
   - component: {fileID: 1703180776}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BACKGROUND
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20422,7 +20422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1744778811}
   - component: {fileID: 1744778812}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BACKGROUND
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21163,7 +21163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1839559129}
   - component: {fileID: 1839559130}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: WOODS - Third
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21863,7 +21863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1121763391}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
   baseDame1: 100
@@ -21891,7 +21891,7 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
-  attackDamage: 10
+  attackDamage: 20
 --- !u!1 &1974842947
 GameObject:
   m_ObjectHideFlags: 0

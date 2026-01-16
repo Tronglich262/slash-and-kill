@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-/// <summary>
-/// Quản lý ShopUI của NPC , trong đó có item và bảng hiển thị thông tin cũng như dap do
-/// </summary>
+
 public class ForgeManager : MonoBehaviour
 {
     public static ForgeManager Instance;
 
     [Header("UI")]
-    public GameObject forgePanel;       // Panel hiện lên
+    public GameObject forgePanel;
     public Image itemIcon;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemLevelText;
+    public TextMeshProUGUI statText;
+
     public Button confirmButton;
     public Button cancelButton;
 
@@ -27,52 +27,66 @@ public class ForgeManager : MonoBehaviour
         cancelButton.onClick.AddListener(() => forgePanel.SetActive(false));
     }
 
-    // Mở bảng forge
     public void OpenForge(InventoryItem item)
     {
-        if (item == null || item.itemData == null) return;
+        if (item == null) return;
+
+        if (item.itemData == null)
+            item.itemData = ItemDatabase.Instance.GetItemByID(item.itemID);
+
+        if (item.itemData == null) return;
 
         currentItem = item;
 
         if (!forgePanel.activeSelf)
             forgePanel.SetActive(true);
 
-        // luôn cập nhật lại UI
-        itemIcon.sprite = item.itemData.itemIcon;
-        itemName.text = item.itemData.itemName;
-        itemLevelText.text = "Cấp: +" + GetItemLevel(currentItem);
+        RefreshUI();
     }
 
-
-
-    public int GetItemLevel(InventoryItem item)
+    private void RefreshUI()
     {
-        // Lấy level từ itemID hoặc metadata
-        // Ví dụ: nếu itemID là "Sword+2" thì lấy +2
-        // Để đơn giản, ta lưu level trong quantity
-        return item.levelDo + 0; // giả sử +0 = quantity 1
+        if (currentItem == null || currentItem.itemData == null) return;
+
+        itemIcon.sprite = currentItem.itemData.itemIcon;
+        itemName.text = currentItem.itemData.itemName;
+        itemLevelText.text = "Cấp: +" + currentItem.levelDo;
+
+        if (statText != null)
+        {
+            statText.text =
+                $"HP: {currentItem.GetHP()}\n" +
+                $"ATK: {currentItem.GetAttack()}\n" +
+                $"DEF: {currentItem.GetPhongThu()}\n" +
+                $"Né: {currentItem.GetNeTranh()}\n" +
+                $"Tốc: {currentItem.GetTocDo()}";
+        }
     }
 
     private void OnConfirmForge()
     {
         if (currentItem == null) return;
 
-        int level = GetItemLevel(currentItem);
-
-        if (level >= 10)
+        if (currentItem.levelDo >= 10)
         {
             Debug.Log("Item đã đạt +10!");
             return;
         }
 
-        // Nâng cấp
-        currentItem.levelDo += 1; // level +1
-        itemLevelText.text = "Cấp: +" + GetItemLevel(currentItem);
+        // TĂNG CẤP
+        currentItem.levelDo++;
 
-        Debug.Log($"Item {currentItem.itemData.itemName} nâng cấp lên +{GetItemLevel(currentItem)}");
+        Debug.Log($"Item {currentItem.itemData.itemName} nâng cấp lên +{currentItem.levelDo}");
 
-        // Cập nhật Inventory UI
+        // UPDATE UI TRONG FORGE
+        RefreshUI();
+
+        // DÒNG QUAN TRỌNG NHẤT (BẠN ĐANG THIẾU)
+        ShopManager.Instance?.ShowForgeItemDetail(currentItem);
+
+        // REFRESH INVENTORY + SAVE
         InventoryManager.Instance.RefreshInventory();
         SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
     }
+
 }

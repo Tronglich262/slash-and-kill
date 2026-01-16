@@ -1,52 +1,61 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static Main;
 
 public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager Instance;
 
     [Header("Equipment Slots")]
-    public EquipmentSlot[] slots; // Kéo thả slot trong Inspector
+    public EquipmentSlot[] slots;
     public TextMeshProUGUI textchiso;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
+
     private void Start()
     {
         LoadEquipment();
+        UpdateChiSoText();
     }
 
-
-    // --- EQUIP ---
     public void EquipItem(InventoryItem invItem)
     {
-        if (invItem == null || invItem.itemData == null) return;
+        if (invItem == null) return;
+
+        if (invItem.itemData == null)
+            invItem.itemData = ItemDatabase.Instance.GetItemByID(invItem.itemID);
+
+        if (invItem.itemData == null) return;
 
         ItemData item = invItem.itemData;
+
         foreach (var slot in slots)
         {
             if (slot.slotType == item.itemType)
             {
-                // Nếu slot đã có đồ → trả về inventory và trừ stats
-                if (slot.currentItem != null && slot.currentItem.itemData != null)
+                // Nếu slot đã có đồ → trả về inventory + trừ stats (theo levelDo)
+                if (slot.currentItem != null)
                 {
+                    if (slot.currentItem.itemData == null)
+                        slot.currentItem.itemData = ItemDatabase.Instance.GetItemByID(slot.currentItem.itemID);
+
                     InventoryManager.Instance.playerInventory.AddItem(slot.currentItem.itemData, 1);
-                    LevelSystem.Instance.RemoveItemStats(slot.currentItem.itemData);
+                    LevelSystem.Instance.RemoveItemStats(slot.currentItem);
                 }
 
                 slot.Equip(invItem);
 
-                // Cộng stats từ item mới
-                LevelSystem.Instance.ApplyItemStats(invItem.itemData);
+                // Cộng stats từ item mới (theo levelDo)
+                LevelSystem.Instance.ApplyItemStats(invItem);
 
-                // Lưu trạng thái
                 SaveEquipment();
+                UpdateChiSoText();
 
-                Debug.Log($"[EquipmentManager] Đã trang bị: {item.itemName}");
+                Debug.Log($"[EquipmentManager] Đã trang bị: {item.itemName} +{invItem.levelDo}");
                 return;
             }
         }
@@ -62,22 +71,21 @@ public class EquipmentManager : MonoBehaviour
             {
                 var removedItem = slot.currentItem;
 
-                // Trả item về inventory
-                InventoryManager.Instance.playerInventory.AddItem(removedItem.itemData, 1);
+                if (removedItem.itemData == null)
+                    removedItem.itemData = ItemDatabase.Instance.GetItemByID(removedItem.itemID);
 
-                // Trừ stats của item vừa tháo
-                LevelSystem.Instance.RemoveItemStats(removedItem.itemData);
+                InventoryManager.Instance.playerInventory.AddItem(removedItem.itemData, 1);
+                LevelSystem.Instance.RemoveItemStats(removedItem);
 
                 slot.Unequip();
                 SaveEquipment();
+                UpdateChiSoText();
 
-                Debug.Log($"[EquipmentManager] Đã tháo trang bị khỏi slot {slotType}");
                 return;
             }
         }
     }
 
-    // --- SAVE ---
     public void SaveEquipment()
     {
         if (slots == null)
@@ -90,22 +98,20 @@ public class EquipmentManager : MonoBehaviour
 
         foreach (var slot in slots)
         {
-            if (slot != null && slot.currentItem != null && slot.currentItem.itemData != null)
+            if (slot != null && slot.currentItem != null)
             {
-                EquipmentSaveData data = new EquipmentSaveData
+                saveList.Add(new EquipmentSaveData
                 {
-                    itemID = slot.currentItem.itemData.itemID,
+                    itemID = slot.currentItem.itemID,
+                    levelDo = slot.currentItem.levelDo,
                     slotType = slot.slotType
-                };
-                saveList.Add(data);
+                });
             }
         }
 
         SaveSystem.SaveEquipment(saveList);
     }
 
-
-    // --- LOAD ---
     public void LoadEquipment()
     {
         List<EquipmentSaveData> saved = SaveSystem.LoadEquipment();
@@ -116,33 +122,40 @@ public class EquipmentManager : MonoBehaviour
             ItemData item = ItemDatabase.Instance.GetItemByID(data.itemID);
             if (item == null) continue;
 
-            InventoryItem invItem = new InventoryItem { itemData = item, quantity = 1 };
+            InventoryItem invItem = new InventoryItem
+            {
+                itemID = data.itemID,
+                levelDo = data.levelDo,
+                quantity = 1,
+                itemData = item
+            };
 
             foreach (var slot in slots)
             {
                 if (slot.slotType == data.slotType)
                 {
                     slot.Equip(invItem);
-
-                    LevelSystem.Instance?.ApplyItemStats(item);
-                    textchiso.text =
-                        $"Máu cơ bản        :          {LevelSystem.Instance.maxHP}\n" +
-                        $"Tấn công cơ bản   :          {LevelSystem.Instance.attack}\n" +
-                        $"Phòng thủ cơ bản  :          {LevelSystem.Instance.Phongthu}\n" +
-                        $"Né Tránh cơ bản   :          {LevelSystem.Instance.netranh}\n" +
-                        $"Tốc độ cơ bản     :          {LevelSystem.Instance.tocdo}\n" +
-                        $"% Máu hồi phục    :          0\n" +
-                        $"% Tấn công        :          0\n" +
-                        $"% Phòng Thủ       :          0\n" +
-                        $"% Né tránh        :          0\n" +
-                        $"% Tốc độ          :          0\n";
-
+                    LevelSystem.Instance.ApplyItemStats(invItem);
                     break;
                 }
             }
         }
     }
 
+    private void UpdateChiSoText()
+    {
+        if (textchiso == null || LevelSystem.Instance == null) return;
 
+        textchiso.text =
+            $"Máu cơ bản         : {LevelSystem.Instance.maxHP}\n" +
+            $"Tấn công cơ bản    : {LevelSystem.Instance.attack}\n" +
+            $"Phòng thủ cơ bản   : {LevelSystem.Instance.Phongthu}\n" +
+            $"Né Tránh cơ bản    : {LevelSystem.Instance.netranh}\n" +
+            $"Tốc độ cơ bản      : {LevelSystem.Instance.tocdo}\n" +
+            $"Hồi mau cơ bản     : {0}\n" +
+            $"% Sát thương       : {0}\n" +
+            $"% Sát thương kỹ năng    : {0}\n" +
+            $"% Chí mạng         : {0}\n";
 
+    }
 }

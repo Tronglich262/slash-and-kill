@@ -28,26 +28,33 @@ public class ItemDetailPanel : MonoBehaviour
         currentItem = invItem;
         panel.SetActive(true);
 
+        if (invItem.itemData == null)
+            invItem.itemData = ItemDatabase.Instance.GetItemByID(invItem.itemID);
+
         var data = invItem.itemData;
+
         itemIcon.sprite = data.itemIcon;
         itemNameText.text = data.itemName;
+
+        // 🔥 STAT LẤY TỪ InventoryItem (có levelDo)
         itemDescriptionText.text =
             $"{data.itemDescription}\n" +
-            $"HP: {data.hp}\n" +
-            $"Tấn Công: {data.attack}\n" +
-            $"Phòng Thủ: {data.phongthu}\n" +
-            $"Né Tránh: {data.netranh}\n" +
-            $"Tốc Độ: {data.tocdo}";
-        itemPriceText.text = "Price: " + data.price;
-        itemLevelDo.text = "Cấp: " + invItem.levelDo;
+            $"HP: {invItem.GetHP()}\n" +
+            $"Tấn Công: {invItem.GetAttack()}\n" +
+            $"Phòng Thủ: {invItem.GetPhongThu()}\n" +
+            $"Né Tránh: {invItem.GetNeTranh()}\n" +
+            $"Tốc Độ: {invItem.GetTocDo()}";
 
-        // Gán event cho nút
+        itemPriceText.text = "Price: " + data.price;
+        itemLevelDo.text = "Cấp: +" + invItem.levelDo;
+
         useButton.onClick.RemoveAllListeners();
         dropButton.onClick.RemoveAllListeners();
 
         useButton.onClick.AddListener(OnClickUse);
         dropButton.onClick.AddListener(OnClickDrop);
     }
+
 
     public void HidePanel()
     {

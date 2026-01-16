@@ -15,12 +15,11 @@ MonoBehaviour:
   itemID: 8
   itemName: "V\u0169 Kh\xED pixel 1"
   itemDescription: "T\u0103ng S\xE1t Th\u01B0\u01A1ng"
-  hp: 5
-  attack: 15
-  phongthu: 10
-  netranh: 5
-  tocdo: 5
+  baseHP: 5
+  baseAttack: 15
+  basePhongThu: 5
+  baseNeTranh: 5
+  baseTocDo: 5
   itemIcon: {fileID: 1144190304102387650, guid: 3a6099563d8401547832d89f7ed71ece, type: 3}
   price: 1000
-  leveledo: 0
   itemType: 7

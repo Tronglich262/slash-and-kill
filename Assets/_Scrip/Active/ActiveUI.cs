@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
 public class ActiveUI : MonoBehaviour
 {
     [Header("Gameobject của bản đồ")]
@@ -47,16 +49,17 @@ public class ActiveUI : MonoBehaviour
     public static ActiveUI instance;
     public string spawnPointName = "TownGate"; // Đặt tên spawn point ở map thị trấn
 
-    public void Awake()
+   public void Awake()
+{
+    if (instance != null && instance != this)
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        Destroy(gameObject);
+        return;
     }
+    instance = this;
+    DontDestroyOnLoad(gameObject);
+}
+
 
 
     // ================= Character UI =================
@@ -81,14 +84,14 @@ public class ActiveUI : MonoBehaviour
         trangbipanel.SetActive(true);
         tuidodungpanel.SetActive(true);
         kynangpanel.SetActive(false);
-        Chisopanel.SetActive(false) ;
+        Chisopanel.SetActive(false);
     }
     public void KyNang()
     {
         trangbipanel.SetActive(true);
         tuidodungpanel.SetActive(false);
         kynangpanel.SetActive(true);
-        Chisopanel.SetActive(false ) ;
+        Chisopanel.SetActive(false);
     }
     public void ChiSo()
     {
@@ -107,7 +110,7 @@ public class ActiveUI : MonoBehaviour
 
     public void ToggleGoHome()
     {
-        gohome.SetActive(!gohome.activeSelf);   
+        gohome.SetActive(!gohome.activeSelf);
     }
     public void ToggleYes()
     {
@@ -151,13 +154,13 @@ public class ActiveUI : MonoBehaviour
             if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= requiredLevel)
             {
                 CoinManager.Instance.AddCoin(-500);
-                StartCoroutine(LevelSystem.Instance.Dieukien());
+                //  StartCoroutine(LevelSystem.Instance.Dieukien());
                 GoToMap(sceneName, spawnPointName);
-                
+
             }
             else
             {
-                StartCoroutine(LevelSystem.Instance.khongduDieukien());
+                //  StartCoroutine(LevelSystem.Instance.khongduDieukien());
                 Debug.Log("Không đủ tiền hoặc cấp độ vào Scene");
             }
         }
@@ -231,4 +234,6 @@ public class ActiveUI : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
     }
+
 }
+   

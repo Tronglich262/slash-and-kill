@@ -15,12 +15,11 @@ MonoBehaviour:
   itemID: 53
   itemName: "V\xF2ng pixel 1"
   itemDescription: "T\u0103ng N\xE9 Tranh"
-  hp: 5
-  attack: 5
-  phongthu: 5
-  netranh: 45
-  tocdo: 5
+  baseHP: 10
+  baseAttack: 10
+  basePhongThu: 10
+  baseNeTranh: 10
+  baseTocDo: 20
   itemIcon: {fileID: -4617977907123695058, guid: 82d5c2d4883cf7440b882236a034055a, type: 3}
   price: 5000
-  leveledo: 0
   itemType: 5

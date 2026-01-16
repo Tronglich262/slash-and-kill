@@ -17,16 +17,18 @@ public enum ItemType
 [CreateAssetMenu(fileName = "NewItem", menuName = "Inventory/ItemData")]
 public class ItemData : ScriptableObject
 {
-    public string itemID; // duy nhất
+    public string itemID;
     public string itemName;
     public string itemDescription;
-    public int hp;
-    public int attack;
-    public int phongthu;
-    public int netranh;
-    public int tocdo;
+
+    [Header("Base Stats")]
+    public int baseHP;
+    public int baseAttack;
+    public int basePhongThu;
+    public int baseNeTranh;
+    public int baseTocDo;
+
     public Sprite itemIcon;
     public int price;
-    public int leveledo;
-    public ItemType itemType; 
+    public ItemType itemType;
 }

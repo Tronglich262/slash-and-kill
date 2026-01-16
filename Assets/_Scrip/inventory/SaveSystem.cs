@@ -9,7 +9,7 @@ public static class SaveSystem
         foreach (var item in inventory.items)
         {
             if (item.itemData != null)
-                item.itemID = item.itemData.itemID; // map trước khi save
+                item.itemID = item.itemData.itemID;
         }
 
         string json = JsonUtility.ToJson(inventory);
@@ -24,7 +24,6 @@ public static class SaveSystem
             string json = PlayerPrefs.GetString("PlayerInventory");
             JsonUtility.FromJsonOverwrite(json, inventory);
 
-            // map lại ID → ItemData
             foreach (var item in inventory.items)
             {
                 item.itemData = ItemDatabase.Instance.GetItemByID(item.itemID);
@@ -64,7 +63,6 @@ public static class SaveSystem
         PlayerPrefs.Save();
     }
 
-    // Wrapper để JsonUtility serialize List
     [System.Serializable]
     private class EquipmentSaveWrapper
     {

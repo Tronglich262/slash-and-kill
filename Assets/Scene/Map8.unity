@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 110103019}
   - component: {fileID: 110103018}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: banner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 218675252}
   - component: {fileID: 218675251}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: house
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 772197589}
   - component: {fileID: 772197588}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1331878567}
   - component: {fileID: 1331878568}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: castle_entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -951,7 +951,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1495702747}
   - component: {fileID: 1495702746}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: castle_window (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,7 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1563626205}
   - component: {fileID: 1563626204}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1751249792}
   - component: {fileID: 1751249791}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: castle_window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1213,7 +1213,7 @@ GameObject:
   - component: {fileID: 1828576181}
   - component: {fileID: 1828576183}
   - component: {fileID: 1828576182}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1335,7 +1335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1849192467}
   - component: {fileID: 1849192466}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: castle_window (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1513,7 +1513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1954935205}
   - component: {fileID: 1954935204}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1558,7 +1558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968721460}
   - component: {fileID: 1968721459}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: banner (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

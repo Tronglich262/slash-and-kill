@@ -116,13 +116,13 @@ TextureImporter:
       name: 20250420manaSoul9SlicesC-Sheet_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 7
         y: 0
-        width: 96
+        width: 82
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 7, z: 0, w: 7}
       customData: 
       outline: []
       physicsShape: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 10489aab013663a428f7ef4ea8e08435
     internalID: 0
     vertices: []
     indices: 

@@ -15,12 +15,11 @@ MonoBehaviour:
   itemID: 36
   itemName: "\xC1o pixel 2"
   itemDescription: "T\u0103ng Gi\xE1p"
-  hp: 5
-  attack: 5
-  phongthu: 50
-  netranh: 5
-  tocdo: 5
+  baseHP: 15
+  baseAttack: 15
+  basePhongThu: 30
+  baseNeTranh: 15
+  baseTocDo: 15
   itemIcon: {fileID: -6366882022324759384, guid: e9dce3b884421ad4dbc833601c0272ae, type: 3}
   price: 5000
-  leveledo: 0
   itemType: 1

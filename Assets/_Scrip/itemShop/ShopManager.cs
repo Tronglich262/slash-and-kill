@@ -3,6 +3,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static InventoryItem;
+public enum ShopMode
+{
+    Buy,
+    Forge
+}
+
 
 public class ShopManager : MonoBehaviour
 {
@@ -10,6 +16,7 @@ public class ShopManager : MonoBehaviour
     /// Quản lý ShopUI của NPC , trong đó có item và bảng hiển thị thông tin cũng như Buy 
     /// </summary>
     public static ShopManager Instance;
+    public ShopMode currentMode;
 
     [Header("Shop UI")]
     public Transform itemContainer;   // nơi chứa slot icon
@@ -49,7 +56,7 @@ public class ShopManager : MonoBehaviour
     // Load danh sách item của NPC vào slot icon
     public void LoadShop(NPC npc)
     {
-
+        ClearItemDetail();
         // Xóa slot cũ
         foreach (Transform child in itemContainer)
             Destroy(child.gameObject);
@@ -57,64 +64,117 @@ public class ShopManager : MonoBehaviour
         // Khi load shop
         if (npc.sellTypes != null && npc.sellTypes.Length == 1 && npc.sellTypes[0] == ItemType.thoren)
         {
+            currentMode = ShopMode.Forge;
+
+            InventoryItem firstItem = null;
+
             foreach (var invItem in playerInventory.items)
             {
                 if (invItem.itemData == null) continue;
 
+                if (firstItem == null)
+                    firstItem = invItem;
+
                 var slot = Instantiate(itemSlotPrefab, itemContainer);
                 slot.GetComponent<ShopItemUI>().Setup(invItem.itemData);
 
-                // Khi click vào slot → chọn item để forge
+                InventoryItem cachedItem = invItem; // tránh closure bug
                 slot.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    // lưu tạm item vừa chọn
-                    InventoryItem selectedItem = invItem;
+                    ShowForgeItemDetail(cachedItem);
 
-                    // cập nhật detail panel
-                    ShowItemDetail(invItem.itemData);
-
-                    // gán nút "Đập" luôn forge item vừa chọn
                     dapdo.onClick.RemoveAllListeners();
                     dapdo.onClick.AddListener(() =>
                     {
-                        ForgeManager.Instance.OpenForge(selectedItem);
+                        ForgeManager.Instance.OpenForge(cachedItem);
                     });
                 });
             }
-            Deschisodo.text = "";
+
             Dapdo.text = "Đập";
             desdapdo.text = "Nâng cấp item từ +0 → +10";
+            textthongbaobuy.text = "";
+
+            // 🔥 AUTO TARGET ITEM ĐẦU TIÊN
+            if (firstItem != null)
+            {
+                ShowForgeItemDetail(firstItem);
+
+                dapdo.onClick.RemoveAllListeners();
+                dapdo.onClick.AddListener(() =>
+                {
+                    ForgeManager.Instance.OpenForge(firstItem);
+                });
+            }
         }
+
 
         else
         {
-            // Shop bình thường
+            currentMode = ShopMode.Buy;
+
+            ItemData firstItem = null;
+
             foreach (var item in npc.allItems)
             {
-                if (System.Array.Exists(npc.sellTypes, t => t == item.itemType))
-                {
-                    var slot = Instantiate(itemSlotPrefab, itemContainer);
-                    slot.GetComponent<ShopItemUI>().Setup(item);
+                if (!System.Array.Exists(npc.sellTypes, t => t == item.itemType))
+                    continue;
 
-                    // Khi click vào item slot
-                    slot.GetComponent<Button>().onClick.AddListener(() =>
-                    {
-                        ShowItemDetail(item);
-                        dapdo.onClick.RemoveAllListeners();
-                        dapdo.onClick.AddListener(BuyItem);
-                    });
-                }
+                if (firstItem == null)
+                    firstItem = item;
+
+                var slot = Instantiate(itemSlotPrefab, itemContainer);
+                slot.GetComponent<ShopItemUI>().Setup(item);
+
+                ItemData cachedItem = item; //  tránh closure bug
+                slot.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    ShowItemDetail(cachedItem);
+
+                    dapdo.onClick.RemoveAllListeners();
+                    dapdo.onClick.AddListener(BuyItem);
+                });
             }
 
-            dapdo.onClick.RemoveAllListeners();
             Dapdo.text = "Buy";
             desdapdo.text = "";
+
+            // 🔥 AUTO TARGET ITEM ĐẦU TIÊN
+            if (firstItem != null)
+            {
+                ShowItemDetail(firstItem);
+
+                dapdo.onClick.RemoveAllListeners();
+                dapdo.onClick.AddListener(BuyItem);
+            }
         }
-
-
-        ClearItemDetail();
     }
 
+    //thợ rèn
+    // DÙNG RIÊNG CHO THỢ RÈN
+    public void ShowForgeItemDetail(InventoryItem invItem)
+    {
+        if (invItem == null) return;
+
+        if (invItem.itemData == null)
+            invItem.itemData = ItemDatabase.Instance.GetItemByID(invItem.itemID);
+
+        ItemData data = invItem.itemData;
+        if (data == null) return;
+
+        detailIcon.sprite = data.itemIcon;
+        detailName.text = data.itemName;
+        detailDescription.text = data.itemDescription;
+        detailPrice.text = ""; // thợ rèn không bán
+
+        //  STAT THEO LEVEL ĐẬP
+        Deschisodo.text =
+            $"HP: {invItem.GetHP()}\n" +
+            $"Tấn Công: {invItem.GetAttack()}\n" +
+            $"Phòng Thủ: {invItem.GetPhongThu()}\n" +
+            $"Né Tránh: {invItem.GetNeTranh()}\n" +
+            $"Tốc Độ: {invItem.GetTocDo()}";
+    }
 
 
     // Hiển thị chi tiết khi click slot
@@ -127,11 +187,12 @@ public class ShopManager : MonoBehaviour
         detailPrice.text = item.price + " gold";
 
         Deschisodo.text =
-       $"HP: {item.hp}\n" +
-       $"Tấn Công: {item.attack}\n" +
-       $"Phòng Thủ: {item.phongthu}\n" +
-       $"Né Tránh: {item.netranh}\n" +
-       $"Tốc Độ: {item.tocdo}";
+ $"HP: {item.baseHP}\n" +
+ $"Tấn Công: {item.baseAttack}\n" +
+ $"Phòng Thủ: {item.basePhongThu}\n" +
+ $"Né Tránh: {item.baseNeTranh}\n" +
+ $"Tốc Độ: {item.baseTocDo}";
+
     }
 
     private void ClearItemDetail()
@@ -142,23 +203,34 @@ public class ShopManager : MonoBehaviour
         detailPrice.text = "Price";
         currentItem = null;
     }
-    private string BuildItemStats(ItemData item)
+    private string BuildItemStatsBase(ItemData item)
     {
+        if (item == null) return "Không có chỉ số";
+
         string stats = "";
 
-        if (item.hp != 0) stats += $"HP: {item.hp}\n";
-        if (item.attack != 0) stats += $"Attack: {item.attack}\n";
-        if (item.phongthu != 0) stats += $"Phòng thủ: {item.phongthu}\n";
-        if (item.netranh != 0) stats += $"Né tránh: {item.netranh}\n";
-        if (item.tocdo != 0) stats += $"Tốc độ: {item.tocdo}\n";
+        if (item.baseHP != 0) stats += $"HP: {item.baseHP}\n";
+        if (item.baseAttack != 0) stats += $"Tấn công: {item.baseAttack}\n";
+        if (item.basePhongThu != 0) stats += $"Phòng thủ: {item.basePhongThu}\n";
+        if (item.baseNeTranh != 0) stats += $"Né tránh: {item.baseNeTranh}\n";
+        if (item.baseTocDo != 0) stats += $"Tốc độ: {item.baseTocDo}\n";
 
-        return string.IsNullOrEmpty(stats) ? "Không có chỉ số" : stats.TrimEnd('\n');
+        return string.IsNullOrEmpty(stats)
+            ? "Không có chỉ số"
+            : stats.TrimEnd('\n');
     }
+
+
 
     // Nút mua
     public void BuyItem()
     {
-        // Nếu tất cả ok, trừ coin và add item
+        //  CHẶN LUÔN KHI KHÔNG PHẢI MODE BUY
+        if (currentMode != ShopMode.Buy)
+            return;
+
+        if (currentItem == null) return;
+
         if (CoinManager.Instance.coinCount >= currentItem.price)
         {
             CoinManager.Instance.coinCount -= currentItem.price;
@@ -168,16 +240,14 @@ public class ShopManager : MonoBehaviour
             InventoryManager.Instance.RefreshInventory();
             SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
 
-            Debug.Log("Mua thành công: " + currentItem.itemName);
             StartCoroutine(Thongbaotc());
         }
         else
         {
-            Debug.Log("Không đủ vàng!");
             StartCoroutine(Thongbaotctb());
-
         }
     }
+
     IEnumerator Thongbaotc()
     {
         

@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class LevelSystem : MonoBehaviour
 {
@@ -12,11 +11,13 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] public int currentExp;
     [SerializeField] public int expToNextLevel;
     [SerializeField] public int statPoints;
+
     [SerializeField] public int attack;
     [SerializeField] public int maxHP;
     [SerializeField] public int Phongthu;
     [SerializeField] public int netranh;
     [SerializeField] public int tocdo;
+
     public HealthSystem healthSystem;
 
     public TextMeshProUGUI levelText;
@@ -26,7 +27,6 @@ public class LevelSystem : MonoBehaviour
     public TextMeshProUGUI hpText;
     public GameObject skillPointPanel;
 
-    // Quà tặng
     private bool checkqua1 = false;
     private bool checkqua2 = false;
     private bool checkqua3 = false;
@@ -42,10 +42,8 @@ public class LevelSystem : MonoBehaviour
     public GameObject dudieukien;
     public GameObject khongdudieukien;
 
-
     private void Awake()
     {
-        // Singleton + DontDestroyOnLoad
         if (Instance == null)
         {
             Instance = this;
@@ -183,12 +181,6 @@ public class LevelSystem : MonoBehaviour
         SaveLevelData();
     }
 
-    public void ResetGame()
-    {
-        ResetLevelData();
-        UpdateUI();
-    }
-
     public void UpdateGiftButtons()
     {
         if (qua1Button != null) qua1Button.interactable = !checkqua1;
@@ -231,53 +223,47 @@ public class LevelSystem : MonoBehaviour
             giftObj.SetActive(false);
         }
     }
-    public IEnumerator Dieukien()
-    {
-        if (dudieukien != null) dudieukien.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        if (dudieukien != null) dudieukien.SetActive(false);
-    }
 
-    public IEnumerator khongduDieukien()
-    {
-        if (khongdudieukien != null) khongdudieukien.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        if (khongdudieukien != null) khongdudieukien.SetActive(false);
-    }
-    public void ApplyItemStats(ItemData item)
+    //MỚI: CỘNG/TRỪ STAT THEO InventoryItem (có levelDo)
+    public void ApplyItemStats(InventoryItem item)
     {
         if (item == null) return;
 
-        attack += item.attack;
-        maxHP += item.hp;
-        Phongthu += item.phongthu;
-        netranh += item.netranh;
-        tocdo += item.tocdo;
+        if (item.itemData == null)
+            item.itemData = ItemDatabase.Instance.GetItemByID(item.itemID);
+
+        if (item.itemData == null) return;
+
+        attack += item.GetAttack();
+        maxHP += item.GetHP();
+        Phongthu += item.GetPhongThu();
+        netranh += item.GetNeTranh();
+        tocdo += item.GetTocDo();
 
         if (healthSystem != null)
             healthSystem.UpdateMaxHP(maxHP);
 
         UpdateUI();
-
-        Debug.Log($"[LevelSystem] Đã cộng stats từ item {item.itemName} | ATK: {attack}, HP: {maxHP}");
     }
 
-    public void RemoveItemStats(ItemData item)
+    public void RemoveItemStats(InventoryItem item)
     {
         if (item == null) return;
 
-        attack -= item.attack;
-        maxHP -= item.hp;
-        Phongthu -= item.phongthu;
-        netranh -= item.netranh;
-        tocdo -= item.tocdo;
+        if (item.itemData == null)
+            item.itemData = ItemDatabase.Instance.GetItemByID(item.itemID);
+
+        if (item.itemData == null) return;
+
+        attack -= item.GetAttack();
+        maxHP -= item.GetHP();
+        Phongthu -= item.GetPhongThu();
+        netranh -= item.GetNeTranh();
+        tocdo -= item.GetTocDo();
 
         if (healthSystem != null)
             healthSystem.UpdateMaxHP(maxHP);
 
         UpdateUI();
-
-        Debug.Log($"[LevelSystem] Đã trừ stats từ item {item.itemName} | ATK: {attack}, HP: {maxHP}");
     }
-
 }
