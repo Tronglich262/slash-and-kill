@@ -4780,12 +4780,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   pointA: {fileID: 65726509}
   pointB: {fileID: 811693436}
   player: {fileID: 0}
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
+  attackCooldown: 2
+  smartAttackRange: 4
   attackDamage: 10
 --- !u!50 &589349172
 Rigidbody2D:
@@ -9458,12 +9461,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   pointA: {fileID: 1237397179}
   pointB: {fileID: 1401082466}
   player: {fileID: 0}
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
+  attackCooldown: 2
+  smartAttackRange: 4
   attackDamage: 10
 --- !u!61 &1415391212
 BoxCollider2D:
@@ -10373,12 +10379,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   pointA: {fileID: 945007193}
   pointB: {fileID: 425598761}
   player: {fileID: 0}
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
+  attackCooldown: 2
+  smartAttackRange: 4
   attackDamage: 10
 --- !u!50 &1568322594
 Rigidbody2D:
@@ -10831,12 +10840,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   pointA: {fileID: 1473911572}
   pointB: {fileID: 1382899310}
   player: {fileID: 0}
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
+  attackCooldown: 2
+  smartAttackRange: 4
   attackDamage: 10
 --- !u!50 &1641314438
 Rigidbody2D:
@@ -20399,12 +20411,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   pointA: {fileID: 721092884}
   pointB: {fileID: 600181468}
   player: {fileID: 0}
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
+  attackCooldown: 2
+  smartAttackRange: 4
   attackDamage: 10
 --- !u!50 &1717308209
 Rigidbody2D:
@@ -20810,12 +20825,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   pointA: {fileID: 1466938590}
   pointB: {fileID: 1034201549}
   player: {fileID: 0}
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
+  attackCooldown: 2
+  smartAttackRange: 4
   attackDamage: 10
 --- !u!50 &1769581622
 Rigidbody2D:
@@ -22355,12 +22373,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec98249da5ec043ac97dd93bfdb07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   pointA: {fileID: 1622190615}
   pointB: {fileID: 2088055290}
   player: {fileID: 0}
   speed: 2
   attackRange: 2
   retreatDistance: 1.5
+  attackCooldown: 2
+  smartAttackRange: 4
   attackDamage: 10
 --- !u!50 &2052870553
 Rigidbody2D:

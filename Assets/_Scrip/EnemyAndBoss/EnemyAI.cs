@@ -88,7 +88,13 @@ public class EnemyAI : MonoBehaviour
         {
             SetAnimationState(isWalking: false, isAttacking: true);
 
-            // Gây sát thương tại đây nếu cần
+            // Gây sát thương cho Player
+            HealthSystem playerHealth = player.GetComponent<HealthSystem>();
+            Debug.Log("Tìm thấy HealthSystem: " + (playerHealth != null));
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(30);
+            }
 
             yield return new WaitForSeconds(1f); // thời gian giữa các đòn đánh
 
