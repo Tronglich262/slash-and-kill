@@ -26,7 +26,6 @@ public class BossTeleportController : MonoBehaviour
     public float bombRadius = 5f;
     public float bombSpawnHeight = 8f;
     
-    private bool isCameraShaking = false;
     private Vector3 originalCamPos;
 
 
@@ -196,7 +195,6 @@ public class BossTeleportController : MonoBehaviour
 
     IEnumerator ShakeCamera()
     {
-        isCameraShaking = true;
         float duration = 0.2f;
         float magnitude = 0.1f;
         float elapsed = 0f;
@@ -216,7 +214,6 @@ public class BossTeleportController : MonoBehaviour
         }
 
         Camera.main.transform.localPosition = originalCamPos;
-        isCameraShaking = false;
     }
 
 

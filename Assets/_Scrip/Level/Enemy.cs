@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
 
         if (levelSystem == null)
         {
-            levelSystem = FindObjectOfType<LevelSystem>();
+            levelSystem = FindFirstObjectByType<LevelSystem>();
         }
     }
     private void OnDestroy() 

@@ -31,7 +31,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (levelSystem == null)
         {
-            levelSystem = FindObjectOfType<LevelSystem>();
+            levelSystem = FindFirstObjectByType<LevelSystem>();
         }
     }
 

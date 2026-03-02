@@ -12,7 +12,6 @@ public class PlayerWallSlide : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool isTouchingWall;
-    private bool isWallSliding;
     public float wallSlideSpeed = 2f; 
 
     private void Start()
@@ -43,13 +42,11 @@ public class PlayerWallSlide : MonoBehaviour
        
         if (isTouchingWall && !isGrounded && rb.linearVelocity.y < 0)
         {
-            isWallSliding = true;
             animator.SetBool("isWallSliding", true);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Điều chỉnh tốc độ trượt
         }
         else
         {
-            isWallSliding = false;
             animator.SetBool("isWallSliding", false);
         }
     }
