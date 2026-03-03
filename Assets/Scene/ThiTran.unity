@@ -20214,7 +20214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709b0f09805bb404c87f3cabbd6ca5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: Map1
+  targetScene: MapBoss
   spawnPointName: SpawnMap1
 --- !u!50 &863239813
 Rigidbody2D:
@@ -46972,7 +46972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1991495889}
   - component: {fileID: 1991495890}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47247,7 +47247,7 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 131200
   coyoteTime: 0.2
   jumpBufferTime: 0.2
 --- !u!114 &2006672045

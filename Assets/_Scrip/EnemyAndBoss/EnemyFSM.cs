@@ -4,13 +4,14 @@ using UnityEngine;
 
 public enum EnemyType
 {
-    Flying,  // Quái bay
-    Ground   // Quái dưới đất
+    Flying,  
+    Ground,
+    Skeleton
 }
 
 public class EnemyFSM : MonoBehaviour
 {
-    public EnemyType enemyType = EnemyType.Ground; // Loại quái
+    public EnemyType enemyType = EnemyType.Ground; 
     public Transform pointA, pointB; 
     public Transform player; 
     public float speed = 2f; 
@@ -25,17 +26,21 @@ public class EnemyFSM : MonoBehaviour
     private Vector2 originalPosition; // Vị trí gốc để quái đất không bay lên
     private bool isUpgraded = false; // Đánh dấu quái bay đã nâng cấp
     private float lastAttackTime = -10f; // Thời gian tấn công cuối cùng
+    
+    // Thuộc tính riêng cho Skeleton
+    public float skeletonAttackInterval = 1f; // Thời gian giữa các đòn đánh
+    public float skeletonWaitAfterAttack = 0.5f; // Thời gian chờ sau mỗi đòn đánh
 
     void Start()
     {
         animator = GetComponent<Animator>(); 
-        target = pointB; // Bắt đầu tuần tra về điểm B
-        originalPosition = transform.position; // Lưu vị trí gốc
+        target = pointB; 
+        originalPosition = transform.position; 
         animator.SetBool("Walk1", true);
 
         if (player == null)
         {
-            GameObject foundPlayer = GameObject.FindWithTag("Player"); // Tìm theo Tag
+            GameObject foundPlayer = GameObject.FindWithTag("Player"); 
             if (foundPlayer != null)
                 player = foundPlayer.transform;
         }
@@ -68,7 +73,7 @@ public class EnemyFSM : MonoBehaviour
         // Quái bay: Tấn công thông minh - có cooldown và chỉ tấn công khi player gần
         if (enemyType == EnemyType.Flying)
         {
-            // QUAN TRỌNG: Không tấn công nếu player đã ra khỏi vùng tấn công
+           
             if (distanceToPlayer > attackRange)
             {
                 MoveBetweenPoints();
@@ -91,6 +96,28 @@ public class EnemyFSM : MonoBehaviour
             }
             
             MoveBetweenPoints();
+            return;
+        }
+
+        // Quái Skeleton: hành vi đơn giản như EnemyAI
+        if (enemyType == EnemyType.Skeleton)
+        {
+            if (distanceToPlayer <= attackRange)
+            {
+                if (!isAttacking)
+                {
+                    Flip(player.position.x);
+                    StartCoroutine(SkeletonAttack());
+                }
+            }
+            else
+            {
+                if (!isAttacking)
+                {
+                    MoveBetweenPoints();
+                    animator.SetBool("Walk1", true);
+                }
+            }
             return;
         }
 
@@ -139,11 +166,11 @@ public class EnemyFSM : MonoBehaviour
         // Xoay mặt về phía Player trước khi lao vào
         Flip(player.position.x);
 
-        // Bước 1: Lao vào Player
+       
         animator.SetBool("Walk1", true);
         while (Vector2.Distance(transform.position, player.position) > 0.5f)
         {
-            // Kiểm tra nếu player đã ra khỏi vùng tấn công -> dừng truy đuổi
+            
             if (Vector2.Distance(transform.position, player.position) > attackRange)
             {
                 isAttacking = false;
@@ -152,7 +179,7 @@ public class EnemyFSM : MonoBehaviour
             }
 
             Vector3 movePos = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime * 2);
-            // Quái dưới đất: giữ nguyên vị trí Y
+           
             if (enemyType == EnemyType.Ground)
             {
                 movePos.y = originalPosition.y;
@@ -161,11 +188,9 @@ public class EnemyFSM : MonoBehaviour
             yield return null;
         }
 
-        // Bước 2: Tấn công
         animator.SetBool("Walk1", false);
         animator.SetBool("Attack1", true);
         
-        // Gây damage cho Player
         DealDamageToPlayer();
         
         yield return new WaitForSeconds(1f);
@@ -177,7 +202,6 @@ public class EnemyFSM : MonoBehaviour
         float direction = (transform.position.x > player.position.x) ? 1f : -1f;
         Vector3 retreatTarget = new Vector3(transform.position.x + (direction * retreatDistance), transform.position.y, transform.position.z);
         
-        // Quái dưới đất: giữ nguyên vị trí Y khi lùi
         if (enemyType == EnemyType.Ground)
         {
             retreatTarget.y = originalPosition.y;
@@ -187,7 +211,6 @@ public class EnemyFSM : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < retreatTime)
         {
-            // Kiểm tra nếu player đã ra khỏi vùng tấn công -> dừng và quay về
             if (Vector2.Distance(transform.position, player.position) > attackRange)
             {
                 isAttacking = false;
@@ -200,7 +223,6 @@ public class EnemyFSM : MonoBehaviour
             yield return null;
         }
 
-        // Bước 4: Kiểm tra Player có còn trong phạm vi không
         // Quái bay: không tấn công liên tục, chờ cooldown
         if (enemyType == EnemyType.Flying)
         {
@@ -212,8 +234,8 @@ public class EnemyFSM : MonoBehaviour
             // Quái đất: tấn công liên tục nếu player còn trong vùng
             if (Vector2.Distance(transform.position, player.position) <= attackRange)
             {
-                yield return new WaitForSeconds(0.5f); // Delay giữa các lần tấn công
-                StartCoroutine(ChargeAttack()); // Tấn công tiếp
+                yield return new WaitForSeconds(0.5f); 
+                StartCoroutine(ChargeAttack()); 
             }
             else
             {
@@ -234,5 +256,30 @@ public class EnemyFSM : MonoBehaviour
                 Debug.Log("Enemy gây " + attackDamage + " damage cho Player!");
             }
         }
+    }
+
+    // Skeleton Attack - tương tự EnemyAI
+    IEnumerator SkeletonAttack()
+    {
+        isAttacking = true;
+
+        while (Vector2.Distance(transform.position, player.position) <= attackRange)
+        {
+            animator.SetBool("Walk1", false);
+            animator.SetBool("Attack1", true);
+
+            // Gây sát thương cho Player
+            DealDamageToPlayer();
+
+            yield return new WaitForSeconds(skeletonAttackInterval); // thời gian giữa các đòn đánh
+
+            animator.SetBool("Attack1", false); // chuyển về idle nhẹ
+
+            yield return new WaitForSeconds(skeletonWaitAfterAttack); // chờ thêm 1 lúc trước khi đánh tiếp
+        }
+
+        animator.SetBool("Walk1", true);
+        animator.SetBool("Attack1", false);
+        isAttacking = false;
     }
 }
