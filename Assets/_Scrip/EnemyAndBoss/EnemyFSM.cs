@@ -54,7 +54,7 @@ public class EnemyFSM : MonoBehaviour
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         float currentTime = Time.time;
 
-        // Quái bay: nâng cấp khi player đi qua khỏi vùng mục tiêu
+        // Quái bay
         if (enemyType == EnemyType.Flying && !isUpgraded && target != null)
         {
             float playerDistToTarget = Vector2.Distance(new Vector2(player.position.x, 0), new Vector2(target.position.x, 0));
@@ -70,7 +70,7 @@ public class EnemyFSM : MonoBehaviour
             }
         }
 
-        // Quái bay: Tấn công thông minh - có cooldown và chỉ tấn công khi player gần
+        // Quái bay
         if (enemyType == EnemyType.Flying)
         {
            
@@ -99,7 +99,7 @@ public class EnemyFSM : MonoBehaviour
             return;
         }
 
-        // Quái Skeleton: hành vi đơn giản như EnemyAI
+        // Quái Skeleton
         if (enemyType == EnemyType.Skeleton)
         {
             if (distanceToPlayer <= attackRange)
@@ -258,7 +258,7 @@ public class EnemyFSM : MonoBehaviour
         }
     }
 
-    // Skeleton Attack - tương tự EnemyAI
+    // Skeleton Attack
     IEnumerator SkeletonAttack()
     {
         isAttacking = true;

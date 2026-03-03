@@ -1528,7 +1528,6 @@ GameObject:
   - component: {fileID: 7129890315204601204}
   - component: {fileID: 5868419411465326806}
   - component: {fileID: 857928979085486870}
-  - component: {fileID: 7466644450465007576}
   - component: {fileID: 2949052806184406759}
   - component: {fileID: 3868379573611751112}
   m_Layer: 6
@@ -1681,19 +1680,6 @@ MonoBehaviour:
   levelSystem: {fileID: 0}
   min: 500
   max: 1000
---- !u!114 &7466644450465007576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526943912173643445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d027c95094af07446828751e1da64b94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
 --- !u!114 &2949052806184406759
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class EnemyHealth : MonoBehaviour
         animator.SetBool("Death1", true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // 🪙 Spawn coin rải rác dưới đất
+        // Spawn coin rải rác dưới đất
         int coinCount = Random.Range(1, 11);
         for (int i = 0; i < coinCount; i++)
         {
