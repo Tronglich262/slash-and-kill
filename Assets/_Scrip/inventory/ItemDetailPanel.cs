@@ -36,7 +36,7 @@ public class ItemDetailPanel : MonoBehaviour
         itemIcon.sprite = data.itemIcon;
         itemNameText.text = data.itemName;
 
-        // 🔥 STAT LẤY TỪ InventoryItem (có levelDo)
+        // STAT LẤY TỪ InventoryItem (có levelDo)
         itemDescriptionText.text =
             $"{data.itemDescription}\n" +
             $"HP: {invItem.GetHP()}\n" +

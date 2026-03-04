@@ -7,7 +7,7 @@ public class Inventory : ScriptableObject
     public List<InventoryItem> items = new List<InventoryItem>();
 
     /// <summary>
-    /// ❌ KHÔNG GỘP – LUÔN TẠO ITEM MỚI
+    /// KHÔNG GỘP – LUÔN TẠO ITEM MỚI
     /// </summary>
     public void AddItem(ItemData newItem, int amount = 1, int levelDo = 0)
     {

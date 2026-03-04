@@ -76,13 +76,13 @@ public class ShopManager : MonoBehaviour
                     firstItem = invItem;
 
                 var slot = Instantiate(itemSlotPrefab, itemContainer);
-                slot.GetComponent<ShopItemUI>().Setup(invItem.itemData);
+                var shopItemUI = slot.GetComponent<ShopItemUI>();
+                shopItemUI.Setup(invItem);
 
-                InventoryItem cachedItem = invItem; // tránh closure bug
+                InventoryItem cachedItem = invItem;
                 slot.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    ShowForgeItemDetail(cachedItem);
-
+                    shopItemUI.OnClick();
                     dapdo.onClick.RemoveAllListeners();
                     dapdo.onClick.AddListener(() =>
                     {
@@ -180,6 +180,8 @@ public class ShopManager : MonoBehaviour
     // Hiển thị chi tiết khi click slot
     public void ShowItemDetail(ItemData item)
     {
+        if (item == null) return;
+        
         currentItem = item;
         detailIcon.sprite = item.itemIcon;
         detailName.text = item.itemName;
