@@ -22195,6 +22195,10 @@ PrefabInstance:
       value: 0.34813875
       objectReference: {fileID: 0}
     - target: {fileID: 61006046652737152, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61006046652737152, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
       propertyPath: m_Offset.x
       value: -0.07810468
       objectReference: {fileID: 0}
@@ -22287,6 +22291,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1821150211701724, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2006672061}
+    - targetCorrespondingSourceObject: {fileID: 1821150211701724, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2006672066}
   m_SourcePrefab: {fileID: 100100000, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
 --- !u!1 &922089899
 GameObject:
@@ -28608,7 +28615,6 @@ GameObject:
   - component: {fileID: 1173035548}
   - component: {fileID: 1173035552}
   - component: {fileID: 1173035553}
-  - component: {fileID: 1173035554}
   m_Layer: 12
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -28791,18 +28797,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
---- !u!114 &1173035554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173035546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf29082554c8354f940ab8794113fc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1176124026
 GameObject:
   m_ObjectHideFlags: 0
@@ -47645,6 +47639,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbSpeed: 4
   isClimbing: 0
+--- !u!70 &2006672066
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006672039}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.081622995, y: -0.04130658}
+  m_Size: {x: 0.17665078, y: 0.3438335}
+  m_Direction: 0
 --- !u!1 &2010624660
 GameObject:
   m_ObjectHideFlags: 0
@@ -51672,7 +51703,6 @@ GameObject:
   - component: {fileID: 2132258914}
   - component: {fileID: 2132258917}
   - component: {fileID: 2132258916}
-  - component: {fileID: 2132258915}
   - component: {fileID: 2132258918}
   m_Layer: 0
   m_Name: CooldownBar
@@ -51700,18 +51730,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.022277832, y: 0.25613403}
   m_SizeDelta: {x: 140, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2132258915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132258913}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 300e435cc7ab3ac458d6e97b0735ca8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2132258916
 MonoBehaviour:
   m_ObjectHideFlags: 0
