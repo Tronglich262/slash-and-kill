@@ -27,6 +27,9 @@ public class BossController : MonoBehaviour
     // Tăng cooldown cho việc bắn để bắn ít hơn
     public float rangedAttackCooldown = 4f;  // Thời gian chờ giữa các lần bắn
 
+    // Trạng thái battle - không tấn công cho đến khi intro kết thúc
+    private bool battleStarted = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -43,6 +46,9 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
+        // Không làm gì cho đến khi battle bắt đầu (sau intro)
+        if (!battleStarted) return;
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         // Ưu tiên tấn công cận chiến
@@ -157,5 +163,12 @@ public class BossController : MonoBehaviour
         animator.SetBool("Jump", true);
         yield return new WaitForSeconds(0.2f);
         animator.SetBool("Jump", false);
+    }
+
+    // Phương thức được gọi bởi BossIntroManager sau khi intro kết thúc
+    public void StartBattle()
+    {
+        battleStarted = true;
+        Debug.Log("Boss Battle Started!");
     }
 }
