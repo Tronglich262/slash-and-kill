@@ -73,8 +73,8 @@ public class EnemyHealth : MonoBehaviour
         for (int i = 0; i < coinCount; i++)
         {
             Vector3 spawnOffset = new Vector3(
-                Random.Range(-1f, 1f),    // rải ngang
-                Random.Range(-1f, -0.5f), // thấp xuống so với chân quái
+                Random.Range(-1f, 1f),    
+                Random.Range(-1f, -0.5f), 
                 0
             );
 
