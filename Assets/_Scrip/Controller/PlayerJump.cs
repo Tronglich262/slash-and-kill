@@ -5,17 +5,17 @@ public class PlayerJump : MonoBehaviour
 {
     public float jumpForce = 20f;
 
-    public float fallMultiplier = 2.5f;
-    public float lowJumpMultiplier = 2f;
+   [SerializeField] public float fallMultiplier = 2.5f;
+    [SerializeField] public float lowJumpMultiplier = 2f;
 
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
-    public LayerMask groundLayer;
+    [SerializeField] public Transform groundCheck;
+    [SerializeField] public float groundCheckRadius = 0.2f;
+    [SerializeField] public LayerMask groundLayer;
 
-    public float coyoteTime = 0.15f;
-    private float coyoteTimeCounter;
+    [SerializeField] public float coyoteTime = 0.15f;
+    [SerializeField] private float coyoteTimeCounter;
 
-    public float jumpBufferTime = 0.15f;
+    [SerializeField] public float jumpBufferTime = 0.15f;
     private float jumpBufferCounter;
 
     private Rigidbody2D rb;

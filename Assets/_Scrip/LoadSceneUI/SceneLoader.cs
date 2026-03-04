@@ -7,22 +7,23 @@ public class SceneLoader : MonoBehaviour
 
     private string nextSceneName;
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject); // Giữ lại khi load scene mới
     }
 
     public void LoadScene(string sceneName)
     {
         nextSceneName = sceneName;
-        SceneManager.LoadScene("Load"); // luôn gọi scene loading
+        SceneManager.LoadScene("Load");
     }
 
     public string GetNextSceneName()

@@ -31,7 +31,7 @@ public class PlayerWallSlide : MonoBehaviour
 
     void Update()
     {
-        if (isClimbing) return; // 🔥 khóa khi đang leo
+        if (isClimbing) return; 
 
         CheckGrounded();
         CheckWallInteraction();

@@ -20389,7 +20389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetScene: MapBoss
-  spawnPointName: SpawnMap1
+  spawnPointName: SpawnManager
 --- !u!50 &863239813
 Rigidbody2D:
   serializedVersion: 5
@@ -22294,6 +22294,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1821150211701724, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2006672066}
+    - targetCorrespondingSourceObject: {fileID: 1821150211701724, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2006672067}
   m_SourcePrefab: {fileID: 100100000, guid: 145c07d78e4332a40bbf42389a7172e5, type: 3}
 --- !u!1 &922089899
 GameObject:
@@ -47553,6 +47556,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 131200
   coyoteTime: 0.2
+  coyoteTimeCounter: 0
   jumpBufferTime: 0.2
 --- !u!114 &2006672045
 MonoBehaviour:
@@ -47676,6 +47680,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.081622995, y: -0.04130658}
   m_Size: {x: 0.17665078, y: 0.3438335}
   m_Direction: 0
+--- !u!114 &2006672067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006672039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83acecb78c998524b92c01e5d9717482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2010624660
 GameObject:
   m_ObjectHideFlags: 0

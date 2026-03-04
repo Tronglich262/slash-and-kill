@@ -3,7 +3,7 @@ using UnityEngine;
 public class AnimatorAttack : MonoBehaviour
 {
     public Transform attackPoint;
-    public float attackRange = 1f;
+    [SerializeField] public float attackRange = 1f;
     public LayerMask enemyLayer;
     public LevelSystem levelSystem;
     void Update()

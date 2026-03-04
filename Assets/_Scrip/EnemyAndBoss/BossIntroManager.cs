@@ -17,12 +17,12 @@ public class BossIntroManager : MonoBehaviour
     public float cameraOffsetY = 1f;
 
     [Header("Shared Panel - Dùng chung cho cả notification và chat")]
-    public GameObject sharedPanel; // Panel dùng chung
-    public TextMeshProUGUI messageText; // Text hiển thị (dùng cho cả 2)
-    public float typingSpeed = 0.05f; // Tốc độ gõ chữ
+    public GameObject sharedPanel; 
+    public TextMeshProUGUI messageText; 
+    public float typingSpeed = 0.05f; 
 
     [Header("Boss Trigger Zone")]
-    public Collider2D bossTriggerZone; // Trigger zone gần boss
+    public Collider2D bossTriggerZone; 
 
     [Header("Boss Intro Messages - First Time")]
     [TextArea]
@@ -47,7 +47,7 @@ public class BossIntroManager : MonoBehaviour
     public float delayBetweenMessages = 1.5f;
     public float delayBeforeBattle = 2f;
     public float notificationDuration = 3f;
-    public bool usePlayerPrefs = true; // Lưu trạng thái qua PlayerPrefs
+    public bool usePlayerPrefs = true; 
 
     private bool introStarted = false;
     private bool battleStarted = false;
@@ -103,7 +103,7 @@ public class BossIntroManager : MonoBehaviour
             }
             else
             {
-                messageText.text = "⚔️ QUAY LẠI CHIẾN ĐẤU ⚔️";
+                messageText.text = "QUAY LẠI CHIẾN ĐẤU";
             }
 
             // Đợi một khoảng thời gian
@@ -189,17 +189,12 @@ public class BossIntroManager : MonoBehaviour
 
         foreach (string message in messagesToUse)
         {
-            // Xóa text cũ
             messageText.text = "";
-
-            // Gõ từng chữ một
             foreach (char letter in message.ToCharArray())
             {
                 messageText.text += letter;
                 yield return new WaitForSeconds(typingSpeed);
             }
-
-            // Đợi trước khi hiện tin nhắn tiếp theo
             yield return new WaitForSeconds(delayBetweenMessages);
         }
 
@@ -209,7 +204,6 @@ public class BossIntroManager : MonoBehaviour
         // Ẩn panel chat
         sharedPanel.SetActive(false);
     }
-
     IEnumerator StartBattle()
     {
         // Trả camera về vị trí ban đầu (theo player)
@@ -231,20 +225,13 @@ public class BossIntroManager : MonoBehaviour
                 yield return null;
             }
         }
-
         // Đợi một chút trước khi bắt đầu chiến đấu
         yield return new WaitForSeconds(delayBeforeBattle);
-
-        // Báo hiệu bắt đầu chiến đấu
         battleStarted = true;
-
-        // Kích hoạt Boss AI
         if (bossAnimator != null)
         {
             bossAnimator.SetBool("IntroComplete", true);
         }
-
-        // Gọi phương thức bắt đầu chiến đấu trên BossController
         BossController bossController = boss.GetComponent<BossController>();
         if (bossController != null)
         {
