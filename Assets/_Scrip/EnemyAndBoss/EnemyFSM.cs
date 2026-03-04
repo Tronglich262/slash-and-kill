@@ -31,6 +31,9 @@ public class EnemyFSM : MonoBehaviour
     public float skeletonAttackInterval = 1f; // Thời gian giữa các đòn đánh
     public float skeletonWaitAfterAttack = 0.5f; // Thời gian chờ sau mỗi đòn đánh
 
+    // Knockback state - kiểm tra xem enemy có đang bị đẩy không
+    private bool isKnockback = false;
+
     void Start()
     {
         animator = GetComponent<Animator>(); 
@@ -49,7 +52,7 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
-        if (isAttacking) return; 
+        if (isAttacking || isKnockback) return; // Dừng lại nếu đang tấn công hoặc bị knockback
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         float currentTime = Time.time;
@@ -281,5 +284,11 @@ public class EnemyFSM : MonoBehaviour
         animator.SetBool("Walk1", true);
         animator.SetBool("Attack1", false);
         isAttacking = false;
+    }
+
+    // Phương thức để EnemyHealth gọi khi bắt đầu knockback
+    public void SetKnockbackState(bool knockback)
+    {
+        isKnockback = knockback;
     }
 }

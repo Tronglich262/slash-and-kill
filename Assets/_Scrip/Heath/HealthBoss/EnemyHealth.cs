@@ -22,6 +22,12 @@ public class EnemyHealth : MonoBehaviour
    
     public GameObject coinPrefab;
 
+  
+    public float knockbackForce = 3f; // Lực đẩy
+    public float knockbackDuration = 0.2f; // Thời gian đẩy
+    private bool isKnockback = false; // Trạng thái đang bị đẩy
+    private Vector2 knockbackDirection; // Hướng đẩy
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -87,7 +93,55 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= damage;
         UpdateHealthBar();
         ShowDamageText(damage);
+
+        // Tính hướng đẩy (hướng ngược lại với player)
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            Vector2 direction = transform.position - player.transform.position;
+            direction.Normalize();
+            StartCoroutine(Knockback(direction));
+        }
+
         if (currentHealth <= 0) StartCoroutine(Death());
+    }
+
+    // Coroutine xử lý knockback - đẩy lùi enemy khi nhận damage
+    IEnumerator Knockback(Vector2 direction)
+    {
+        if (isKnockback) yield break; // Nếu đang bị đẩy thì không đẩy tiếp
+
+        isKnockback = true;
+
+        // Đồng bộ trạng thái với EnemyFSM
+        EnemyFSM enemyFSM = GetComponent<EnemyFSM>();
+        if (enemyFSM != null)
+        {
+            enemyFSM.SetKnockbackState(true);
+        }
+
+        // Chỉ lấy hướng ngang (X axis) - không đẩy xuống đất
+        float knockbackDirectionX = direction.x;
+        Vector2 originalPosition = transform.position;
+
+        float elapsed = 0f;
+
+        while (elapsed < knockbackDuration)
+        {
+            // Di chuyển enemy theo hướng ngang, giữ nguyên Y
+            float newX = transform.position.x + (knockbackDirectionX * knockbackForce * Time.deltaTime);
+            transform.position = new Vector2(newX, transform.position.y);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        isKnockback = false;
+
+        // Đồng bộ trạng thái với EnemyFSM
+        if (enemyFSM != null)
+        {
+            enemyFSM.SetKnockbackState(false);
+        }
     }
 
     void ShowDamageText(float damage)

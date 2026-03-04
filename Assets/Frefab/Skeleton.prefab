@@ -1703,6 +1703,8 @@ MonoBehaviour:
   baseDame5: 0
   levelSystem: {fileID: 0}
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+  knockbackForce: 3
+  knockbackDuration: 0.2
 --- !u!114 &3868379573611751112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5669,7 +5671,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &5592419931488656770
 MonoBehaviour:
