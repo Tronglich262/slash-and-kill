@@ -113,7 +113,7 @@ public class BossIntroManager : MonoBehaviour
             }
             else
             {
-                messageText.text = "QUAY LẠI CHIẾN ĐẤU";
+                messageText.text = "Wel Wel ai đây";
             }
 
             // Đợi một khoảng thời gian

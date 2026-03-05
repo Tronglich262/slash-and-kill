@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vp
   m_EditorClassIdentifier: 
   itemID: 5
-  itemName: "V\u1EADt Ph\u1EA9m H\u1ED3i M\xE1u"
+  itemName: HP
   itemDescription: "H\u1ED3i M\xE1u"
   baseHP: 100
   baseAttack: 0
