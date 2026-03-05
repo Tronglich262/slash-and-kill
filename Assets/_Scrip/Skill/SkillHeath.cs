@@ -7,10 +7,11 @@ public class SkillHeath : MonoBehaviour
     public GameObject heath;
     public Button ButtonHeath;
     public Image cooldownImage;
+    public Text cooldownText;
 
     private bool isOnCooldown = false;
-    public float skillDuration = 10f;    // Thời gian skill hoạt động
-    public float cooldownTime = 10f; // Thời gian hồi chiêu
+    public float skillDuration = 10f;    
+    public float cooldownTime = 10f; 
 
     public HealthSystem healthSystem;
     public bool ischeck = false;
@@ -23,6 +24,9 @@ public class SkillHeath : MonoBehaviour
         if (cooldownImage != null)
             cooldownImage.fillAmount = 0f;
 
+        if (cooldownText != null)
+            cooldownText.text = "";
+
         if (ButtonHeath != null)
             ButtonHeath.onClick.AddListener(UseSkill);
     }
@@ -31,8 +35,8 @@ public class SkillHeath : MonoBehaviour
     {
         if (!isOnCooldown)
         {
-            StartCoroutine(Cooldown());       // Bắt đầu hồi chiêu ngay
-            StartCoroutine(ActivateSkill());  // Hiệu ứng skill diễn ra song song
+            StartCoroutine(Cooldown());       
+            StartCoroutine(ActivateSkill());  
         }
     }
 
@@ -67,12 +71,18 @@ public class SkillHeath : MonoBehaviour
             cooldown -= Time.deltaTime;
             if (cooldownImage != null)
                 cooldownImage.fillAmount = cooldown / cooldownTime;
+            
+            if (cooldownText != null)
+                cooldownText.text = Mathf.Ceil(cooldown).ToString();
 
             yield return null;
         }
 
         if (cooldownImage != null)
             cooldownImage.fillAmount = 0f;
+
+        if (cooldownText != null)
+            cooldownText.text = "";
 
         ButtonHeath.interactable = true;
         isOnCooldown = false;
