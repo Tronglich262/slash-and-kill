@@ -12,25 +12,25 @@ public class PlayerSkillSystem : MonoBehaviour
         public SkillType skillType;
 
         // Thường dùng cho attack skill
-        public GameObject skillPrefab;
-        public float offsetX = 1f;
-        public float spawnY = 0.5f; 
-        public float skillDuration = 2f;
-        public bool followPlayer = false;
+       [SerializeField] public GameObject skillPrefab;
+        [SerializeField] public float offsetX = 1f;
+        [SerializeField] public float spawnY = 0.5f;
+        [SerializeField] public float skillDuration = 2f;
+        [SerializeField] public bool followPlayer = false;
 
         // UI
-        public Button skillButton;
-        public Image cooldownBar;
-        public float cooldownTime = 5f;
+        [SerializeField] public Button skillButton;
+        [SerializeField] public Image cooldownBar;
+        [SerializeField] public float cooldownTime = 5f;
 
         // Dành cho Dash
-        public float dashDistance = 4f;
-        public float dashDuration = 0.2f;
+        [SerializeField] public float dashDistance = 4f;
+        [SerializeField] public float dashDuration = 0.2f;
 
         // Dành cho Heal
-        public GameObject healEffect;
-        public float healDuration = 10f;
-        public HealthSystem healthSystem;
+        [SerializeField] public GameObject healEffect;
+        [SerializeField] public float healDuration = 10f;
+        [SerializeField] public HealthSystem healthSystem;
     }
 
     public Transform player;

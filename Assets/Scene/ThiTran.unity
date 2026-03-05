@@ -10710,7 +10710,7 @@ MonoBehaviour:
   - skillType: 0
     skillPrefab: {fileID: 3383105404809042369, guid: d095e2ca695266a4ea16c462959b0b39, type: 3}
     offsetX: 7
-    spawnY: 0.2
+    spawnY: -0.3
     skillDuration: 2
     followPlayer: 0
     skillButton: {fileID: 321532690}
@@ -30628,7 +30628,7 @@ MonoBehaviour:
   - skillType: 1
     skillPrefab: {fileID: 1680459326772349057, guid: a2d49c4a4862222428df53a78df85bc3, type: 3}
     offsetX: 5
-    spawnY: 0.2
+    spawnY: -0.3
     skillDuration: 2
     followPlayer: 0
     skillButton: {fileID: 1120486227}
@@ -39100,7 +39100,7 @@ MonoBehaviour:
   - skillType: 2
     skillPrefab: {fileID: 1774368408913967494, guid: 52ea0170fa7478d4e8e5979f97ea0538, type: 3}
     offsetX: 5
-    spawnY: -0.1
+    spawnY: -0.7
     skillDuration: 1.9
     followPlayer: 0
     skillButton: {fileID: 1376869356}
