@@ -271,9 +271,14 @@ public class BossIntroManager : MonoBehaviour
             bossAnimator.SetBool("IntroComplete", true);
         }
         BossController bossController = boss.GetComponent<BossController>();
+        BossControllerTwo bossControllerTwo = boss.GetComponent<BossControllerTwo>();
         if (bossController != null)
         {
             bossController.StartBattle();
+        }
+        if (bossControllerTwo != null)
+        {
+            bossControllerTwo.StartBattle();
         }
 
         Debug.Log("Battle Started!");

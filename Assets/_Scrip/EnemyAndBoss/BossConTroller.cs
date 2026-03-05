@@ -5,7 +5,7 @@ public class BossController : MonoBehaviour
 {
     public Transform player;
     public float speed = 2f;
-    public float attackRange = 5f;  // Tầm tấn công cận chiến
+    public float attackRange = 1f;  // Tầm tấn công cận chiến
     public float rangedAttackRange = 8f;  // Tầm tấn công từ xa (bắn)
     public float attackCooldown = 2f;
     public int attackDamage = 10;
@@ -97,7 +97,7 @@ public class BossController : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
-        if (Vector2.Distance(transform.position, player.position) <= attackRange)
+        if (Vector2.Distance(transform.position, player.position) <= attackRange * 0.5f)
         {
             HealthSystem playerHealth = player.GetComponent<HealthSystem>();
             if (playerHealth != null)
