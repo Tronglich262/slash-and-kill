@@ -3120,7 +3120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63adb6ebd91e4cb4b920baba1e5a8719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeUI: {fileID: 0}
 --- !u!114 &114934038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12297,7 +12296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63adb6ebd91e4cb4b920baba1e5a8719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeUI: {fileID: 0}
 --- !u!61 &493055578
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15662,7 +15660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63adb6ebd91e4cb4b920baba1e5a8719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeUI: {fileID: 0}
 --- !u!1 &653007552
 GameObject:
   m_ObjectHideFlags: 0
@@ -23953,7 +23950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -32930,6 +32927,7 @@ MonoBehaviour:
   kynangpanel: {fileID: 416875212}
   Chisopanel: {fileID: 1123412068}
   SkilCharacterUI: {fileID: 1470911097}
+  npcClick: {fileID: 0}
   levelSystem: {fileID: 786237842}
   spawnPointName: TownGate
 --- !u!4 &1346069592
@@ -34849,7 +34847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63adb6ebd91e4cb4b920baba1e5a8719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeUI: {fileID: 0}
 --- !u!114 &1419381950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40504,6 +40501,55 @@ MonoBehaviour:
     levelDo: 0
     quantity: 0
   slot: {fileID: 1697583057}
+--- !u!1 &1697601723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1697601725}
+  - component: {fileID: 1697601724}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1697601724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697601723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780db6fe0c0f80c4bac6291255e76eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcInfoPanel: {fileID: 910637005}
+  characterPanel: {fileID: 1470911097}
+  inventoryPanel: {fileID: 0}
+  forgePanel: {fileID: 0}
+  mapPanel: {fileID: 0}
+--- !u!4 &1697601725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697601723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1555.4719, y: 861.602, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1700128686
 GameObject:
   m_ObjectHideFlags: 0
@@ -52647,3 +52693,4 @@ SceneRoots:
   - {fileID: 1248059425}
   - {fileID: 739123618}
   - {fileID: 817702000}
+  - {fileID: 1697601725}

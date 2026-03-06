@@ -43,6 +43,7 @@ public class ActiveUI : MonoBehaviour
 
     [Header("Character UI")]
     public GameObject SkilCharacterUI;
+    public NPCClick npcClick; // Tham chiếu đến script NPCClick để tắt/bật raycast
 
     [Header("LevelSystem")]
     public LevelSystem levelSystem; // Gán LevelSystem trong inspector hoặc dùng LevelSystem.Instance
@@ -65,12 +66,23 @@ public class ActiveUI : MonoBehaviour
     // ================= Character UI =================
     public void ToggleCharacterUI()
     {
-        SkilCharacterUI.SetActive(!SkilCharacterUI.activeSelf);
+        bool isOpening = !SkilCharacterUI.activeSelf;
+        SkilCharacterUI.SetActive(isOpening);
 
+        // Tắt/Bật raycast khi Character UI bật/tắt
+        if (npcClick != null)
+        {
+            npcClick.enabled = !isOpening;
+        }
     }
     public void DisCharacterUI()
     {
         SkilCharacterUI.SetActive(false);
+        // Bật lại raycast khi tắt Character UI
+        if (npcClick != null)
+        {
+            npcClick.enabled = true;
+        }
     }
     public void Trangbi()
     {
