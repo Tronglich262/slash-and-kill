@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private bool facingRight = true;
+    private bool canMove = true;
 
     void Start()
     {
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
+
         float moveX = Input.GetAxisRaw("Horizontal");
 
         // Set animation
@@ -37,6 +40,21 @@ public class PlayerController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
+        if (!canMove)
+        {
+            rb.linearVelocity = Vector2.zero;
+            animator.SetFloat("Speed", 0);
+        }
+    }
+
+    public bool GetCanMove()
+    {
+        return canMove;
     }
 
 }

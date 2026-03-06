@@ -15,7 +15,7 @@ public class EnemyFSM : MonoBehaviour
     public Transform pointA, pointB; 
     public Transform player; 
     public float speed = 2f; 
-    public float attackRange = 2f; 
+    public float attackRange = 0.8f; 
     public float retreatDistance = 1.5f; 
     public float attackCooldown = 2f; // Thời gian chờ giữa các lần tấn công
     public float smartAttackRange = 4f; // Khoảng cách để quái thông minh tấn công

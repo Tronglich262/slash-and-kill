@@ -92,7 +92,17 @@ public class BossIntroManager : MonoBehaviour
 
     IEnumerator ShowNotificationThenWait()
     {
+        // Disable player movement khi hiện panel cảnh báo
+        if (player != null)
+        {
+            PlayerController pc = player.GetComponent<PlayerController>();
+            PlayerAttack pa = player.GetComponent<PlayerAttack>();
+            if (pc != null) pc.SetCanMove(false);
+            if (pa != null) pa.SetCanAct(false);
+        }
+
         // Hiện thông báo đã vào map boss (không có hiệu ứng gõ chữ)
+        // Player vẫn có thể di chuyển để vào boss zone
         if (sharedPanel != null && messageText != null)
         {
             sharedPanel.SetActive(true);
@@ -103,7 +113,7 @@ public class BossIntroManager : MonoBehaviour
             }
             else
             {
-                messageText.text = "QUAY LẠI CHIẾN ĐẤU";
+                messageText.text = "Wel Wel ai đây";
             }
 
             // Đợi một khoảng thời gian
@@ -111,6 +121,15 @@ public class BossIntroManager : MonoBehaviour
 
             // Ẩn thông báo
             sharedPanel.SetActive(false);
+        }
+
+        // Enable player để di chuyển vào boss zone
+        if (player != null)
+        {
+            PlayerController pc = player.GetComponent<PlayerController>();
+            PlayerAttack pa = player.GetComponent<PlayerAttack>();
+            if (pc != null) pc.SetCanMove(true);
+            if (pa != null) pa.SetCanAct(true);
         }
 
         // Đợi cho đến khi player vào vùng trigger của boss
@@ -138,6 +157,15 @@ public class BossIntroManager : MonoBehaviour
     {
         if (introStarted) yield break;
         introStarted = true;
+
+        // Disable player movement trong suốt intro
+        if (player != null)
+        {
+            PlayerController pc = player.GetComponent<PlayerController>();
+            PlayerAttack pa = player.GetComponent<PlayerAttack>();
+            if (pc != null) pc.SetCanMove(false);
+            if (pa != null) pa.SetCanAct(false);
+        }
 
         // Bước 1: Camera di chuyển về phía boss
         yield return StartCoroutine(MoveCameraToBoss());
@@ -228,14 +256,29 @@ public class BossIntroManager : MonoBehaviour
         // Đợi một chút trước khi bắt đầu chiến đấu
         yield return new WaitForSeconds(delayBeforeBattle);
         battleStarted = true;
+
+        // Enable player movement again
+        if (player != null)
+        {
+            PlayerController pc = player.GetComponent<PlayerController>();
+            PlayerAttack pa = player.GetComponent<PlayerAttack>();
+            if (pc != null) pc.SetCanMove(true);
+            if (pa != null) pa.SetCanAct(true);
+        }
+
         if (bossAnimator != null)
         {
             bossAnimator.SetBool("IntroComplete", true);
         }
         BossController bossController = boss.GetComponent<BossController>();
+        BossControllerTwo bossControllerTwo = boss.GetComponent<BossControllerTwo>();
         if (bossController != null)
         {
             bossController.StartBattle();
+        }
+        if (bossControllerTwo != null)
+        {
+            bossControllerTwo.StartBattle();
         }
 
         Debug.Log("Battle Started!");

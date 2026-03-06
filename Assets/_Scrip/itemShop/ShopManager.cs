@@ -95,7 +95,7 @@ public class ShopManager : MonoBehaviour
             desdapdo.text = "Nâng cấp item từ +0 → +10";
             textthongbaobuy.text = "";
 
-            // 🔥 AUTO TARGET ITEM ĐẦU TIÊN
+            // AUTO TARGET ITEM ĐẦU TIÊN
             if (firstItem != null)
             {
                 ShowForgeItemDetail(firstItem);
@@ -139,7 +139,7 @@ public class ShopManager : MonoBehaviour
             Dapdo.text = "Buy";
             desdapdo.text = "";
 
-            // 🔥 AUTO TARGET ITEM ĐẦU TIÊN
+            // AUTO TARGET ITEM ĐẦU TIÊN
             if (firstItem != null)
             {
                 ShowItemDetail(firstItem);
@@ -167,13 +167,21 @@ public class ShopManager : MonoBehaviour
         detailDescription.text = data.itemDescription;
         detailPrice.text = ""; // thợ rèn không bán
 
-        //  STAT THEO LEVEL ĐẬP
-        Deschisodo.text =
-            $"HP: {invItem.GetHP()}\n" +
-            $"Tấn Công: {invItem.GetAttack()}\n" +
-            $"Phòng Thủ: {invItem.GetPhongThu()}\n" +
-            $"Né Tránh: {invItem.GetNeTranh()}\n" +
-            $"Tốc Độ: {invItem.GetTocDo()}";
+        // Item hồi máu - chỉ hiện lượng hồi
+        if (data.itemType == ItemType.vatpham)
+        {
+            Deschisodo.text = $"Hồi Máu: +{invItem.GetHP()}";
+        }
+        else
+        {
+            // STAT THEO LEVEL ĐẬP
+            Deschisodo.text =
+                $"HP: {invItem.GetHP()}\n" +
+                $"Tấn Công: {invItem.GetAttack()}\n" +
+                $"Phòng Thủ: {invItem.GetPhongThu()}\n" +
+                $"Né Tránh: {invItem.GetNeTranh()}\n" +
+                $"Tốc Độ: {invItem.GetTocDo()}";
+        }
     }
 
 
@@ -188,12 +196,20 @@ public class ShopManager : MonoBehaviour
         detailDescription.text = item.itemDescription;
         detailPrice.text = item.price + " gold";
 
-        Deschisodo.text =
+        // Item hồi máu - chỉ hiện lượng hồi
+        if (item.itemType == ItemType.vatpham)
+        {
+            Deschisodo.text = $"Hồi Máu: +{item.baseHP}";
+        }
+        else
+        {
+            Deschisodo.text =
  $"HP: {item.baseHP}\n" +
  $"Tấn Công: {item.baseAttack}\n" +
  $"Phòng Thủ: {item.basePhongThu}\n" +
  $"Né Tránh: {item.baseNeTranh}\n" +
  $"Tốc Độ: {item.baseTocDo}";
+        }
 
     }
 

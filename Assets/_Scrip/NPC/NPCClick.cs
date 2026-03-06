@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 
-
 /// <summary>
 /// Nhận ClICK chuột trái vào NPC để hiển thị UI
 /// </summary>
 public class NPCClick : MonoBehaviour
 {
-    public ActiveUI activeUI;
     void Update()
     {
-        if ((NPCManager.Instance != null && NPCManager.Instance.npcInfoPanel.activeSelf) ||
-         (activeUI != null && activeUI.SkilCharacterUI != null && activeUI.SkilCharacterUI.activeSelf))
+        // Kiểm tra Character UI có đang mở không (double check)
+        if (ActiveUI.instance != null && ActiveUI.instance.SkilCharacterUI != null && ActiveUI.instance.SkilCharacterUI.activeSelf)
+        {
+            return;
+        }
+
+        // Kiểm tra NPC Panel có đang mở không
+        if (NPCManager.Instance != null && NPCManager.Instance.npcInfoPanel != null && NPCManager.Instance.npcInfoPanel.activeSelf)
         {
             return;
         }
@@ -27,16 +31,7 @@ public class NPCClick : MonoBehaviour
                 {
                     NPCManager.Instance.ShowNPC(npc);
                 }
-                else
-                {
-                    // Click vào object khác, ẩn UI
-                    //NPCManager.Instance.HideNPC();
-                }
             }
-           /* else
-            {
-                NPCManager.Instance.HideNPC();
-            }*/
         }
     }
 }

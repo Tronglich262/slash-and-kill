@@ -37,13 +37,20 @@ public class ItemDetailPanel : MonoBehaviour
         itemNameText.text = data.itemName;
 
         // STAT LẤY TỪ InventoryItem (có levelDo)
-        itemDescriptionText.text =
-            $"{data.itemDescription}\n" +
-            $"HP: {invItem.GetHP()}\n" +
-            $"Tấn Công: {invItem.GetAttack()}\n" +
-            $"Phòng Thủ: {invItem.GetPhongThu()}\n" +
-            $"Né Tránh: {invItem.GetNeTranh()}\n" +
-            $"Tốc Độ: {invItem.GetTocDo()}";
+        if (data.itemType == ItemType.vatpham)
+        {
+            itemDescriptionText.text = $"Hồi Máu: +{invItem.GetHP()}";
+        }
+        else
+        {
+            itemDescriptionText.text =
+                $"{data.itemDescription}\n" +
+                $"HP: {invItem.GetHP()}\n" +
+                $"Tấn Công: {invItem.GetAttack()}\n" +
+                $"Phòng Thủ: {invItem.GetPhongThu()}\n" +
+                $"Né Tránh: {invItem.GetNeTranh()}\n" +
+                $"Tốc Độ: {invItem.GetTocDo()}";
+        }
 
         itemPriceText.text = "Price: " + data.price;
         itemLevelDo.text = "Cấp: +" + invItem.levelDo;
@@ -71,6 +78,15 @@ public class ItemDetailPanel : MonoBehaviour
 
         if (data.itemType == ItemType.vatpham) // consumable
         {
+            // Hồi máu cho player
+            HealthSystem playerHealth = FindObjectOfType<HealthSystem>();
+            if (playerHealth != null)
+            {
+                int healAmount = currentItem.GetHP(); // Lấy HP từ item (đã tính level)
+                playerHealth.Heal(healAmount);
+                Debug.Log($"Đã hồi {healAmount} máu!");
+            }
+
             currentItem.quantity--;
 
             if (currentItem.quantity <= 0)
@@ -114,7 +130,6 @@ public class ItemDetailPanel : MonoBehaviour
         if (currentItem == null) return;
         if (currentItem.quantity > 1)
         {
-            // Trừ 1
             currentItem.quantity--;
         }
         else
