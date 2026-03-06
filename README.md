@@ -1,4 +1,4 @@
-<img width="1502" height="852" alt="{1ED0F1AE-5F21-46BD-A11A-A609CD55B624}" src="https://github.com/user-attachments/assets/d58228b9-1f5a-4629-b92c-33183e596c4d" />⚔️ Slash-and-Kill Action RPG Game
+⚔️ Slash-and-Kill Action RPG Game
 
 ## 🎮 Giới thiệu
 Slash-and-Kill Action RPG là một game **Action RPG / Hack & Slash** được phát triển bằng **Unity**.  
