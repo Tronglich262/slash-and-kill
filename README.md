@@ -1,4 +1,4 @@
-⚔️ Slash-and-Kill Action RPG Game
+<img width="1502" height="852" alt="{1ED0F1AE-5F21-46BD-A11A-A609CD55B624}" src="https://github.com/user-attachments/assets/d58228b9-1f5a-4629-b92c-33183e596c4d" />⚔️ Slash-and-Kill Action RPG Game
 
 ## 🎮 Giới thiệu
 Slash-and-Kill Action RPG là một game **Action RPG / Hack & Slash** được phát triển bằng **Unity**.  
@@ -65,8 +65,22 @@ Dự án tập trung vào **combat loop**, **progression hệ thống** và cả
 ---
 
 ## 📷 Demo
-<img width="1048" height="590" alt="image" src="https://github.com/user-attachments/assets/8380f9f3-bb1b-4c0a-b4bb-cd168862d352" />
-<img width="1048" height="589" alt="image" src="https://github.com/user-attachments/assets/04d45eb5-e201-4ec2-9f67-318921c33a4b" />
+<img width="1499" height="847" alt="{6096E5E7-772C-46BF-A376-C4FDF72C887F}" src="https://github.com/user-attachments/assets/f02afd63-8486-4ab4-971d-dd4755f64826" />
+<img width="1505" height="845" alt="{213D917F-7DE4-4C74-A758-81C8F77912E9}" src="https://github.com/user-attachments/assets/700c25f5-c821-4f88-a472-11a2940239ac" />
+<img width="1502" height="843" alt="{666BE90E-85B1-42CB-A095-5BCF9A455523}" src="https://github.com/user-attachments/assets/4f7fc41e-a7d8-45c0-be3a-b26cec6e000f" />
+<img width="1503" height="847" alt="{A15A53E1-C462-4AAF-96BA-2DE4CC890190}" src="https://github.com/user-attachments/assets/b26d0a88-09e1-49b8-8682-18683cf70a34" />
+<img width="1504" height="840" alt="{A7C340C7-1643-4602-9953-991D9751AAF9}" src="https://github.com/user-attachments/assets/a99b0432-cedf-4e1e-8423-47d24934b723" />
+<img width="1497" height="851" alt="{1F1AE2CE-6815-45F7-B242-CBEF0FEBB752}" src="https://github.com/user-attachments/assets/a3b01034-d5fe-4863-bb19-b459e3a58862" />
+<img width="1502" height="852" alt="{1ED0F1AE-5F21-46BD-A11A-A609CD55B624}" src="https://github.com/user-attachments/assets/927af3c0-a5da-4bde-adcd-0cad7cea8f01" />
+<img width="1499" height="848" alt="{28068A4C-5EA2-4DB4-81F7-68A2FF3C0703}" src="https://github.com/user-attachments/assets/92c9bca7-26ef-4b22-a741-ea25f34e96d3" />
+<img width="1496" height="847" alt="{44A5FA13-CDA0-47E8-9E07-51D37925B9AD}" src="https://github.com/user-attachments/assets/e73df1c7-d633-4b1a-8092-b03e75e52127" />
+<img width="1501" height="841" alt="{3BB1BCBE-AD2D-49D1-9180-F4485ED9A30C}" src="https://github.com/user-attachments/assets/bcd509da-8c0c-4b30-8ebb-a7d45c01bd4a" />
+
+
+
+
+
+
 
 
 
