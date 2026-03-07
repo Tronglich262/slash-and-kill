@@ -39,6 +39,9 @@ public class ShopManager : MonoBehaviour
     [Header("Chi Số đồ")]
     public TextMeshProUGUI Deschisodo;
 
+    [Header("Text Level Yêu Cầu")]
+    public TextMeshProUGUI textLevelReq;
+
     [Header("Text Thông báo mua đô ")]
     public TextMeshProUGUI textthongbaobuy;
 
@@ -167,10 +170,13 @@ public class ShopManager : MonoBehaviour
         detailDescription.text = data.itemDescription;
         detailPrice.text = ""; // thợ rèn không bán
 
-        // Item hồi máu - chỉ hiện lượng hồi
+        // Item hồi máu/mana
         if (data.itemType == ItemType.vatpham)
         {
-            Deschisodo.text = $"Hồi Máu: +{invItem.GetHP()}";
+            string stats = "";
+            if (invItem.GetHP() > 0) stats += $"Hồi Máu: +{invItem.GetHP()}\n";
+            if (invItem.GetMP() > 0) stats += $"Hồi Mana: +{invItem.GetMP()}";
+            Deschisodo.text = string.IsNullOrEmpty(stats) ? "Không có tác dụng" : stats.TrimEnd('\n');
         }
         else
         {
@@ -196,10 +202,19 @@ public class ShopManager : MonoBehaviour
         detailDescription.text = item.itemDescription;
         detailPrice.text = item.price + " gold";
 
-        // Item hồi máu - chỉ hiện lượng hồi
+        // Hiển thị level yêu cầu riêng
+        if (textLevelReq != null)
+        {
+            textLevelReq.text = item.requiredLevel > 0 ? $"<color=yellow>Cần Level: {item.requiredLevel}</color>" : "";
+        }
+
+        // Item hồi máu/mana
         if (item.itemType == ItemType.vatpham)
         {
-            Deschisodo.text = $"Hồi Máu: +{item.baseHP}";
+            string stats = "";
+            if (item.baseHP > 0) stats += $"Hồi Máu: +{item.baseHP}\n";
+            if (item.baseMP > 0) stats += $"Hồi Mana: +{item.baseMP}";
+            Deschisodo.text = string.IsNullOrEmpty(stats) ? "Không có tác dụng" : stats.TrimEnd('\n');
         }
         else
         {

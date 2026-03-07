@@ -98,6 +98,17 @@ public class ItemDetailPanel : MonoBehaviour
         }
         else // trang bị
         {
+            // Kiểm tra level yêu cầu trước
+            if (LevelSystem.Instance != null && currentItem.itemData.requiredLevel > 0)
+            {
+                if (LevelSystem.Instance.level < currentItem.itemData.requiredLevel)
+                {
+                    GameManager.Instance.ShowNotEnoughLevel(currentItem.itemData.requiredLevel);
+                    HidePanel();
+                    return;
+                }
+            }
+
             // Tạo bản sao mới với quantity = 1
             InventoryItem invItemToEquip = new InventoryItem
             {
