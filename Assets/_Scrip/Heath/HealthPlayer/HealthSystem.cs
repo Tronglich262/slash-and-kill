@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
+    public static HealthSystem Instance;
+
     public int maxHP = 100;
     public int currentHP;
     public Image hpBar;
@@ -27,6 +29,9 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
+        // Singleton
+        if (Instance == null) Instance = this;
+
         animator = GetComponent<Animator>();
         LoadHP(); // Tải lại currentHP khi scene được load
         LoadMP();
