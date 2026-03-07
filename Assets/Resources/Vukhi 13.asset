@@ -24,4 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: -7911238343683926661, guid: c3274427aed97c14ca4d46c31951a360, type: 3}
   price: 15000
   itemType: 7
-  requiredLevel: 60
+  requiredLevel: 55
