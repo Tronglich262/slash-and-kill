@@ -40,6 +40,7 @@ public class ActiveUI : MonoBehaviour
     public GameObject tuidodungpanel;
     public GameObject kynangpanel;
     public GameObject Chisopanel;
+    public GameObject skillPointPanel;
 
     [Header("Character UI")]
     public GameObject SkilCharacterUI;
@@ -90,6 +91,7 @@ public class ActiveUI : MonoBehaviour
         tuidodungpanel.SetActive(true);
         kynangpanel.SetActive(false);
         Chisopanel.SetActive(false);
+        skillPointPanel.SetActive(false);
     }
     public void TuiDoDung()
     {
@@ -97,6 +99,7 @@ public class ActiveUI : MonoBehaviour
         tuidodungpanel.SetActive(true);
         kynangpanel.SetActive(false);
         Chisopanel.SetActive(false);
+        skillPointPanel.SetActive(false);
     }
     public void KyNang()
     {
@@ -104,6 +107,7 @@ public class ActiveUI : MonoBehaviour
         tuidodungpanel.SetActive(false);
         kynangpanel.SetActive(true);
         Chisopanel.SetActive(false);
+        skillPointPanel.SetActive(false);
     }
     public void ChiSo()
     {
@@ -111,6 +115,15 @@ public class ActiveUI : MonoBehaviour
         tuidodungpanel.SetActive(false);
         kynangpanel.SetActive(false);
         Chisopanel.SetActive(true);
+        skillPointPanel.SetActive(false);
+    }
+    public void TiemNang()
+    {
+        skillPointPanel.SetActive(true);
+        trangbipanel.SetActive(true);
+        tuidodungpanel.SetActive(false);
+        kynangpanel.SetActive(false);
+        Chisopanel.SetActive(false);
     }
 
     // ================= Map UI =================
