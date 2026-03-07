@@ -32,4 +32,7 @@ public class ItemData : ScriptableObject
     public Sprite itemIcon;
     public int price;
     public ItemType itemType;
+    
+    [Header("Requirements")]
+    public int requiredLevel;
 }

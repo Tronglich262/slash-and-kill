@@ -98,7 +98,7 @@ public class PlayerSkillSystem : MonoBehaviour
             HealthSystem hs = player.GetComponent<HealthSystem>();
             if (hs == null || hs.currentMP < skill.mpCost)
             {
-                Debug.Log("Không đủ MP!");
+                GameManager.Instance.ShowNotEnoughMana();
                 return;
             }
             // Trừ MP

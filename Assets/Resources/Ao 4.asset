@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: "\xC1o pixel 4"
   itemDescription: "T\u0103ng Gi\xE1p"
   baseHP: 25
+  baseMP: 0
   baseAttack: 25
   basePhongThu: 50
   baseNeTranh: 25
@@ -23,3 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: 9151737384287713263, guid: 59341939c9bcdaf4298944d057c8bd6a, type: 3}
   price: 15000
   itemType: 1
+  requiredLevel: 25

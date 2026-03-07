@@ -1,8 +1,17 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    [Header("Notification UI")]
+    public GameObject notificationPanel;
+    public TextMeshProUGUI notificationText;
+    public float notificationDuration = 2f;
+
+    private float notificationTimer;
 
     private void Awake()
     {
@@ -15,6 +24,41 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Update()
+    {
+        if (notificationPanel != null && notificationPanel.activeSelf)
+        {
+            notificationTimer -= Time.deltaTime;
+            if (notificationTimer <= 0)
+            {
+                notificationPanel.SetActive(false);
+            }
+        }
+    }
+
+    // Hiển thị thông báo
+    public void ShowNotification(string message)
+    {
+        if (notificationPanel != null && notificationText != null)
+        {
+            notificationText.text = message;
+            notificationPanel.SetActive(true);
+            notificationTimer = notificationDuration;
+        }
+    }
+
+    // Hiển thị thông báo không đủ mana
+    public void ShowNotEnoughMana()
+    {
+        ShowNotification("Không đủ mana!");
+    }
+
+    // Hiển thị thông báo không đủ level để mặc đồ
+    public void ShowNotEnoughLevel(int requiredLevel)
+    {
+        ShowNotification("Cần level " + requiredLevel + " để mặc đồ này!");
     }
 
     // Reset tất cả chỉ số nhân vật

@@ -39,7 +39,7 @@ public class SkillHeath : MonoBehaviour
             // Kiểm tra đủ MP không
             if (healthSystem != null && healthSystem.currentMP < mpCost)
             {
-                Debug.Log("Không đủ MP!");
+                GameManager.Instance.ShowNotEnoughMana();
                 return;
             }
 

@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: "M\u0169 pixel 3"
   itemDescription: "T\u0103ng Gi\xE1p"
   baseHP: 20
+  baseMP: 0
   baseAttack: 20
   basePhongThu: 20
   baseNeTranh: 40
@@ -23,3 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: -6809438902974963853, guid: 96f1acfc7bb50894c84b3d84dcb0cb64, type: 3}
   price: 10000
   itemType: 4
+  requiredLevel: 20

@@ -33,6 +33,16 @@ public class EquipmentManager : MonoBehaviour
 
         ItemData item = invItem.itemData;
 
+        // Kiểm tra level yêu cầu
+        if (LevelSystem.Instance != null && item.requiredLevel > 0)
+        {
+            if (LevelSystem.Instance.level < item.requiredLevel)
+            {
+                GameManager.Instance.ShowNotEnoughLevel(item.requiredLevel);
+                return;
+            }
+        }
+
         foreach (var slot in slots)
         {
             if (slot.slotType == item.itemType)

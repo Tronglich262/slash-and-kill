@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: "V\xF2ng pixel 1"
   itemDescription: "T\u0103ng N\xE9 Tranh"
   baseHP: 10
+  baseMP: 0
   baseAttack: 10
   basePhongThu: 10
   baseNeTranh: 10
@@ -23,3 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: -4617977907123695058, guid: 82d5c2d4883cf7440b882236a034055a, type: 3}
   price: 5000
   itemType: 5
+  requiredLevel: 10

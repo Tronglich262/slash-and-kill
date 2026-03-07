@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: "M\u0169 pixel 0"
   itemDescription: "T\u0103ng Gi\xE1p"
   baseHP: 5
+  baseMP: 0
   baseAttack: 5
   basePhongThu: 5
   baseNeTranh: 10
@@ -23,3 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: 1165890614634809762, guid: f831c105934f7dd4398b5f84d6264341, type: 3}
   price: 500
   itemType: 4
+  requiredLevel: 5
