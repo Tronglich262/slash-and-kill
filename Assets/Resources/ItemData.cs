@@ -23,6 +23,7 @@ public class ItemData : ScriptableObject
 
     [Header("Base Stats")]
     public int baseHP;
+    public int baseMP;
     public int baseAttack;
     public int basePhongThu;
     public int baseNeTranh;

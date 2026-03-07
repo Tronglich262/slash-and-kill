@@ -16,6 +16,9 @@ public class InventoryItem
     public int GetHP()
         => itemData == null ? 0 : Mathf.RoundToInt(itemData.baseHP * (1 + levelDo * FORGE_RATE));
 
+    public int GetMP()
+        => itemData == null ? 0 : Mathf.RoundToInt(itemData.baseMP * (1 + levelDo * FORGE_RATE));
+
     public int GetAttack()
         => itemData == null ? 0 : Mathf.RoundToInt(itemData.baseAttack * (1 + levelDo * FORGE_RATE));
 
