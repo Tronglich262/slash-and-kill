@@ -12,6 +12,7 @@ public class SkillHeath : MonoBehaviour
     private bool isOnCooldown = false;
     public float skillDuration = 10f;    
     public float cooldownTime = 10f; 
+    public int mpCost = 10; // MP tiêu hao
 
     public HealthSystem healthSystem;
     public bool ischeck = false;
@@ -35,7 +36,18 @@ public class SkillHeath : MonoBehaviour
     {
         if (!isOnCooldown)
         {
-            StartCoroutine(Cooldown());       
+            // Kiểm tra đủ MP không
+            if (healthSystem != null && healthSystem.currentMP < mpCost)
+            {
+                Debug.Log("Không đủ MP!");
+                return;
+            }
+
+            // Trừ MP
+            if (healthSystem != null)
+                healthSystem.UseMP(mpCost);
+
+            StartCoroutine(Cooldown());        
             StartCoroutine(ActivateSkill());  
         }
     }

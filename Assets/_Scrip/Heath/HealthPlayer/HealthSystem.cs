@@ -14,7 +14,7 @@ public class HealthSystem : MonoBehaviour
 
     // MP System
     public int maxMP = 50;
-    public int currentMP;
+    public int currentMP; 
     public Image mpBar;
     public TextMeshProUGUI mpText;
 
@@ -122,7 +122,9 @@ public class HealthSystem : MonoBehaviour
     public void UpdateMaxMP(int newMaxMP)
     {
         maxMP = newMaxMP;
-        if (currentMP > maxMP) currentMP = maxMP;
+        // Nếu currentMP = 0 hoặc nhỏ hơn maxMP cũ, set về maxMP mới
+        if (currentMP == 0 || currentMP < maxMP)
+            currentMP = maxMP;
         UpdateMPUI();
         SaveMP();
     }
@@ -168,6 +170,8 @@ public class HealthSystem : MonoBehaviour
         if (PlayerPrefs.HasKey("CurrentMP"))
         {
             currentMP = PlayerPrefs.GetInt("CurrentMP");
+            // Đảm bảo không bị 0
+            if (currentMP <= 0) currentMP = maxMP;
         }
         else
         {

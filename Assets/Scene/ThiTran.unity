@@ -7340,7 +7340,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2254, y: 1.2}
+  m_AnchoredPosition: {x: 2.7, y: 6.4}
   m_SizeDelta: {x: 272.2565, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &283060548
@@ -9143,7 +9143,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 342.70007, y: -136.69995}
+  m_AnchoredPosition: {x: 356.6001, y: -129.79993}
   m_SizeDelta: {x: 356.32617, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &332048486
@@ -10853,6 +10853,7 @@ MonoBehaviour:
     spawnY: -0.3
     skillDuration: 2
     followPlayer: 0
+    mpCost: 10
     skillButton: {fileID: 321532690}
     cooldownBar: {fileID: 433102889}
     cooldownText: {fileID: 1158931331}
@@ -14617,8 +14618,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 746.2, y: -55.2}
-  m_SizeDelta: {x: 400, y: 70}
+  m_AnchoredPosition: {x: 370.8, y: -67.9}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &594101285
 MonoBehaviour:
@@ -14633,14 +14634,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1421242303915802828, guid: 1ea46bb3e6cee3c4dbbd4ac82a9a0300, type: 3}
+  m_Sprite: {fileID: -7120874526274968602, guid: 1845010bec25c7c4ba9643ecef39ac5c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15087,7 +15088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 355, y: -59}
+  m_AnchoredPosition: {x: 368.9, y: -52.1}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &616318238
@@ -24441,7 +24442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2254, y: 1.2}
+  m_AnchoredPosition: {x: 5.3, y: 14.2}
   m_SizeDelta: {x: 272.2565, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1015206814
@@ -26194,6 +26195,7 @@ MonoBehaviour:
     spawnY: 0.3
     skillDuration: 10
     followPlayer: 1
+    mpCost: 15
     skillButton: {fileID: 1403354604}
     cooldownBar: {fileID: 1095315016}
     cooldownText: {fileID: 900053351}
@@ -31204,6 +31206,7 @@ MonoBehaviour:
     spawnY: -0.3
     skillDuration: 2
     followPlayer: 0
+    mpCost: 8
     skillButton: {fileID: 1120486227}
     cooldownBar: {fileID: 1262284697}
     cooldownText: {fileID: 888169195}
@@ -34044,6 +34047,7 @@ MonoBehaviour:
   cooldownText: {fileID: 1112385009}
   skillDuration: 10
   cooldownTime: 50
+  mpCost: 10
   healthSystem: {fileID: 2006672041}
   ischeck: 0
 --- !u!1 &1398845537
@@ -36666,7 +36670,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 349, y: -99.899994}
+  m_AnchoredPosition: {x: 362.90002, y: -93}
   m_SizeDelta: {x: 350, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1505405695
@@ -39815,6 +39819,7 @@ MonoBehaviour:
     spawnY: -0.7
     skillDuration: 1.9
     followPlayer: 0
+    mpCost: 12
     skillButton: {fileID: 1376869356}
     cooldownBar: {fileID: 1643999669}
     cooldownText: {fileID: 1222240519}
@@ -47599,7 +47604,7 @@ PrefabInstance:
     - target: {fileID: 5293857246533143996, guid: a2c27f0447cc25046bf2c94ecaf8b2c0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1a5d8785d80a4ee42a2a4c8632436dc0, type: 3}
+      objectReference: {fileID: 21300000, guid: cf1462bc694c3c249831ad8ac5293aa2, type: 3}
     - target: {fileID: 5488535295852969769, guid: a2c27f0447cc25046bf2c94ecaf8b2c0, type: 3}
       propertyPath: m_Name
       value: ItemdetailPanel
@@ -48163,11 +48168,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 921514897363837409, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 921514897363837409, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 921514897363837409, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_AnchorMin.y
@@ -48221,13 +48226,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -16.321106
       objectReference: {fileID: 0}
+    - target: {fileID: 5293857246533143996, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf1462bc694c3c249831ad8ac5293aa2, type: 3}
     - target: {fileID: 5488535295852969769, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_Name
       value: ItemdetailPanelTb
       objectReference: {fileID: 0}
     - target: {fileID: 5488535295852969769, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6098575754838215782, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_Pivot.x
@@ -48315,15 +48324,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e89f6ca9ef3ebf449a23bc807f66ba04, type: 3}
     - target: {fileID: 6945279297565865419, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6945279297565865419, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6945279297565865419, guid: 642854404976c4d44b89e9cbbfa21acb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53032,6 +53041,7 @@ MonoBehaviour:
     spawnY: 0
     skillDuration: 0
     followPlayer: 0
+    mpCost: 11
     skillButton: {fileID: 1038595712}
     cooldownBar: {fileID: 2132258916}
     cooldownText: {fileID: 2115565466}

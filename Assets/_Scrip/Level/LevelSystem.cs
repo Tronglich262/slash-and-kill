@@ -377,8 +377,10 @@ public class LevelSystem : MonoBehaviour
             PlayerController pc = player.GetComponent<PlayerController>();
             if (pc != null)
             {
-                // Tốc độ cơ bản là 5, mỗi điểm tocdo thêm 0.2
-                pc.speed = 5f + (tocdo * 0.2f);
+                // Tốc độ cơ bản là 5, mỗi điểm tocdo thêm 1% (50 điểm = +50% speed)
+                float baseSpeed = 5f;
+                float percentBonus = 1f + (tocdo * 0.01f); // 1% per point
+                pc.speed = baseSpeed * percentBonus;
                 Debug.Log("Player speed updated: " + pc.speed);
             }
         }
