@@ -135,8 +135,8 @@ public class BossController : MonoBehaviour
     {
         isAttacking = true;
 
-        // Không đuổi theo nếu player ở dưới mặt đất
-        while (Vector2.Distance(transform.position, player.position) > 0.5f && player.position.y > minYPosition)
+        // Sử dụng khoảng cách chỉ theo X (giống như trong Update)
+        while (Mathf.Abs(transform.position.x - player.position.x) > 0.5f && player.position.y > minYPosition)
         {
             Vector3 pos = transform.position;
             pos.x = Mathf.MoveTowards(transform.position.x, player.position.x, speed * Time.deltaTime);
@@ -153,14 +153,14 @@ public class BossController : MonoBehaviour
 
         animator.SetBool("Run", false);
         
-        // Chỉ tấn công nếu player không ở dưới đất
-        if (player.position.y > minYPosition && Vector2.Distance(transform.position, player.position) <= attackRange)
+        // Chỉ tấn công nếu player không ở dưới đất và đủ gần theo X
+        if (player.position.y > minYPosition && Mathf.Abs(transform.position.x - player.position.x) <= attackRange)
         {
             animator.SetBool("Attack", true);
 
             yield return new WaitForSeconds(0.3f);
 
-            if (Vector2.Distance(transform.position, player.position) <= attackRange * 0.5f)
+            if (Mathf.Abs(transform.position.x - player.position.x) <= attackRange * 0.5f)
             {
                 HealthSystem playerHealth = player.GetComponent<HealthSystem>();
                 if (playerHealth != null)
