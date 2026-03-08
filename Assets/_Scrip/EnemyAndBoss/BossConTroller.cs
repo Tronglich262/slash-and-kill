@@ -25,7 +25,7 @@ public class BossController : MonoBehaviour
     private float lastTeleportTime;
 
     // Tăng cooldown cho việc bắn để bắn ít hơn
-    public float rangedAttackCooldown = 4f;  // Thời gian chờ giữa các lần bắn
+    public float rangedAttackCooldown = 15f;  // Thời gian chờ giữa các lần bắn (15 giây)
 
     // Trạng thái battle - không tấn công cho đến khi intro kết thúc
     private bool battleStarted = false;
@@ -39,6 +39,9 @@ public class BossController : MonoBehaviour
     private float lastSkyJumpTime = -100f;  // Bắt đầu với giá trị âm để có thể nhảy ngay lần đầu
     private bool isSkyJumping = false;
     private bool skyJumpCooldownReady = false;  // Flag để kiểm tra cooldown đã sẵn sàng chưa
+
+    // Giới hạn tọa độ Y tối thiểu (mặt đất)
+    public float minYPosition = -2f;
 
     void Start()
     {
@@ -59,7 +62,15 @@ public class BossController : MonoBehaviour
         // Không làm gì cho đến khi battle bắt đầu (sau intro)
         if (!battleStarted) return;
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        // Giới hạn vị trí không cho boss xuống dưới mặt đất
+        Vector3 pos = transform.position;
+        if (pos.y < minYPosition)
+        {
+            pos.y = minYPosition;
+            transform.position = pos;
+        }
+
+        float distanceToPlayer = Mathf.Abs(player.position.x - transform.position.x);
 
         // Kiểm tra nhảy lên trời (Sky Jump) - chỉ khi không đang tấn công và không đang nhảy
         if (!isAttacking && !isSkyJumping && !isFiring)
@@ -124,28 +135,43 @@ public class BossController : MonoBehaviour
     {
         isAttacking = true;
 
-        while (Vector2.Distance(transform.position, player.position) > 0.5f)
+        // Không đuổi theo nếu player ở dưới mặt đất
+        while (Vector2.Distance(transform.position, player.position) > 0.5f && player.position.y > minYPosition)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            Vector3 pos = transform.position;
+            pos.x = Mathf.MoveTowards(transform.position.x, player.position.x, speed * Time.deltaTime);
+            
+            // Kiểm tra giới hạn Y trong khi di chuyển
+            if (pos.y < minYPosition)
+            {
+                pos.y = minYPosition;
+            }
+            
+            transform.position = pos;
             yield return null;
         }
 
         animator.SetBool("Run", false);
-        animator.SetBool("Attack", true);
-
-        yield return new WaitForSeconds(0.3f);
-
-        if (Vector2.Distance(transform.position, player.position) <= attackRange * 0.5f)
+        
+        // Chỉ tấn công nếu player không ở dưới đất
+        if (player.position.y > minYPosition && Vector2.Distance(transform.position, player.position) <= attackRange)
         {
-            HealthSystem playerHealth = player.GetComponent<HealthSystem>();
-            if (playerHealth != null)
-                playerHealth.TakeDamage(attackDamage);
+            animator.SetBool("Attack", true);
+
+            yield return new WaitForSeconds(0.3f);
+
+            if (Vector2.Distance(transform.position, player.position) <= attackRange * 0.5f)
+            {
+                HealthSystem playerHealth = player.GetComponent<HealthSystem>();
+                if (playerHealth != null)
+                    playerHealth.TakeDamage(attackDamage);
+            }
+
+            yield return new WaitForSeconds(0.3f);
+            animator.SetBool("Attack", false);
+
+            yield return StartCoroutine(JumpBack());
         }
-
-        yield return new WaitForSeconds(0.3f);
-        animator.SetBool("Attack", false);
-
-        yield return StartCoroutine(JumpBack());
 
         lastAttackTime = Time.time;
         isAttacking = false;
@@ -164,7 +190,7 @@ public class BossController : MonoBehaviour
 
         Vector2 direction = (player.position - transform.position).normalized;
 
-        rb.linearVelocity = direction * 10f;  // Sử dụng velocity thay vì linearVelocity
+        rb.linearVelocity = direction * 10f;
 
         yield return new WaitForSeconds(0.3f);
 
@@ -178,11 +204,23 @@ public class BossController : MonoBehaviour
         animator.SetBool("Jump", true);
 
         float direction = transform.position.x > player.position.x ? 1f : -1f;
-        Vector3 jumpTarget = new Vector3(transform.position.x + direction * jumpBackDistance, transform.position.y, transform.position.z);
+        
+        // Đảm bảo Y position không xuống dưới mặt đất
+        float targetY = Mathf.Max(transform.position.y, minYPosition + 1f);
+        Vector3 jumpTarget = new Vector3(transform.position.x + direction * jumpBackDistance, targetY, transform.position.z);
 
         while (Vector3.Distance(transform.position, jumpTarget) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, jumpTarget, jumpSpeed * Time.deltaTime);
+            
+            // Kiểm tra giới hạn Y
+            Vector3 pos = transform.position;
+            if (pos.y < minYPosition)
+            {
+                pos.y = minYPosition;
+                transform.position = pos;
+            }
+            
             yield return null;
         }
 
