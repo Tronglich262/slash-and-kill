@@ -21,10 +21,10 @@ public class kiem : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Đã va chạm với Player");
-            HealthSystem playerHealth = other.gameObject.GetComponent<HealthSystem>(); // Lấy HealthSystem từ Player
+            HealthSystem playerHealth = other.gameObject.GetComponent<HealthSystem>(); 
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(attackDamage); // Gọi TakeDamage trên HealthSystem của Player
+                playerHealth.TakeDamage(attackDamage); 
             }
         }
     }

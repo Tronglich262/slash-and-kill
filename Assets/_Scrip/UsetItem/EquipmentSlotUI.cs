@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
-    public ItemType slotType;            // Loại item mà ô này chứa (vd: Vũ khí, áo, nhẫn...)
-    public Image icon;                   // Hình ảnh item trong UI
-    public InventoryItem currentItem;    // Item đang được trang bị (dùng InventoryItem để đồng bộ với Inventory)
-    public EquipmentSlot slot; // gán slot trong Inspector
+    public ItemType slotType;          
+    public Image icon;                 
+    public InventoryItem currentItem;    
+    public EquipmentSlot slot; 
 
     // --- EQUIP ---
     public void Equip(InventoryItem newItem)

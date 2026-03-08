@@ -61,17 +61,12 @@ public class BossIntroManager : MonoBehaviour
         if (p != null)
             player = p.transform;
 
-        // Kiểm tra lần đầu
         if (usePlayerPrefs)
         {
             isFirstTime = !PlayerPrefs.HasKey(playerPrefsKey);
         }
-
-        // Ẩn panel ban đầu
         if (sharedPanel != null)
             sharedPanel.SetActive(false);
-
-        // Bắt đầu hiện thông báo
         StartCoroutine(ShowNotificationThenWait());
     }
 

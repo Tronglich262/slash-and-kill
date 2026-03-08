@@ -11,6 +11,7 @@ public enum FloatingTextType
     Mana,
     Dodge,
     Damage,
+    CriticalDamage,
     Gold,
     LevelUp
 }
@@ -31,6 +32,7 @@ public class FloatingTextManager : MonoBehaviour
     public Color manaColor = Color.cyan;
     public Color dodgeColor = Color.white;
     public Color damageColor = Color.red;
+    public Color criticalDamageColor = new Color(1f, 0.5f, 0f); // Màu cam - chí mạng
     public Color goldColor = new Color(1f, 0.84f, 0f); // Gold
     public Color levelUpColor = new Color(1f, 0.5f, 0f); // Orange
 
@@ -129,6 +131,14 @@ public class FloatingTextManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Hiển thị damage chí mạng
+    /// </summary>
+    public void ShowCriticalDamage(int amount, Vector3 position)
+    {
+        ShowFloatingText("-" + amount + "!", FloatingTextType.CriticalDamage, position);
+    }
+
+    /// <summary>
     /// Hiển thị gold
     /// </summary>
     public void ShowGold(int amount)
@@ -161,6 +171,7 @@ public class FloatingTextManager : MonoBehaviour
             case FloatingTextType.Mana: return manaColor;
             case FloatingTextType.Dodge: return dodgeColor;
             case FloatingTextType.Damage: return damageColor;
+            case FloatingTextType.CriticalDamage: return criticalDamageColor;
             case FloatingTextType.Gold: return goldColor;
             case FloatingTextType.LevelUp: return levelUpColor;
             default: return Color.white;
