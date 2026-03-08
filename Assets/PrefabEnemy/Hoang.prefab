@@ -106,10 +106,10 @@ GameObject:
   - component: {fileID: 3377859014553301143}
   - component: {fileID: 744982865596994755}
   - component: {fileID: 3595175178323928613}
-  - component: {fileID: 7929203425610596047}
   - component: {fileID: 3144088081081826732}
   - component: {fileID: 2367302377333385258}
   - component: {fileID: 515245815139180163}
+  - component: {fileID: 7073295830265708662}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Untagged
@@ -127,7 +127,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.5353851, y: 0.72, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2129679846213231933}
@@ -286,38 +286,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7929203425610596047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535833091795737807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff4f9477f0a3c240b47c7b4c9f94b35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  speed: 2
-  attackRange: 5
-  rangedAttackRange: 8
-  meleeAttackCooldown: 2
-  rangedAttackCooldown: 4
-  attackDamage: 10
-  jumpBackDistance: 2
-  jumpSpeed: 4
-  teleportPoints:
-  - {fileID: 4686764576829013550}
-  - {fileID: 7280693123772678867}
-  - {fileID: 1500114214425165501}
-  - {fileID: 6902685976576884608}
-  teleportCooldown: 5
-  attackProjectile: {fileID: 3344590919163537217, guid: 93d45cb0ee5cad54b8caf7f433173ecb, type: 3}
-  attackSpawnPoint: {fileID: 2728200012012997569}
-  dashCooldown: 8
-  pointA: {fileID: 82194894341373705}
-  pointB: {fileID: 4451371816019245715}
 --- !u!114 &3144088081081826732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +339,41 @@ MonoBehaviour:
   levelSystem: {fileID: 0}
   min: 10000
   max: 20000
+--- !u!114 &7073295830265708662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535833091795737807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b364cc213211c324eb58d5cb34385179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  speed: 2
+  attackRange: 1
+  rangedAttackRange: 8
+  attackCooldown: 2
+  attackDamage: 10
+  jumpBackDistance: 2
+  jumpSpeed: 4
+  teleportPoints:
+  - {fileID: 4686764576829013550}
+  - {fileID: 7280693123772678867}
+  - {fileID: 1500114214425165501}
+  - {fileID: 6902685976576884608}
+  teleportCooldown: 5
+  attackProjectile: {fileID: 3344590919163537217, guid: 93d45cb0ee5cad54b8caf7f433173ecb, type: 3}
+  attackSpawnPoint: {fileID: 8727579625829760427}
+  rangedAttackCooldown: 15
+  skyJumpCooldown: 8
+  skyJumpHeight: 5
+  skyJumpDuration: 1.5
+  skyJumpSpeed: 6
+  skyJumpChance: 0.3
+  minYPosition: -2
 --- !u!1 &1642987596114570957
 GameObject:
   m_ObjectHideFlags: 0
