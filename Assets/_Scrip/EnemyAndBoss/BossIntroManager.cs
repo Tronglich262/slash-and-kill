@@ -5,25 +5,11 @@ using TMPro;
 
 public class BossIntroManager : MonoBehaviour
 {
-    [Header("Boss References")]
-    public BossController[] bosses;
-    public Animator[] bossAnimators;
-    public Transform player;
+    [Header("Cài đặt Boss")]
+    public BossController myBoss;
+    public Animator myBossAnimator;
 
-    [Header("Camera Settings")]
-    public float cameraMoveSpeed = 2f;
-    public float cameraOffsetX = 0f;
-    public float cameraOffsetY = 1f;
-
-    [Header("Shared Panel")]
-    public GameObject sharedPanel;
-    public TextMeshProUGUI messageText;
-    public float typingSpeed = 0.05f;
-
-    [Header("Boss Trigger Zone")]
-    public Collider2D bossTriggerZone;
-
-    [Header("Boss Intro Messages - First Time")]
+    [Header("Tin nhắn Intro")]
     [TextArea]
     public List<string> firstTimeMessages = new List<string>()
     {
@@ -33,7 +19,6 @@ public class BossIntroManager : MonoBehaviour
         "Đây là trận chiến cuối cùng của ngươi!"
     };
 
-    [Header("Boss Intro Messages - Returning")]
     [TextArea]
     public List<string> returningMessages = new List<string>()
     {
@@ -42,96 +27,93 @@ public class BossIntroManager : MonoBehaviour
         "Hãy chiến đấu đi!"
     };
 
-    [Header("Settings")]
+    [Header("Cài đặt Camera")]
+    public float cameraMoveSpeed = 2f;
+    public float cameraOffsetX = 0f;
+    public float cameraOffsetY = 1f;
+
+    [Header("UI Panel")]
+    public GameObject sharedPanel;
+    public TextMeshProUGUI messageText;
+    public float typingSpeed = 0.05f;
+
+    [Header("Cài đặt khác")]
     public float delayBetweenMessages = 1.5f;
     public float delayBeforeBattle = 2f;
     public float notificationDuration = 3f;
     public bool usePlayerPrefs = true;
 
+    // Khóa PlayerPrefs riêng cho từng boss
+    public string playerPrefsKey = "HasVisitedBossRoom";
+
     private bool introStarted = false;
     private bool battleStarted = false;
-    private bool playerInBossZone = false;
-
-    private Vector3 originalCameraPosition;
-    private Camera mainCamera;
     private bool isFirstTime = true;
+    private Transform player;
+    private Camera mainCamera;
 
     void Start()
     {
         mainCamera = Camera.main;
 
-        if (mainCamera != null)
-        {
-            originalCameraPosition = mainCamera.transform.position;
-        }
+        // Tìm player
+        GameObject p = GameObject.FindWithTag("Player");
+        if (p != null)
+            player = p.transform;
 
+        // Kiểm tra lần đầu
         if (usePlayerPrefs)
         {
-            isFirstTime = !PlayerPrefs.HasKey("HasVisitedBossRoom");
+            isFirstTime = !PlayerPrefs.HasKey(playerPrefsKey);
         }
 
+        // Ẩn panel ban đầu
         if (sharedPanel != null)
-        {
             sharedPanel.SetActive(false);
-        }
 
-        if (player == null)
-        {
-            GameObject p = GameObject.FindWithTag("Player");
-            if (p != null)
-                player = p.transform;
-        }
-
+        // Bắt đầu hiện thông báo
         StartCoroutine(ShowNotificationThenWait());
     }
 
     IEnumerator ShowNotificationThenWait()
     {
+        // Tắt di chuyển player
         if (player != null)
         {
             PlayerController pc = player.GetComponent<PlayerController>();
             PlayerAttack pa = player.GetComponent<PlayerAttack>();
-
             if (pc != null) pc.SetCanMove(false);
             if (pa != null) pa.SetCanAct(false);
         }
 
+        // Hiện thông báo
         if (sharedPanel != null && messageText != null)
         {
             sharedPanel.SetActive(true);
-
-            if (isFirstTime)
-                messageText.text = "CẢNH BÁO: Xâm nhập vào Lãnh thổ BOSS";
-            else
-                messageText.text = "Wel Wel ai đây";
-
+            messageText.text = isFirstTime ? "CẢNH BÁO: Xâm nhập vào Lãnh thổ BOSS" : "Wel Wel ai đây";
             yield return new WaitForSeconds(notificationDuration);
-
             sharedPanel.SetActive(false);
         }
 
+        // Bật lại di chuyển
         if (player != null)
         {
             PlayerController pc = player.GetComponent<PlayerController>();
             PlayerAttack pa = player.GetComponent<PlayerAttack>();
-
             if (pc != null) pc.SetCanMove(true);
             if (pa != null) pa.SetCanAct(true);
         }
-
-        while (!playerInBossZone)
-        {
-            yield return null;
-        }
     }
 
-    public void OnPlayerEnterBossZone()
+    // Gọi phương thức này khi player va chạm với trigger
+    public void OnPlayerEnterTrigger()
     {
         if (introStarted || battleStarted) return;
 
+        // Lưu trạng thái đã đến
         if (usePlayerPrefs)
         {
-            PlayerPrefs.SetInt("HasVisitedBossRoom", 1);
+            PlayerPrefs.SetInt(playerPrefsKey, 1);
             PlayerPrefs.Save();
         }
 
@@ -141,46 +123,44 @@ public class BossIntroManager : MonoBehaviour
     IEnumerator BossIntroSequence()
     {
         if (introStarted) yield break;
-
         introStarted = true;
 
+        // Tắt di chuyển player
         if (player != null)
         {
             PlayerController pc = player.GetComponent<PlayerController>();
             PlayerAttack pa = player.GetComponent<PlayerAttack>();
-
             if (pc != null) pc.SetCanMove(false);
             if (pa != null) pa.SetCanAct(false);
         }
 
+        // Camera di chuyển đến boss
         yield return StartCoroutine(MoveCameraToBoss());
 
+        // Boss nói chuyện
         yield return StartCoroutine(BossChatSequence());
 
+        // Bắt đầu chiến đấu
         yield return StartCoroutine(StartBattle());
     }
 
     IEnumerator MoveCameraToBoss()
     {
-        if (mainCamera == null || bosses.Length == 0) yield break;
+        if (mainCamera == null || myBoss == null) yield break;
 
-        Vector3 bossPos = bosses[0].transform.position;
-
-        Vector3 targetPosition = new Vector3(
-            bossPos.x + cameraOffsetX,
-            bossPos.y + cameraOffsetY,
+        Vector3 targetPos = new Vector3(
+            myBoss.transform.position.x + cameraOffsetX,
+            myBoss.transform.position.y + cameraOffsetY,
             mainCamera.transform.position.z
         );
 
         float t = 0f;
-        Vector3 startPosition = mainCamera.transform.position;
+        Vector3 startPos = mainCamera.transform.position;
 
         while (t < 1f)
         {
             t += Time.deltaTime * cameraMoveSpeed * 0.5f;
-            mainCamera.transform.position =
-                Vector3.Lerp(startPosition, targetPosition, t);
-
+            mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, t);
             yield return null;
         }
 
@@ -189,52 +169,45 @@ public class BossIntroManager : MonoBehaviour
 
     IEnumerator BossChatSequence()
     {
-        if (sharedPanel == null || messageText == null)
-            yield break;
+        if (sharedPanel == null || messageText == null) yield break;
 
-        List<string> messages =
-            isFirstTime ? firstTimeMessages : returningMessages;
+        List<string> messages = isFirstTime ? firstTimeMessages : returningMessages;
 
         sharedPanel.SetActive(true);
 
         foreach (string msg in messages)
         {
             messageText.text = "";
-
             foreach (char c in msg)
             {
                 messageText.text += c;
                 yield return new WaitForSeconds(typingSpeed);
             }
-
             yield return new WaitForSeconds(delayBetweenMessages);
         }
 
         yield return new WaitForSeconds(0.5f);
-
         sharedPanel.SetActive(false);
     }
 
     IEnumerator StartBattle()
     {
+        // Camera trở về player
         if (mainCamera != null && player != null)
         {
-            Vector3 targetPosition = new Vector3(
+            Vector3 targetPos = new Vector3(
                 player.position.x + cameraOffsetX,
                 player.position.y + cameraOffsetY,
                 mainCamera.transform.position.z
             );
 
             float t = 0f;
-            Vector3 startPosition = mainCamera.transform.position;
+            Vector3 startPos = mainCamera.transform.position;
 
             while (t < 1f)
             {
                 t += Time.deltaTime * cameraMoveSpeed * 0.5f;
-
-                mainCamera.transform.position =
-                    Vector3.Lerp(startPosition, targetPosition, t);
-
+                mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, t);
                 yield return null;
             }
         }
@@ -243,42 +216,31 @@ public class BossIntroManager : MonoBehaviour
 
         battleStarted = true;
 
+        // Bật di chuyển player
         if (player != null)
         {
             PlayerController pc = player.GetComponent<PlayerController>();
             PlayerAttack pa = player.GetComponent<PlayerAttack>();
-
             if (pc != null) pc.SetCanMove(true);
             if (pa != null) pa.SetCanAct(true);
         }
 
-        foreach (Animator anim in bossAnimators)
-        {
-            if (anim != null)
-            {
-                anim.SetBool("IntroComplete", true);
-            }
-        }
+        // Khởi động boss
+        if (myBossAnimator != null)
+            myBossAnimator.SetBool("IntroComplete", true);
 
-        foreach (BossController boss in bosses)
-        {
-            if (boss != null)
-            {
-                boss.StartBattle();
-            }
-        }
+        if (myBoss != null)
+            myBoss.StartBattle();
 
-        Debug.Log("Battle Started!");
+        Debug.Log("Battle Started: " + myBoss.name);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (introStarted || battleStarted) return;
-
         if (other.CompareTag("Player"))
         {
-            playerInBossZone = true;
-            OnPlayerEnterBossZone();
+            Debug.Log("Va chạm trigger: " + gameObject.name);
+            OnPlayerEnterTrigger();
         }
     }
 }

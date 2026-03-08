@@ -10948,6 +10948,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5812125289460453287, guid: 49e18dc02f42b9f4b960b85db5d94e85, type: 3}
+      propertyPath: currentHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8030408612678603821, guid: 49e18dc02f42b9f4b960b85db5d94e85, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -79138,6 +79142,148 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1309208127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1309208130}
+  - component: {fileID: 1309208129}
+  - component: {fileID: 1309208128}
+  - component: {fileID: 1309208131}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Boss2Trigger
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!50 &1309208128
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309208127}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &1309208129
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309208127}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1309208130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309208127}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 203.47, y: 29.55, z: -8.122447}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1309208131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309208127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc883858664aee43a5d60617b508041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBoss: {fileID: 637075828}
+  myBossAnimator: {fileID: 637075829}
+  firstTimeMessages:
+  - "Ng\u01B0\u1EDDi d\xE1m x\xE2m nh\u1EADp l\xE3nh th\u1ED5 c\u1EE7a ta..."
+  - "H\xE3y chu\u1EA9n b\u1ECB tinh th\u1EA7n \u0111i!"
+  - "Ta s\u1EBD cho ng\u01B0\u01A1i bi\u1EBFt s\u1EF1 kh\xE1c bi\u1EC7t v\u1EC1 s\u1EE9c
+    m\u1EA1nh!"
+  - "\u0110\xE2y l\xE0 tr\u1EADn chi\u1EBFn cu\u1ED1i c\xF9ng c\u1EE7a ng\u01B0\u01A1i!"
+  returningMessages:
+  - "Ch\xFAc m\u1EEBng \u0111\xE3 t\u1EDBi \u0111\u01B0\u1EE3c \u0111\xE2y..."
+  - "Ng\u01B0\u01A1i d\xE1m quay l\u1EA1i sao?"
+  - "H\xE3y chi\u1EBFn \u0111\u1EA5u \u0111i!"
+  cameraMoveSpeed: 2
+  cameraOffsetX: 0
+  cameraOffsetY: 1
+  sharedPanel: {fileID: 522412068}
+  messageText: {fileID: 1295645846}
+  typingSpeed: 0.05
+  delayBetweenMessages: 1.5
+  delayBeforeBattle: 2
+  notificationDuration: 3
+  usePlayerPrefs: 1
+  playerPrefsKey: HasVisitedBossRoom
 --- !u!1 &1318291625
 GameObject:
   m_ObjectHideFlags: 0
@@ -294753,20 +294899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc883858664aee43a5d60617b508041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bosses:
-  - {fileID: 861894240}
-  - {fileID: 637075828}
-  bossAnimators:
-  - {fileID: 861894241}
-  - {fileID: 637075829}
-  player: {fileID: 0}
-  cameraMoveSpeed: 2
-  cameraOffsetX: 0
-  cameraOffsetY: 1
-  sharedPanel: {fileID: 522412068}
-  messageText: {fileID: 1295645846}
-  typingSpeed: 0.05
-  bossTriggerZone: {fileID: 1918094820}
+  myBoss: {fileID: 861894240}
+  myBossAnimator: {fileID: 861894241}
   firstTimeMessages:
   - "Ng\u01B0\u1EDDi d\xE1m x\xE2m nh\u1EADp l\xE3nh th\u1ED5 c\u1EE7a ta..."
   - "H\xE3y chu\u1EA9n b\u1ECB tinh th\u1EA7n \u0111i!"
@@ -294777,10 +294911,17 @@ MonoBehaviour:
   - "Ch\xFAc m\u1EEBng \u0111\xE3 t\u1EDBi \u0111\u01B0\u1EE3c \u0111\xE2y..."
   - "Ng\u01B0\u01A1i d\xE1m quay l\u1EA1i sao?"
   - "H\xE3y chi\u1EBFn \u0111\u1EA5u \u0111i!"
+  cameraMoveSpeed: 2
+  cameraOffsetX: 0
+  cameraOffsetY: 1
+  sharedPanel: {fileID: 522412068}
+  messageText: {fileID: 1295645846}
+  typingSpeed: 0.05
   delayBetweenMessages: 1.5
   delayBeforeBattle: 2
   notificationDuration: 3
   usePlayerPrefs: 1
+  playerPrefsKey: HasVisitedBossRoom
 --- !u!1 &1926878523
 GameObject:
   m_ObjectHideFlags: 0
@@ -295618,3 +295759,4 @@ SceneRoots:
   - {fileID: 1918094821}
   - {fileID: 1227549607}
   - {fileID: 637075827}
+  - {fileID: 1309208130}
