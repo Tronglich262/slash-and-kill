@@ -30,6 +30,16 @@ public class BossController : MonoBehaviour
     // Trạng thái battle - không tấn công cho đến khi intro kết thúc
     private bool battleStarted = false;
 
+    // Chức năng nhảy lên trời (Sky Jump)
+    public float skyJumpCooldown = 8f;  // Thời gian giữa các lần nhảy lên trời
+    public float skyJumpHeight = 5f;    // Độ cao khi nhảy lên
+    public float skyJumpDuration = 1.5f; // Thời gian giữ trạng thái nhảy
+    public float skyJumpSpeed = 6f;
+    public float skyJumpChance = 0.3f;  // 30% cơ hội nhảy mỗi khi cooldown đủ
+    private float lastSkyJumpTime = -100f;  // Bắt đầu với giá trị âm để có thể nhảy ngay lần đầu
+    private bool isSkyJumping = false;
+    private bool skyJumpCooldownReady = false;  // Flag để kiểm tra cooldown đã sẵn sàng chưa
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -51,23 +61,51 @@ public class BossController : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // Ưu tiên tấn công cận chiến
-        if (!isAttacking && distanceToPlayer <= attackRange && Time.time - lastAttackTime >= attackCooldown)
+        // Kiểm tra nhảy lên trời (Sky Jump) - chỉ khi không đang tấn công và không đang nhảy
+        if (!isAttacking && !isSkyJumping && !isFiring)
+        {
+            // Kiểm tra nếu cooldown vừa mới sẵn sàng (chưa được kiểm tra lần nào)
+            if (!skyJumpCooldownReady && Time.time - lastSkyJumpTime >= skyJumpCooldown)
+            {
+                skyJumpCooldownReady = true;  // Đánh dấu là đã sẵn sàng để kiểm tra
+            }
+
+            // Chỉ kiểm tra chance MỘT LẦN khi cooldown vừa sẵn sàng
+            if (skyJumpCooldownReady)
+            {
+                if (Random.Range(0f, 1f) < skyJumpChance)
+                {
+                    StartCoroutine(SkyJump());
+                    lastSkyJumpTime = Time.time;
+                    skyJumpCooldownReady = false;  // Reset flag sau khi đã nhảy
+                }
+                else
+                {
+                    // Nếu không nhảy lần này, reset cooldown để không kiểm tra nữa cho đến khi hết cooldown
+                    skyJumpCooldownReady = false;
+                    lastSkyJumpTime = Time.time;  // Bắt đầu đếm cooldown mới
+                }
+                return;  // Không làm gì khác trong frame này
+            }
+        }
+
+        // Ưu tiên tấn công cận chiến (không tấn công khi đang sky jump)
+        if (!isAttacking && !isSkyJumping && distanceToPlayer <= attackRange && Time.time - lastAttackTime >= attackCooldown)
         {
             Flip(player.position.x);
             animator.SetBool("Run", true);
             StartCoroutine(ApproachAndAttack());
         }
         // Chỉ bắn khi Boss ở ngoài tầm tấn công cận chiến và cooldown bắn đã hết
-        else if (!isAttacking && distanceToPlayer > attackRange && distanceToPlayer <= rangedAttackRange && !isFiring && Time.time - lastAttackTime >= rangedAttackCooldown)
+        else if (!isAttacking && !isSkyJumping && distanceToPlayer > attackRange && distanceToPlayer <= rangedAttackRange && !isFiring && Time.time - lastAttackTime >= rangedAttackCooldown)
         {
             animator.SetBool("Run", false);
             Flip(player.position.x);
             StartCoroutine(FireProjectile());  // Bắn quả cầu từ xa
         }
 
-        // Kiểm tra teleport nếu cooldown hết
-        if (Time.time - lastTeleportTime >= teleportCooldown)
+        // Kiểm tra teleport nếu cooldown hết (không teleport khi đang sky jump)
+        if (!isSkyJumping && Time.time - lastTeleportTime >= teleportCooldown)
         {
             StartCoroutine(TeleportRandomly());
             lastTeleportTime = Time.time;
@@ -149,6 +187,62 @@ public class BossController : MonoBehaviour
         }
 
         animator.SetBool("Jump", false);
+    }
+
+    // Coroutine nhảy lên trời - thể hiện sức mạnh boss
+    IEnumerator SkyJump()
+    {
+        isSkyJumping = true;
+        
+        // Tính vị trí cao hơn
+        Vector3 skyPosition = new Vector3(transform.position.x, transform.position.y + skyJumpHeight, transform.position.z);
+
+        // Nhảy lên cao
+        animator.SetBool("Jump", true);
+        
+        while (Vector3.Distance(transform.position, skyPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, skyPosition, skyJumpSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // Bắn projectile xuống dưới khi đang lơ lửng trên trời
+        int projectileCount = Random.Range(1, 3);  // 1 hoặc 2 cái
+        for (int i = 0; i < projectileCount; i++)
+        {
+            yield return new WaitForSeconds(0.2f);
+            FireProjectileDown();
+        }
+
+        // Giữ trạng thái ở trên cao - boss đang "lơ lửng" thể hiện sức mạnh
+        yield return new WaitForSeconds(skyJumpDuration);
+
+        // Hạ xuống
+        Vector3 groundPosition = new Vector3(transform.position.x, transform.position.y - skyJumpHeight, transform.position.z);
+        
+        while (Vector3.Distance(transform.position, groundPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, groundPosition, skyJumpSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        animator.SetBool("Jump", false);
+        isSkyJumping = false;
+    }
+
+    // Hàm bắn projectile hướng về phía player
+    void FireProjectileDown()
+    {
+        if (attackProjectile != null && attackSpawnPoint != null && player != null)
+        {
+            GameObject projectile = Instantiate(attackProjectile, attackSpawnPoint.position, Quaternion.identity);
+            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+
+            // Tính hướng từ vị trí boss (đang ở trên trời) đến player
+            Vector2 direction = (player.position - transform.position).normalized;
+
+            rb.linearVelocity = direction * 10f;
+        }
     }
 
     IEnumerator TeleportRandomly()
