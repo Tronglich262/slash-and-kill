@@ -23,6 +23,7 @@ public class ItemData : ScriptableObject
 
     [Header("Base Stats")]
     public int baseHP;
+    public int baseMP;
     public int baseAttack;
     public int basePhongThu;
     public int baseNeTranh;
@@ -31,4 +32,7 @@ public class ItemData : ScriptableObject
     public Sprite itemIcon;
     public int price;
     public ItemType itemType;
+    
+    [Header("Requirements")]
+    public int requiredLevel;
 }

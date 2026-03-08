@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: "Qu\u1EA7n pixel 1"
   itemDescription: "T\u0103ng Hp"
   baseHP: 20
+  baseMP: 0
   baseAttack: 10
   basePhongThu: 10
   baseNeTranh: 10
@@ -23,3 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: 3721044072010887481, guid: 1d5ff6c336dbec24390adbe4ea43fe8a, type: 3}
   price: 5000
   itemType: 0
+  requiredLevel: 10

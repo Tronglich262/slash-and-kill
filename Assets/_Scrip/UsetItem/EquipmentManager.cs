@@ -33,6 +33,16 @@ public class EquipmentManager : MonoBehaviour
 
         ItemData item = invItem.itemData;
 
+        // Kiểm tra level yêu cầu
+        if (LevelSystem.Instance != null && item.requiredLevel > 0)
+        {
+            if (LevelSystem.Instance.level < item.requiredLevel)
+            {
+                GameManager.Instance.ShowNotEnoughLevel(item.requiredLevel);
+                return;
+            }
+        }
+
         foreach (var slot in slots)
         {
             if (slot.slotType == item.itemType)
@@ -148,6 +158,7 @@ public class EquipmentManager : MonoBehaviour
 
         textchiso.text =
             $"Máu cơ bản         : {LevelSystem.Instance.maxHP}\n" +
+            $"Năng lượng cơ bản   : {LevelSystem.Instance.maxMP}\n" +
             $"Tấn công cơ bản    : {LevelSystem.Instance.attack}\n" +
             $"Phòng thủ cơ bản   : {LevelSystem.Instance.Phongthu}\n" +
             $"Né Tránh cơ bản    : {LevelSystem.Instance.netranh}\n" +

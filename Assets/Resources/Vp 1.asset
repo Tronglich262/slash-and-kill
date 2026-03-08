@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61fbe87cbc4ae0f4eb42f51057a4de5e, type: 3}
-  m_Name: Ao 1
+  m_Name: Vp 1
   m_EditorClassIdentifier: 
-  itemID: 35
-  itemName: "\xC1o pixel 1"
-  itemDescription: "T\u0103ng Gi\xE1p"
-  baseHP: 10
-  baseMP: 0
-  baseAttack: 10
-  basePhongThu: 20
-  baseNeTranh: 10
-  baseTocDo: 10
-  itemIcon: {fileID: 3554267790342401684, guid: 8949cc967322e7d4da8aedc502ceae71, type: 3}
-  price: 1000
-  itemType: 1
-  requiredLevel: 10
+  itemID: 31
+  itemName: MP
+  itemDescription: "H\u1ED3i Mana"
+  baseHP: 0
+  baseMP: 100
+  baseAttack: 0
+  basePhongThu: 0
+  baseNeTranh: 0
+  baseTocDo: 0
+  itemIcon: {fileID: 7303184864127634819, guid: 83c85fafc2ed90c42b5b53f9d7c4fea6, type: 3}
+  price: 2000
+  itemType: 8
+  requiredLevel: 0

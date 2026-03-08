@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: "V\u0169 Kh\xED pixel 14"
   itemDescription: "T\u0103ng S\xE1t Th\u01B0\u01A1ng"
   baseHP: 40
+  baseMP: 0
   baseAttack: 65
   basePhongThu: 40
   baseNeTranh: 40
@@ -23,3 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: 4108436501543567356, guid: 9a115711f0b47cc4f8adbb2f318af61c, type: 3}
   price: 20000
   itemType: 7
+  requiredLevel: 55

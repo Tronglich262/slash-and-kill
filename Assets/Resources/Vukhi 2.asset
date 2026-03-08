@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: "V\u0169 Kh\xED pixel 2"
   itemDescription: "T\u0103ng S\xE1t Th\u01B0\u01A1ng"
   baseHP: 5
+  baseMP: 0
   baseAttack: 20
   basePhongThu: 5
   baseNeTranh: 5
@@ -23,3 +24,4 @@ MonoBehaviour:
   itemIcon: {fileID: -8672020964553106806, guid: b7109d3d8dad18847947850aaa5f0282, type: 3}
   price: 2000
   itemType: 7
+  requiredLevel: 18

@@ -19,6 +19,9 @@ public class PlayerSkillSystem : MonoBehaviour
         [SerializeField] public float skillDuration = 2f;
         [SerializeField] public bool followPlayer = false;
 
+        // MP Cost
+        [SerializeField] public int mpCost = 0;
+
         // UI
         [SerializeField] public Button skillButton;
         [SerializeField] public Image cooldownBar;
@@ -88,6 +91,19 @@ public class PlayerSkillSystem : MonoBehaviour
     {
         SkillData skill = skills[index];
         if (isOnCooldown[index] || player == null) return;
+
+        // Kiểm tra đủ MP không
+        if (skill.mpCost > 0)
+        {
+            HealthSystem hs = player.GetComponent<HealthSystem>();
+            if (hs == null || hs.currentMP < skill.mpCost)
+            {
+                GameManager.Instance.ShowNotEnoughMana();
+                return;
+            }
+            // Trừ MP
+            hs.UseMP(skill.mpCost);
+        }
 
         isOnCooldown[index] = true;
         if (skill.skillButton != null)

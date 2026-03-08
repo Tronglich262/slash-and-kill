@@ -6,11 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
+    public static HealthSystem Instance;
+
     public int maxHP = 100;
     public int currentHP;
     public Image hpBar;
     public TextMeshProUGUI hpText;
     public int attackDamage = 10;
+
+    // MP System
+    public int maxMP = 50;
+    public int currentMP; 
+    public Image mpBar;
+    public TextMeshProUGUI mpText;
+
     private Animator animator;
     public bool check = false;
 
@@ -20,14 +29,41 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
+        // Singleton
+        if (Instance == null) Instance = this;
+
         animator = GetComponent<Animator>();
         LoadHP(); // Tải lại currentHP khi scene được load
+        LoadMP();
         UpdateHPUI();
+        UpdateMPUI();
+    }
+
+    // Kiểm tra né đòn dựa trên netranh (Speed stat)
+    // Mỗi 1 điểm netranh = 1% cơ hội né đòn, max 50%
+    private bool CheckDodge()
+    {
+        if (LevelSystem.Instance == null) return false;
+
+        int netranh = LevelSystem.Instance.netranh;
+        // Giới hạn max dodge chance là 50%
+        int dodgeChance = Mathf.Min(netranh, 50);
+
+        int randomValue = Random.Range(0, 100);
+        return randomValue < dodgeChance;
     }
 
     public void TakeDamage(int damage)
     {
         if (isDead) return; // Không nhận sát thương nếu đã chết
+
+        // Kiểm tra né đòn dựa trên netranh (Speed stat)
+        if (CheckDodge())
+        {
+            Debug.Log("Né đòn thành công!");
+            // Có thể hiện hiệu ứng né đòn ở đây
+            return;
+        }
 
         currentHP -= damage;
         if (currentHP < 0) currentHP = 0;
@@ -85,6 +121,67 @@ public class HealthSystem : MonoBehaviour
         maxHP = newMaxHP;
         UpdateHPUI();
         SaveHP(); // Lưu currentHP sau khi cập nhật maxHP
+    }
+
+    // ================= MP System =================
+    public void UpdateMaxMP(int newMaxMP)
+    {
+        maxMP = newMaxMP;
+        // Nếu currentMP = 0 hoặc nhỏ hơn maxMP cũ, set về maxMP mới
+        if (currentMP == 0 || currentMP < maxMP)
+            currentMP = maxMP;
+        UpdateMPUI();
+        SaveMP();
+    }
+
+    public void UseMP(int amount)
+    {
+        if (currentMP >= amount)
+        {
+            currentMP -= amount;
+            UpdateMPUI();
+            SaveMP();
+        }
+        else
+        {
+            Debug.Log("Không đủ MP!");
+        }
+    }
+
+    public void RestoreMP(int amount)
+    {
+        currentMP += amount;
+        if (currentMP > maxMP) currentMP = maxMP;
+        UpdateMPUI();
+        SaveMP();
+    }
+
+    public void UpdateMPUI()
+    {
+        if (mpBar != null)
+            mpBar.fillAmount = (float)currentMP / maxMP;
+        if (mpText != null)
+            mpText.text = currentMP + " / " + maxMP;
+    }
+
+    public void SaveMP()
+    {
+        PlayerPrefs.SetInt("CurrentMP", currentMP);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadMP()
+    {
+        if (PlayerPrefs.HasKey("CurrentMP"))
+        {
+            currentMP = PlayerPrefs.GetInt("CurrentMP");
+            // Đảm bảo không bị 0
+            if (currentMP <= 0) currentMP = maxMP;
+        }
+        else
+        {
+            currentMP = maxMP;
+        }
     }
 
     // Thêm hàm SaveHP() và LoadHP()
