@@ -19532,6 +19532,7 @@ Transform:
   - {fileID: 551067399}
   - {fileID: 1697601725}
   - {fileID: 1111724975}
+  - {fileID: 1760311540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &814323340
@@ -34260,8 +34261,9 @@ MonoBehaviour:
   cooldownImage: {fileID: 1394686039}
   cooldownText: {fileID: 1112385009}
   skillDuration: 10
-  cooldownTime: 50
+  cooldownTime: 2
   mpCost: 10
+  skillPositionOffset: {x: 0, y: -1.5, z: 0}
   healthSystem: {fileID: 2006672041}
   ischeck: 0
 --- !u!1 &1398845537
@@ -37992,7 +37994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967835574231978632, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1967835574231978635, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
       propertyPath: m_LocalScale.x
@@ -43137,6 +43139,60 @@ MonoBehaviour:
     levelDo: 0
     quantity: 0
   slot: {fileID: 1759382528}
+--- !u!1 &1760311539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1760311540}
+  - component: {fileID: 1760311541}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1760311540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760311539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -139, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 814323339}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1760311541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760311539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39477e0985a67834caa2b0217b29235b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 7274172745297739608, guid: f21f01cb0bd22d84c884a76e29d9640a, type: 3}
+  expColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  hpColor: {r: 0, g: 1, b: 0, a: 1}
+  manaColor: {r: 0, g: 1, b: 1, a: 1}
+  dodgeColor: {r: 1, g: 1, b: 1, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  goldColor: {r: 1, g: 0.84, b: 0, a: 1}
+  levelUpColor: {r: 1, g: 0.5, b: 0, a: 1}
+  floatSpeed: 1
+  lifetime: 0.5
 --- !u!1 &1761277263
 GameObject:
   m_ObjectHideFlags: 0

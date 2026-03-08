@@ -22,6 +22,10 @@ public class EnemyHealth : MonoBehaviour
    
     public GameObject coinPrefab;
 
+    // EXP và Gold khi tiêu diệt quái
+    public int expReward = 10;
+    public int goldReward = 5;
+
   
     public float knockbackForce = 3f; // Lực đẩy
     public float knockbackDuration = 0.2f; // Thời gian đẩy
@@ -67,6 +71,24 @@ public class EnemyHealth : MonoBehaviour
     {
         animator.SetBool("Death1", true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Hiển thị floating text Gold (EXP sẽ hiển thị từ LevelSystem)
+        if (FloatingTextManager.Instance != null)
+        {
+            FloatingTextManager.Instance.ShowGold(goldReward);
+        }
+
+        // Cộng EXP cho player
+        if (levelSystem != null)
+        {
+            levelSystem.GainExp(expReward);
+        }
+
+        // Cộng Gold cho player
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.Instance.AddCoin(goldReward);
+        }
 
         // Spawn coin rải rác dưới đất
         int coinCount = Random.Range(1, 11);

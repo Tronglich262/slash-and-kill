@@ -39,7 +39,14 @@ public class ItemDetailPanel : MonoBehaviour
         // STAT LẤY TỪ InventoryItem (có levelDo)
         if (data.itemType == ItemType.vatpham)
         {
-            itemDescriptionText.text = $"Hồi Máu: +{invItem.GetHP()}";
+            string stats = "";
+            if (invItem.GetHP() > 0) stats += $"Hồi Máu: +{invItem.GetHP()}";
+            if (invItem.GetMP() > 0) 
+            {
+                if (!string.IsNullOrEmpty(stats)) stats += "\n";
+                stats += $"Hồi Mana: +{invItem.GetMP()}";
+            }
+            itemDescriptionText.text = string.IsNullOrEmpty(stats) ? "Không có tác dụng" : stats;
         }
         else
         {
@@ -83,8 +90,18 @@ public class ItemDetailPanel : MonoBehaviour
             if (playerHealth != null)
             {
                 int healAmount = currentItem.GetHP(); // Lấy HP từ item (đã tính level)
-                playerHealth.Heal(healAmount);
-                Debug.Log($"Đã hồi {healAmount} máu!");
+                if (healAmount > 0)
+                {
+                    playerHealth.Heal(healAmount);
+                    Debug.Log($"Đã hồi {healAmount} máu!");
+                }
+
+                int manaAmount = currentItem.GetMP(); // Lấy MP từ item
+                if (manaAmount > 0)
+                {
+                    playerHealth.RestoreMP(manaAmount);
+                    Debug.Log($"Đã hồi {manaAmount} mana!");
+                }
             }
 
             currentItem.quantity--;

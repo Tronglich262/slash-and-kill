@@ -61,7 +61,11 @@ public class HealthSystem : MonoBehaviour
         if (CheckDodge())
         {
             Debug.Log("Né đòn thành công!");
-            // Có thể hiện hiệu ứng né đòn ở đây
+            // Hiển thị floating text DODGE
+            if (FloatingTextManager.Instance != null)
+            {
+                FloatingTextManager.Instance.ShowDodge();
+            }
             return;
         }
 
@@ -104,8 +108,18 @@ public class HealthSystem : MonoBehaviour
 
     public void Heal(int amount)
     {
+        int oldHP = currentHP;
         currentHP += amount;
         if (currentHP > maxHP) currentHP = maxHP;
+        
+        int healAmount = currentHP - oldHP;
+        
+        // Hiển thị floating text HP hồi
+        if (healAmount > 0 && FloatingTextManager.Instance != null)
+        {
+            FloatingTextManager.Instance.ShowHP(healAmount);
+        }
+        
         UpdateHPUI();
         SaveHP(); // Lưu currentHP sau khi hồi máu
     }
@@ -150,8 +164,18 @@ public class HealthSystem : MonoBehaviour
 
     public void RestoreMP(int amount)
     {
+        int oldMP = currentMP;
         currentMP += amount;
         if (currentMP > maxMP) currentMP = maxMP;
+        
+        int restoreAmount = currentMP - oldMP;
+        
+        // Hiển thị floating text Mana hồi
+        if (restoreAmount > 0 && FloatingTextManager.Instance != null)
+        {
+            FloatingTextManager.Instance.ShowMana(restoreAmount);
+        }
+        
         UpdateMPUI();
         SaveMP();
     }

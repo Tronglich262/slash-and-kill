@@ -74,6 +74,13 @@ public class LevelSystem : MonoBehaviour
     public void GainExp(int amount)
     {
         currentExp += amount;
+        
+        // Hiển thị floating text EXP
+        if (FloatingTextManager.Instance != null)
+        {
+            FloatingTextManager.Instance.ShowEXP(amount);
+        }
+
         while (currentExp >= expToNextLevel)
             LevelUp();
 
@@ -87,6 +94,12 @@ public class LevelSystem : MonoBehaviour
         level++;
         expToNextLevel += 1000;
         statPoints += 10;
+
+        // Hiển thị floating text Level Up
+        if (FloatingTextManager.Instance != null)
+        {
+            FloatingTextManager.Instance.ShowLevelUp();
+        }
 
         if (skillPointPanel != null)
             skillPointPanel.SetActive(true);
