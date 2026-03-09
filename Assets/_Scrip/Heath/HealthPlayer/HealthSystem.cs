@@ -25,7 +25,7 @@ public class HealthSystem : MonoBehaviour
 
     // Hồi sinh
     public GameObject Hoisinh;
-    private bool isDead = false;
+    public bool isDead = false;
 
     private void Start()
     {
@@ -33,7 +33,7 @@ public class HealthSystem : MonoBehaviour
         if (Instance == null) Instance = this;
 
         animator = GetComponent<Animator>();
-        LoadHP(); // Tải lại currentHP khi scene được load
+        LoadHP(); 
         LoadMP();
         UpdateHPUI();
         UpdateMPUI();
@@ -55,13 +55,12 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isDead) return; // Không nhận sát thương nếu đã chết
+        if (isDead) return; 
 
         // Kiểm tra né đòn dựa trên netranh (Speed stat)
         if (CheckDodge())
         {
             Debug.Log("Né đòn thành công!");
-            // Hiển thị floating text DODGE
             if (FloatingTextManager.Instance != null)
             {
                 FloatingTextManager.Instance.ShowDodge();
@@ -101,9 +100,9 @@ public class HealthSystem : MonoBehaviour
         GetComponent<PlayerAttack>().enabled = false;
         GetComponent<PlayerJump>().enabled = false;
 
-        yield return new WaitForSeconds(2f);
         Hoisinh.SetActive(true);
         //SceneManager.LoadScene("ThiTran");
+        yield break;
     }
 
     public void Heal(int amount)
@@ -230,8 +229,6 @@ public class HealthSystem : MonoBehaviour
     //Hồi sinh
     public void ToggleYeshoisinh()
     {
-        check = false;
-
         if (CoinManager.Instance != null) // check tiền
         {
             if (CoinManager.Instance.coinCount >= 500)
@@ -241,17 +238,21 @@ public class HealthSystem : MonoBehaviour
                 animator.SetBool("Death", false);
                 Heal(maxHP);
                 isDead = false;
-                GetComponent<PlayerController>().enabled = true;
-                GetComponent<PlayerAttack>().enabled = true;
-                GetComponent<PlayerJump>().enabled = true;
-
+                StartCoroutine(ReviveSequence());
             }
             else
             {
                 Debug.Log("Không đủ tiền Hồi sinh");
-
             }
         }
+    }
+
+    IEnumerator ReviveSequence()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<PlayerController>().enabled = true;
+        GetComponent<PlayerAttack>().enabled = true;
+        GetComponent<PlayerJump>().enabled = true;
     }
 
     public void ToggleNoHoisinh()

@@ -62,6 +62,19 @@ public class BossController : MonoBehaviour
         // Không làm gì cho đến khi battle bắt đầu (sau intro)
         if (!battleStarted) return;
 
+        // Dừng tấn công nếu player đã chết
+        if (player != null)
+        {
+            HealthSystem playerHealth = player.GetComponent<HealthSystem>();
+            if (playerHealth != null && playerHealth.isDead)
+            {
+                // Player đã chết, dừng mọi hành động
+                animator.SetBool("Walk", false);
+                animator.SetBool("Attack", false);
+                return;
+            }
+        }
+
         // Giới hạn vị trí không cho boss xuống dưới mặt đất
         Vector3 pos = transform.position;
         if (pos.y < minYPosition)

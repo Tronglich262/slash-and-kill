@@ -52,6 +52,19 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
+        // Dừng tấn công nếu player đã chết
+        if (player != null)
+        {
+            HealthSystem playerHealth = player.GetComponent<HealthSystem>();
+            if (playerHealth != null && playerHealth.isDead)
+            {
+                // Player đã chết, dừng mọi hành động
+                animator.SetBool("Walk1", false);
+                animator.SetBool("Attack1", false);
+                return;
+            }
+        }
+
         if (isAttacking || isKnockback) return; // Dừng lại nếu đang tấn công hoặc bị knockback
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
