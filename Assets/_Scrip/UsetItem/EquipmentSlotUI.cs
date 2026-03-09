@@ -43,6 +43,12 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     {
         // Chỉ click trái
         if (eventData.button != PointerEventData.InputButton.Left) return;
-        EquipmentItemPanel.instance.ShowItem(slot);
+        
+        // Debug
+        Debug.Log($"Click slot {slotType} - currentItem: {currentItem}");
+
+        // Chỉ hiện panel nếu có item trang bị
+        if (currentItem != null)
+            EquipmentItemPanel.instance.ShowItem(this);
     }
 }

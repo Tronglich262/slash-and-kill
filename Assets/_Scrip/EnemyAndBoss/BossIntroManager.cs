@@ -22,9 +22,10 @@ public class BossIntroManager : MonoBehaviour
     [TextArea]
     public List<string> returningMessages = new List<string>()
     {
-        "Chúc mừng đã tới được đây...",
-        "Ngươi dám quay lại sao?",
-        "Hãy chiến đấu đi!"
+        "Wow! Người có mặt tại đây cũng đồng nghĩa với việc ngươi đã tiêu diệt được đệ tử của ta",
+        "Chúc mừng ngươi...",
+        "Nhưng ta ở một đẳng cấp khác sẽ khiến ngươi tuyệt vọng",
+        "ta sẽ cho ngươi thấy sự khác biệt về sức mạnh!",
     };
 
     [Header("Cài đặt Camera")]
@@ -38,6 +39,7 @@ public class BossIntroManager : MonoBehaviour
     public float typingSpeed = 0.05f;
 
     [Header("Cài đặt khác")]
+    public bool showNotificationOnJoin = false; // Tick để hiện panel khi player vào map
     public float delayBetweenMessages = 1.5f;
     public float delayBeforeBattle = 2f;
     public float notificationDuration = 3f;
@@ -67,7 +69,10 @@ public class BossIntroManager : MonoBehaviour
         }
         if (sharedPanel != null)
             sharedPanel.SetActive(false);
-        StartCoroutine(ShowNotificationThenWait());
+        
+        // Chỉ hiện notification khi join map nếu được tick
+        if (showNotificationOnJoin)
+            StartCoroutine(ShowNotificationThenWait());
     }
 
     IEnumerator ShowNotificationThenWait()
