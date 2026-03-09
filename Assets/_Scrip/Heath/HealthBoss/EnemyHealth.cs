@@ -19,8 +19,15 @@ public class EnemyHealth : MonoBehaviour
 
     public LevelSystem levelSystem;
 
-   
+    // Cơ chế chí mạng
+    public float criticalChance = 0.2f; // 20% tỉ lệ chí mạng
+    public float criticalMultiplier = 2f; // 2x damage khi chí mạng
+
     public GameObject coinPrefab;
+
+    // EXP và Gold khi tiêu diệt quái
+    public int expReward = 10;
+    public int goldReward = 5;
 
   
     public float knockbackForce = 3f; // Lực đẩy
@@ -50,11 +57,23 @@ public class EnemyHealth : MonoBehaviour
         if (other.CompareTag("Chieu5")) StartCoroutine(DameChieu5());
     }
 
-    IEnumerator DameChieu1() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); TakeDamage(baseDame1 + levelSystem.attack); }
-    IEnumerator DameChieu2() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); TakeDamage(baseDame2 + levelSystem.attack); }
-    IEnumerator DameChieu3() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); TakeDamage(baseDame3 + levelSystem.attack); }
-    IEnumerator DameChieu4() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); TakeDamage(baseDame4 + levelSystem.attack); }
-    IEnumerator DameChieu5() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); TakeDamage(levelSystem.attack); }
+    // Hàm tính damage với khả năng chí mạng - trả về cả damage và isCritical
+    void CalculateDamageWithCritical(float baseDamage, out float finalDamage, out bool isCritical)
+    {
+        isCritical = Random.value < criticalChance;
+        finalDamage = baseDamage + levelSystem.attack;
+        
+        if (isCritical)
+        {
+            finalDamage *= criticalMultiplier;
+        }
+    }
+
+    IEnumerator DameChieu1() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame1, out float damage1, out bool isCrit1); TakeDamage(damage1, isCrit1); }
+    IEnumerator DameChieu2() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame2, out float damage2, out bool isCrit2); TakeDamage(damage2, isCrit2); }
+    IEnumerator DameChieu3() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame3, out float damage3, out bool isCrit3); TakeDamage(damage3, isCrit3); }
+    IEnumerator DameChieu4() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame4, out float damage4, out bool isCrit4); TakeDamage(damage4, isCrit4); }
+    IEnumerator DameChieu5() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(levelSystem.attack, out float damage5, out bool isCrit5); TakeDamage(damage5, isCrit5); }
 
     IEnumerator hit()
     {
@@ -67,6 +86,24 @@ public class EnemyHealth : MonoBehaviour
     {
         animator.SetBool("Death1", true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Hiển thị floating text Gold (EXP sẽ hiển thị từ LevelSystem)
+        if (FloatingTextManager.Instance != null)
+        {
+            FloatingTextManager.Instance.ShowGold(goldReward);
+        }
+
+        // Cộng EXP cho player
+        if (levelSystem != null)
+        {
+            levelSystem.GainExp(expReward);
+        }
+
+        // Cộng Gold cho player
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.Instance.AddCoin(goldReward);
+        }
 
         // Spawn coin rải rác dưới đất
         int coinCount = Random.Range(1, 11);
@@ -88,11 +125,11 @@ public class EnemyHealth : MonoBehaviour
 
 
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool isCritical = false)
     {
         currentHealth -= damage;
         UpdateHealthBar();
-        ShowDamageText(damage);
+        ShowDamageText(damage, isCritical);
 
         // Tính hướng đẩy (hướng ngược lại với player)
         GameObject player = GameObject.FindWithTag("Player");
@@ -144,13 +181,13 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    void ShowDamageText(float damage)
+    void ShowDamageText(float damage, bool isCritical = false)
     {
         if (damageTextPrefab != null)
         {
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
             GameObject text = Instantiate(damageTextPrefab, GameObject.Find("Canvas").transform);
-            text.GetComponent<DamageText>().Setup((int)damage, this.transform);
+            text.GetComponent<DamageText>().Setup((int)damage, this.transform, isCritical);
         }
     }
 

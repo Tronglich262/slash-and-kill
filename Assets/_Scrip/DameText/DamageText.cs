@@ -5,20 +5,29 @@ public class DamageText : MonoBehaviour
 {
     public TextMeshProUGUI damageText;
     private Transform enemyTransform;
-    private Vector3 offset = new Vector3(0, 0f, 0); // Hiển thị trên đầu quái
-    private float moveSpeed = 1f; // Tốc độ bay lên
-    private float fadeSpeed = 2f; // Tốc độ mờ dần
-    private CanvasGroup canvasGroup; // Dùng để làm mờ text
+    private Vector3 offset = new Vector3(0, 0f, 0); 
+    private float moveSpeed = 1f; 
+    private float fadeSpeed = 2f;
+    private CanvasGroup canvasGroup; 
 
-    public void Setup(int damage, Transform enemy)
+    public void Setup(int damage, Transform enemy, bool isCritical = false)
     {
-        damageText.text = "-" + damage.ToString();
-        damageText.color = Color.red; // Màu đỏ
-        damageText.fontSize = 50; // Kích thước chữ
-        enemyTransform = enemy; // Theo dõi quái
+        if (isCritical)
+        {
+            damageText.text = "-" + damage.ToString() + " CRIT! "; 
+            damageText.color = Color.yellow; 
+            damageText.fontSize = 70; 
+        }
+        else
+        {
+            damageText.text = "-" + damage.ToString();
+            damageText.color = Color.red; 
+            damageText.fontSize = 50; 
+        }
+        enemyTransform = enemy;
 
-        canvasGroup = gameObject.AddComponent<CanvasGroup>(); // Thêm CanvasGroup để làm mờ
-        Destroy(gameObject, 1f); // Xóa sau 1 giây
+        canvasGroup = gameObject.AddComponent<CanvasGroup>();//làm mờ
+        Destroy(gameObject, 1f); 
     }
 
     void Update()

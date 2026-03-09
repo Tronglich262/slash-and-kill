@@ -18,7 +18,7 @@ public class Play : MonoBehaviour
         Setting.SetActive(true);
         menuGame.SetActive(!menuGame.activeSelf);
         dpg.SetActive(true);
-        amthanh.SetActive(false);
+        amthanh.SetActive(true);
         dichuyen.SetActive(false);
         tancong.SetActive(false);
     }
@@ -46,7 +46,7 @@ public class Play : MonoBehaviour
         dichuyen.SetActive(false);
         tancong.SetActive(false);
         dpg.SetActive(true);
-        amthanh.SetActive(false);
+        amthanh.SetActive(true);
 
     }
     public void SetResolution1280x720()

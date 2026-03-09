@@ -17,6 +17,7 @@ TagManager:
   - Ground
   - LoadMap1
   - NPC
+  - Boss2Trigger
   layers:
   - Default
   - TransparentFX

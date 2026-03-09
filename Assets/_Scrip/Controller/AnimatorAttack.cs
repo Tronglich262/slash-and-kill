@@ -10,6 +10,10 @@ public class AnimatorAttack : MonoBehaviour
     [Header("Mana Restore")]
     public int manaRestoreOnHit = 5; // Lượng mana hồi khi đánh trúng
 
+    [Header("Critical Settings")]
+    public float criticalChance = 0.2f; // 20% tỉ lệ chí mạng
+    public float criticalMultiplier = 2f; // 2x damage khi chí mạng
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
@@ -22,7 +26,7 @@ public class AnimatorAttack : MonoBehaviour
     {
         if (attackPoint == null)
         {
-            Debug.LogError("⚠ attackPoint chưa được gán trong Inspector!");
+            Debug.LogError("attackPoint chưa được gán trong Inspector!");
             return;
         }
 
@@ -36,8 +40,12 @@ public class AnimatorAttack : MonoBehaviour
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                float totalDamage = LevelSystem.Instance != null ? LevelSystem.Instance.attack : 10f;
-                enemyHealth.TakeDamage(levelSystem.attack);
+                // Tính damage và kiểm tra chí mạng
+                float baseDamage = levelSystem != null ? levelSystem.attack : 10f;
+                bool isCritical = Random.value < criticalChance;
+                float finalDamage = isCritical ? baseDamage * criticalMultiplier : baseDamage;
+                
+                enemyHealth.TakeDamage(finalDamage, isCritical);
                 hitAnyEnemy = true;
             }
         }

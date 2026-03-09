@@ -15,6 +15,10 @@ public class EquipmentItemPanel : MonoBehaviour
     [Header("Buttons")]
     public Button unequipButton;
 
+    [Header("Empty Slot Message")]
+    public GameObject emptySlotMessagePanel; // Panel thông báo ô trống
+    public TextMeshProUGUI emptySlotText; // Text thông báo
+
     private EquipmentSlot currentSlot;
     public static EquipmentItemPanel instance;
 
@@ -22,11 +26,21 @@ public class EquipmentItemPanel : MonoBehaviour
     {
         instance = this;
         panel.SetActive(false);
+        if (emptySlotMessagePanel != null)
+            emptySlotMessagePanel.SetActive(false);
     }
 
     public void ShowItem(EquipmentSlot slot)
     {
-        if (slot == null || slot.currentItem == null) return;
+        // Kiểm tra null đầy đủ - không làm gì nếu không có item
+        if (slot == null || slot.currentItem == null || slot.currentItem.itemData == null)
+        {
+            return;
+        }
+
+        // Ẩn thông báo ô trống nếu đang hiển thị
+        if (emptySlotMessagePanel != null)
+            emptySlotMessagePanel.SetActive(false);
 
         currentSlot = slot;
         panel.SetActive(true);
@@ -71,7 +85,41 @@ public class EquipmentItemPanel : MonoBehaviour
     public void HidePanel()
     {
         panel.SetActive(false);
+        if (emptySlotMessagePanel != null)
+            emptySlotMessagePanel.SetActive(false);
         currentSlot = null;
+    }
+
+    private void ShowEmptySlotMessage(EquipmentSlot slot)
+    {
+        if (emptySlotMessagePanel == null) return;
+
+        currentSlot = slot;
+        panel.SetActive(false); // Ẩn panel item detail
+        emptySlotMessagePanel.SetActive(true);
+
+        // Hiển thị tên ô trống
+        if (emptySlotText != null)
+        {
+            string slotName = slot != null ? GetSlotTypeName(slot.slotType) : "Ô trống";
+            emptySlotText.text = slotName + "\n(Trống)";
+        }
+    }
+
+    private string GetSlotTypeName(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Vukhi: return "Vũ Khí";
+            case ItemType.mu: return "Mũ";
+            case ItemType.ao: return "Áo";
+            case ItemType.quan: return "Quần";
+            case ItemType.gang: return "Găng";
+            case ItemType.giay: return "Giày";
+            case ItemType.vong: return "Vòng";
+            case ItemType.nhan: return "Nhẫn";
+            default: return type.ToString();
+        }
     }
 
     private void OnClickUnequip()

@@ -14,6 +14,9 @@ public class SkillHeath : MonoBehaviour
     public float cooldownTime = 10f; 
     public int mpCost = 10; // MP tiêu hao
 
+    [Header("Vị trí skill")]
+    [SerializeField] public Vector3 skillPositionOffset = new Vector3(0, 0f, 0); 
+
     public HealthSystem healthSystem;
     public bool ischeck = false;
 
@@ -45,7 +48,12 @@ public class SkillHeath : MonoBehaviour
 
             // Trừ MP
             if (healthSystem != null)
+            {
                 healthSystem.UseMP(mpCost);
+                // Hiển thị text mana tiêu hao
+                if (FloatingTextManager.Instance != null)
+                    FloatingTextManager.Instance.ShowMana(-mpCost);
+            }
 
             StartCoroutine(Cooldown());        
             StartCoroutine(ActivateSkill());  
@@ -55,13 +63,25 @@ public class SkillHeath : MonoBehaviour
     IEnumerator ActivateSkill()
     {
         ischeck = false;
-        heath.SetActive(true);
+
+        // Đặt vị trí skill theo offset
+        if (heath != null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+                heath.transform.position = player.transform.position + skillPositionOffset;
+            
+            heath.SetActive(true);
+        }
 
         for (int i = 0; i < (int)skillDuration; i++)
         {
             if (healthSystem.currentHP < healthSystem.maxHP && healthSystem.check == false)
             {
                 healthSystem.Heal(5);
+                // Hiển text hồi HP
+                if (FloatingTextManager.Instance != null)
+                    FloatingTextManager.Instance.ShowHP(5);
                 Debug.Log("Hồi 1 máu. HP hiện tại: " + healthSystem.currentHP);
             }
             yield return new WaitForSeconds(1f);

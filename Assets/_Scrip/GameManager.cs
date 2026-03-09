@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        ResetAllGameData();
+    }
+
     private void Update()
     {
         if (notificationPanel != null && notificationPanel.activeSelf)
@@ -73,6 +78,9 @@ public class GameManager : MonoBehaviour
     // Reset tất cả dữ liệu game (stats + inventory + equipment)
     public void ResetAllGameData()
     {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+
         // Reset stats
         ResetAllStats();
 

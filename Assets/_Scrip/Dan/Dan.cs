@@ -31,22 +31,5 @@ public class Dan : MonoBehaviour
             Destroy(gameObject); // Đạn biến mất ngay khi trúng Player
         }
 
-        /*else if (other.CompareTag("Ground"))
-        {
-            StartCoroutine(DelayDestroy());
-        }
-    }
-
-    IEnumerator DelayDestroy()
-    {
-        isDestroying = true;
-
-        if (animator != null)
-            animator.SetBool("Destroy", true);
-
-        yield return new WaitForSeconds(0.1f); // chờ animation chạy
-
-        Destroy(gameObject); // destroy sau khi animation kết thúc
-    }*/
     }
 }
