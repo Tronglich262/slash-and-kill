@@ -82,6 +82,15 @@ public class BossControllerTwo : MonoBehaviour
     void Update()
     {
         if (!battleStarted) return;
+
+        // Dừng tấn công nếu player đã chết
+        if (player != null && playerHealth != null && playerHealth.isDead)
+        {
+            // Player đã chết, dừng mọi hành động
+            animator.SetBool("Walk", false);
+            animator.SetBool("Attack", false);
+            return;
+        }
         
         // Check health states
         CheckHealthStates();

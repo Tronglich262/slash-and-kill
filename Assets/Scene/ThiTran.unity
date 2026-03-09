@@ -50311,6 +50311,7 @@ MonoBehaviour:
   mpText: {fileID: 283060548}
   check: 0
   Hoisinh: {fileID: 1176124026}
+  isDead: 0
 --- !u!114 &2006672042
 MonoBehaviour:
   m_ObjectHideFlags: 0
