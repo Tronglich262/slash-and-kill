@@ -10487,8 +10487,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3144088081081826732, guid: 73a4674bdcc323f47aa9e78573b11306, type: 3}
+      propertyPath: maxHealth
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3144088081081826732, guid: 73a4674bdcc323f47aa9e78573b11306, type: 3}
       propertyPath: currentHealth
-      value: 1000
+      value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 5344121060248531171, guid: 73a4674bdcc323f47aa9e78573b11306, type: 3}
       propertyPath: m_AnchorMax.x
