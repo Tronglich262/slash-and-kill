@@ -89,14 +89,14 @@ public class ItemDetailPanel : MonoBehaviour
             HealthSystem playerHealth = FindObjectOfType<HealthSystem>();
             if (playerHealth != null)
             {
-                int healAmount = currentItem.GetHP(); // Lấy HP từ item (đã tính level)
+                int healAmount = currentItem.GetHP(); 
                 if (healAmount > 0)
                 {
                     playerHealth.Heal(healAmount);
                     Debug.Log($"Đã hồi {healAmount} máu!");
                 }
 
-                int manaAmount = currentItem.GetMP(); // Lấy MP từ item
+                int manaAmount = currentItem.GetMP(); 
                 if (manaAmount > 0)
                 {
                     playerHealth.RestoreMP(manaAmount);
@@ -115,7 +115,6 @@ public class ItemDetailPanel : MonoBehaviour
         }
         else // trang bị
         {
-            // Kiểm tra level yêu cầu trước
             if (LevelSystem.Instance != null && currentItem.itemData.requiredLevel > 0)
             {
                 if (LevelSystem.Instance.level < currentItem.itemData.requiredLevel)
@@ -133,11 +132,7 @@ public class ItemDetailPanel : MonoBehaviour
                 itemID = currentItem.itemID,
                 quantity = 1
             };
-
-            // Trang bị item vào slot
             EquipmentManager.Instance.EquipItem(invItemToEquip);
-
-            // Giảm số lượng ở inventory
             currentItem.quantity--;
             if (currentItem.quantity <= 0)
             {
@@ -162,7 +157,6 @@ public class ItemDetailPanel : MonoBehaviour
         }
         else
         {
-            // Xóa khỏi inventory
             InventoryManager.Instance.playerInventory.RemoveItem(currentItem);
         }
         InventoryManager.Instance.RefreshInventory();

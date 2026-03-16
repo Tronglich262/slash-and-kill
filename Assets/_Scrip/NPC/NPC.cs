@@ -15,10 +15,9 @@ public class NPC : MonoBehaviour
     public GameObject shopUI;
 
     [Header("Shop Items")]
-    public ItemData[] allItems;   // Toàn bộ item trong database (hoặc kéo vào đây)
-    public ItemType[] sellTypes;  // Loại item mà NPC này bán
+    public ItemData[] allItems;   
+    public ItemType[] sellTypes;  
 
-    // Lấy danh sách item mà NPC này sẽ bán
     public ItemData[] GetSellItems()
     {
         return System.Array.FindAll(allItems, item =>

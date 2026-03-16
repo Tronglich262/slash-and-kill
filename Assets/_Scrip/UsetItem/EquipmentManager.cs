@@ -33,7 +33,6 @@ public class EquipmentManager : MonoBehaviour
 
         ItemData item = invItem.itemData;
 
-        // Kiểm tra level yêu cầu
         if (LevelSystem.Instance != null && item.requiredLevel > 0)
         {
             if (LevelSystem.Instance.level < item.requiredLevel)
@@ -47,7 +46,6 @@ public class EquipmentManager : MonoBehaviour
         {
             if (slot.slotType == item.itemType)
             {
-                // Nếu slot đã có đồ → trả về inventory + trừ stats (theo levelDo)
                 if (slot.currentItem != null)
                 {
                     if (slot.currentItem.itemData == null)
@@ -58,19 +56,12 @@ public class EquipmentManager : MonoBehaviour
                 }
 
                 slot.Equip(invItem);
-
-                // Cộng stats từ item mới (theo levelDo)
                 LevelSystem.Instance.ApplyItemStats(invItem);
-
                 SaveEquipment();
                 UpdateChiSoText();
-
-                Debug.Log($"[EquipmentManager] Đã trang bị: {item.itemName} +{invItem.levelDo}");
                 return;
             }
         }
-
-        Debug.LogWarning("Không có slot phù hợp cho item " + item.itemName);
     }
 
     public void Unequip(ItemType slotType)
@@ -100,7 +91,6 @@ public class EquipmentManager : MonoBehaviour
     {
         if (slots == null)
         {
-            Debug.LogError("❌ EquipmentManager: slots chưa gán trong Inspector!");
             return;
         }
 

@@ -31,8 +31,6 @@ public class AnimatorAttack : MonoBehaviour
         }
 
         bool hitAnyEnemy = false;
-
-        // Tất cả các map dùng chung logic
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)
@@ -40,7 +38,7 @@ public class AnimatorAttack : MonoBehaviour
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                // Tính damage và kiểm tra chí mạng
+                // tính dame và kiểm tra chí mạng
                 float baseDamage = levelSystem != null ? levelSystem.attack : 10f;
                 bool isCritical = Random.value < criticalChance;
                 float finalDamage = isCritical ? baseDamage * criticalMultiplier : baseDamage;
@@ -50,14 +48,14 @@ public class AnimatorAttack : MonoBehaviour
             }
         }
 
-        // Hồi mana khi đánh trúng enemy
+        // đánh trúng quái hồi mana
         if (hitAnyEnemy)
         {
             RestoreMana();
         }
     }
 
-    // Hồi mana khi tấn công trúng
+    // hồi mana khi tấn công trúng quái
     private void RestoreMana()
     {
         if (HealthSystem.Instance != null && manaRestoreOnHit > 0)

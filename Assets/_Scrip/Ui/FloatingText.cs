@@ -21,21 +21,14 @@ public class FloatingText : MonoBehaviour
     {
         if (!isInitialized) return;
 
-        // Bay lên trong world space
         transform.position += Vector3.up * floatSpeed * Time.deltaTime;
-
-        // Đếm thời gian
         timer += Time.deltaTime;
-
-        // Mờ dần sau nửa thời gian lifetime
         if (timer > lifetime * 0.5f)
         {
             float alpha = 1f - ((timer - lifetime * 0.5f) / (lifetime * 0.5f));
             alpha = Mathf.Clamp01(alpha);
             SetAlpha(alpha);
         }
-
-        // Hủy khi hết thời gian
         if (timer >= lifetime)
         {
             Destroy(gameObject);

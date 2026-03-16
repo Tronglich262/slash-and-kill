@@ -31,9 +31,9 @@ public class NPCShopText : MonoBehaviour
     {
         while (true)
         {
-            textMesh.gameObject.SetActive(true); // Hiện chữ
+            textMesh.gameObject.SetActive(true); 
             yield return new WaitForSeconds(time1);
-            textMesh.gameObject.SetActive(false); // Ẩn chữ
+            textMesh.gameObject.SetActive(false); 
             yield return new WaitForSeconds(time2);
         }
     }

@@ -34,15 +34,10 @@ public class DamageText : MonoBehaviour
     {
         if (enemyTransform != null)
         {
-            // Cập nhật vị trí DamageText theo quái
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(enemyTransform.position + offset);
             transform.position = screenPosition;
         }
-
-        // Bay dần lên
         offset.y += moveSpeed * Time.deltaTime;
-
-        // Mờ dần
         if (canvasGroup != null)
         {
             canvasGroup.alpha -= fadeSpeed * Time.deltaTime;

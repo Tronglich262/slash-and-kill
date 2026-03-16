@@ -73,18 +73,11 @@ public class ForgeManager : MonoBehaviour
             return;
         }
 
-        // TĂNG CẤP
         currentItem.levelDo++;
 
         Debug.Log($"Item {currentItem.itemData.itemName} nâng cấp lên +{currentItem.levelDo}");
-
-        // UPDATE UI TRONG FORGE
         RefreshUI();
-
-        // DÒNG QUAN TRỌNG NHẤT (BẠN ĐANG THIẾU)
         ShopManager.Instance?.ShowForgeItemDetail(currentItem);
-
-        // REFRESH INVENTORY + SAVE
         InventoryManager.Instance.RefreshInventory();
         SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
     }

@@ -21,16 +21,11 @@ public class PlayerController : MonoBehaviour
 
         float moveX = Input.GetAxisRaw("Horizontal");
 
-        // Set animation
         animator.SetFloat("Speed", Mathf.Abs(moveX));
-
-        // Flip player
         if (moveX > 0 && !facingRight)
             Flip();
         else if (moveX < 0 && facingRight)
             Flip();
-
-        // Apply movement
         rb.linearVelocity = new Vector2(moveX * speed, rb.linearVelocity.y);
     }
 
