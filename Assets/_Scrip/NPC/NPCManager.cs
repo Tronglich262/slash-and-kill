@@ -50,7 +50,7 @@ public class NPCManager : MonoBehaviour
             currentNPC.shopUI.SetActive(false);
         }
 
-        currentNPC = null; // reset NPC hiện tại
+        currentNPC = null; 
     }
 
     public void Close()

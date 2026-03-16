@@ -5,12 +5,12 @@ public class ShopItemUI : MonoBehaviour
 {
     public Image icon;
     private ItemData itemData;
-    private InventoryItem inventoryItem; // Thêm cho forge mode
+    private InventoryItem inventoryItem; 
 
     public void Setup(ItemData data)
     {
         itemData = data;
-        inventoryItem = null; // Reset
+        inventoryItem = null; 
         icon.sprite = data.itemIcon;
     }
 
@@ -23,7 +23,6 @@ public class ShopItemUI : MonoBehaviour
 
     public void OnClick()
     {
-        // Nếu là inventory item (forge mode) thì gọi ShowForgeItemDetail
         if (inventoryItem != null)
         {
             ShopManager.Instance.ShowForgeItemDetail(inventoryItem);

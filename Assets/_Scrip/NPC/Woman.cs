@@ -25,9 +25,9 @@ public class Woman : MonoBehaviour
     {
         while (true)
         {
-            textMesh.gameObject.SetActive(true); // Hiện chữ
+            textMesh.gameObject.SetActive(true); 
             yield return new WaitForSeconds(5f);
-            textMesh.gameObject.SetActive(false); // Ẩn chữ
+            textMesh.gameObject.SetActive(false); 
             yield return new WaitForSeconds(3f);
         }
     }

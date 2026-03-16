@@ -40,7 +40,6 @@ public class FloatingTextManager : MonoBehaviour
     public float floatSpeed = 2f;
     public float lifetime = 1.5f;
 
-    // Queue để xếp chồng text
     private int textQueueIndex = 0;
     private const int maxQueueSlots = 5;
     private float[] queueOffsets = { 0f, 0.3f, 0.6f, 0.9f, 1.2f };
@@ -69,17 +68,10 @@ public class FloatingTextManager : MonoBehaviour
             Debug.LogWarning("FloatingTextPrefab chưa được gán!");
             return;
         }
-
-        // Tính vị trí với offset để không bị đè
         float yOffset = queueOffsets[textQueueIndex];
         Vector3 spawnPos = worldPosition + new Vector3(0, yOffset, 0);
-
-        // Tăng index cho lần tiếp theo (xoay vòng)
         textQueueIndex = (textQueueIndex + 1) % maxQueueSlots;
-
-        // Spawn tại vị trí world
         GameObject obj = Instantiate(floatingTextPrefab, spawnPos, Quaternion.identity);
-        
         FloatingText ft = obj.GetComponent<FloatingText>();
         if (ft != null)
         {

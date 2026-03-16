@@ -23,7 +23,7 @@ public class Check : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Hiển thị vùng phát hiện Enemy khi debug
+        //check enemy
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
     }

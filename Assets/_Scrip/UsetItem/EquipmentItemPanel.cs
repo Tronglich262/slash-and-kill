@@ -16,8 +16,8 @@ public class EquipmentItemPanel : MonoBehaviour
     public Button unequipButton;
 
     [Header("Empty Slot Message")]
-    public GameObject emptySlotMessagePanel; // Panel thông báo ô trống
-    public TextMeshProUGUI emptySlotText; // Text thông báo
+    public GameObject emptySlotMessagePanel;
+    public TextMeshProUGUI emptySlotText; 
 
     private EquipmentSlot currentSlot;
     public static EquipmentItemPanel instance;
@@ -32,13 +32,11 @@ public class EquipmentItemPanel : MonoBehaviour
 
     public void ShowItem(EquipmentSlot slot)
     {
-        // Kiểm tra null đầy đủ - không làm gì nếu không có item
         if (slot == null || slot.currentItem == null || slot.currentItem.itemData == null)
         {
             return;
         }
 
-        // Ẩn thông báo ô trống nếu đang hiển thị
         if (emptySlotMessagePanel != null)
             emptySlotMessagePanel.SetActive(false);
 
@@ -47,7 +45,6 @@ public class EquipmentItemPanel : MonoBehaviour
 
         InventoryItem invItem = slot.currentItem;
 
-        // đảm bảo itemData không null
         if (invItem.itemData == null)
             invItem.itemData = ItemDatabase.Instance.GetItemByID(invItem.itemID);
 
@@ -56,7 +53,6 @@ public class EquipmentItemPanel : MonoBehaviour
         itemIcon.sprite = data.itemIcon;
         itemNameText.text = data.itemName;
 
-        //  STAT PHẢI LẤY TỪ InventoryItem (có levelDo)
         itemDescriptionText.text =
             $"{data.itemDescription}\n" +
             $"HP: {invItem.GetHP()}\n" +
@@ -65,18 +61,13 @@ public class EquipmentItemPanel : MonoBehaviour
             $"Né Tránh: {invItem.GetNeTranh()}\n" +
             $"Tốc Độ: {invItem.GetTocDo()}";
 
-        //  LEVEL PHẢI LẤY TỪ InventoryItem
         itemLevelDo.text = "Cấp: +" + invItem.levelDo;
-
         Price.text = "Price: " + data.price;
-
-        // Hiển thị quantity trong inventory nếu có
         var invInBag = InventoryManager.Instance.playerInventory.items
             .Find(x => x.itemID == invItem.itemID);
 
         int qty = invInBag != null ? invInBag.quantity : 1;
 
-        // Nút Tháo
         unequipButton.onClick.RemoveAllListeners();
         unequipButton.onClick.AddListener(OnClickUnequip);
     }
@@ -95,10 +86,8 @@ public class EquipmentItemPanel : MonoBehaviour
         if (emptySlotMessagePanel == null) return;
 
         currentSlot = slot;
-        panel.SetActive(false); // Ẩn panel item detail
+        panel.SetActive(false);
         emptySlotMessagePanel.SetActive(true);
-
-        // Hiển thị tên ô trống
         if (emptySlotText != null)
         {
             string slotName = slot != null ? GetSlotTypeName(slot.slotType) : "Ô trống";
@@ -128,10 +117,7 @@ public class EquipmentItemPanel : MonoBehaviour
 
         InventoryItem invItem = currentSlot.currentItem;
 
-        // tháo khỏi slot
         currentSlot.Unequip();
-
-        //  THÊM THẲNG 1 ITEM MỚI – KHÔNG GỘP
         InventoryManager.Instance.playerInventory.items.Add(new InventoryItem
         {
             itemID = invItem.itemID,

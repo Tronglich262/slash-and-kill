@@ -20,7 +20,7 @@ public class CoinManager : MonoBehaviour
             return;
         }
 
-        LoadCoin(); // Load coin khi game bắt đầu
+        LoadCoin(); 
         UpdateCoinText();
     }
 
@@ -28,7 +28,7 @@ public class CoinManager : MonoBehaviour
     {
         coinCount += amount;
         UpdateCoinText();
-        SaveCoin(); // Lưu coin sau khi thay đổi
+        SaveCoin(); 
     }
 
     public void UpdateCoinText()
@@ -45,11 +45,11 @@ public class CoinManager : MonoBehaviour
 
     public void LoadCoin()
     {
-        coinCount = PlayerPrefs.GetInt("Coin", 0); // Nếu chưa có thì mặc định 0
+        coinCount = PlayerPrefs.GetInt("Coin", 0); 
     }
 
     private void OnApplicationQuit()
     {
-        SaveCoin(); // Lưu khi thoát game
+        SaveCoin(); 
     }
 }

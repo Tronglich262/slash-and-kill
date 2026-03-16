@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[System.Serializable] // Cho phép lưu trữ dữ liệu
+[System.Serializable]
 public class Item
 {
     public string itemName;

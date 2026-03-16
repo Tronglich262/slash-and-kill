@@ -24,23 +24,19 @@ public class PlayerEdgeIdle : MonoBehaviour
 
     void CheckEdgeIdle()
     {
-        // Raycast từ mỗi chân để kiểm tra có đứng trên nền không
+        // check chân bằng raycast
         bool leftGrounded = Physics2D.Raycast(groundCheckLeft.position, Vector2.down, 0.1f, groundLayer);
         bool rightGrounded = Physics2D.Raycast(groundCheckRight.position, Vector2.down, 0.1f, groundLayer);
 
-        // Nếu chỉ 1 bên chạm đất → đang đứng ở mép
-        isEdgeIdle = (leftGrounded ^ rightGrounded); // XOR
+        isEdgeIdle = (leftGrounded ^ rightGrounded); 
 
-        // Cập nhật Animator
         animator.SetBool("isEdgeIdle", isEdgeIdle);
 
-        // (Tùy chọn) Ngăn trượt mép
         if (isEdgeIdle)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
 
-        // Debug Ray
         Debug.DrawRay(groundCheckLeft.position, Vector2.down * 0.1f, Color.red);
         Debug.DrawRay(groundCheckRight.position, Vector2.down * 0.1f, Color.blue);
     }

@@ -146,7 +146,6 @@ public class PlayerWallSlide : MonoBehaviour
 
         rb.gravityScale = defaultGravity;
 
-        // 🔥 bật mạnh và mượt
         rb.linearVelocity = new Vector2(
             transform.localScale.x > 0 ? 8f : -8f,
             14f

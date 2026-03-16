@@ -28,7 +28,7 @@ public class Dan : MonoBehaviour
             if (healthSystem != null)
                 healthSystem.TakeDamage(10);
 
-            Destroy(gameObject); // Đạn biến mất ngay khi trúng Player
+            Destroy(gameObject); 
         }
 
     }

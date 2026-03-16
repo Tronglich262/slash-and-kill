@@ -8,7 +8,6 @@ public class CoinPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Hiển thị floating text Gold
             if (FloatingTextManager.Instance != null)
             {
                 FloatingTextManager.Instance.ShowGold(coinValue);

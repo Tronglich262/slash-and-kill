@@ -152,7 +152,6 @@ public class LevelSystem : MonoBehaviour
             statPoints--;
             UpdateUI();
             SaveLevelData();
-            // Cập nhật tốc độ di chuyển cho Player
             ApplySpeedToPlayer();
         }
     }
@@ -213,7 +212,6 @@ public class LevelSystem : MonoBehaviour
         }
 
         UpdateGiftButtons();
-        // Áp dụng stats cho player
         ApplyStatsToPlayer();
     }
 
