@@ -6,6 +6,7 @@ public class SceneLoader : MonoBehaviour
     public static SceneLoader Instance;
 
     private string nextSceneName;
+    public bool IsLoading { get; private set; }
 
     private void Awake()
     {
@@ -22,12 +23,37 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            Debug.LogError("Cannot load an empty scene name.");
+            return;
+        }
+
+        if (IsLoading)
+            return;
+
+        if (SceneManager.GetActiveScene().name == sceneName)
+            return;
+
         nextSceneName = sceneName;
-        SceneManager.LoadScene("Load");
+        IsLoading = true;
+        StartCoroutine(LoadLoadingSceneAsync());
+    }
+
+    private System.Collections.IEnumerator LoadLoadingSceneAsync()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Load");
+        while (!operation.isDone)
+            yield return null;
     }
 
     public string GetNextSceneName()
     {
         return nextSceneName;
+    }
+
+    public void FinishLoading()
+    {
+        IsLoading = false;
     }
 }

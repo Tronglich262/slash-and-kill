@@ -266,8 +266,7 @@ public class ShopManager : MonoBehaviour
 
         if (CoinManager.Instance.coinCount >= currentItem.price)
         {
-            CoinManager.Instance.coinCount -= currentItem.price;
-            CoinManager.Instance.UpdateCoinText();
+            CoinManager.Instance.AddCoin(-currentItem.price);
 
             InventoryManager.Instance.playerInventory.AddItem(currentItem, 1);
             InventoryManager.Instance.RefreshInventory();

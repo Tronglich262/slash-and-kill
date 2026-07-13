@@ -42,7 +42,10 @@ public class SkillHeath : MonoBehaviour
             // Kiểm tra đủ MP không
             if (healthSystem != null && healthSystem.currentMP < mpCost)
             {
-                GameManager.Instance.ShowNotEnoughMana();
+                if (GameManager.Instance != null)
+                    GameManager.Instance.ShowNotEnoughMana();
+                else
+                    Debug.Log("Not enough mana.");
                 return;
             }
 
@@ -80,8 +83,6 @@ public class SkillHeath : MonoBehaviour
             {
                 healthSystem.Heal(5);
                 // Hiển text hồi HP
-                if (FloatingTextManager.Instance != null)
-                    FloatingTextManager.Instance.ShowHP(5);
                 Debug.Log("Hồi 1 máu. HP hiện tại: " + healthSystem.currentHP);
             }
             yield return new WaitForSeconds(1f);

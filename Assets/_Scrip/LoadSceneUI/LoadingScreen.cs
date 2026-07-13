@@ -17,6 +17,7 @@ public class LoadingScreen : MonoBehaviour
         if (string.IsNullOrEmpty(targetScene))
         {
             Debug.LogError("Scene đích không xác định!");
+            SceneLoader.Instance?.FinishLoading();
             return;
         }
 
@@ -25,24 +26,38 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator LoadSceneAsync(string sceneName)
     {
-        loadingUI.SetActive(true);
+        if (loadingUI != null)
+            loadingUI.SetActive(true);
+
+        // Let the loading canvas render before starting expensive asset work.
+        yield return null;
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         operation.allowSceneActivation = false;
+        bool activationRequested = false;
 
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            progressBar.value = progress;
-            loadingText.text = $"Đang tải... {progress * 100f:F0}%";
+            if (progressBar != null)
+                progressBar.value = progress;
+            if (loadingText != null)
+                loadingText.text = $"Đang tải... {progress * 100f:F0}%";
 
-            if (operation.progress >= 0.9f)
+            if (operation.progress >= 0.9f && !activationRequested)
             {
-                loadingText.text = "Đã sẵn sàng!";
+                activationRequested = true;
+                if (loadingText != null)
+                    loadingText.text = "Đã sẵn sàng!";
                 yield return new WaitForSeconds(0.3f);
+                // This object is destroyed during scene activation, so release
+                // the transition lock before activating the destination scene.
+                SceneLoader.Instance?.FinishLoading();
                 operation.allowSceneActivation = true;
             }
 
             yield return null;
         }
+
     }
 }

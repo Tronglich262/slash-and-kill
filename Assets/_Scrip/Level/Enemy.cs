@@ -13,12 +13,6 @@ public class Enemy : MonoBehaviour
             levelSystem = FindFirstObjectByType<LevelSystem>();
         }
     }
-    private void OnDestroy() 
-    {
-        if (levelSystem != null)
-        {
-            int expGained = Random.Range(min, max);
-            levelSystem.GainExp(expGained);
-        }
-    }
+    // Experience is awarded by EnemyHealth only after a confirmed defeat.
+    // Awarding it from OnDestroy also paid experience when a scene unloaded.
 }

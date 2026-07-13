@@ -37,7 +37,10 @@ public class EquipmentManager : MonoBehaviour
         {
             if (LevelSystem.Instance.level < item.requiredLevel)
             {
-                GameManager.Instance.ShowNotEnoughLevel(item.requiredLevel);
+                if (GameManager.Instance != null)
+                    GameManager.Instance.ShowNotEnoughLevel(item.requiredLevel);
+                else
+                    Debug.LogWarning("Required level: " + item.requiredLevel);
                 return;
             }
         }

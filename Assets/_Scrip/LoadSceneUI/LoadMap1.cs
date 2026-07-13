@@ -11,7 +11,8 @@ public class LoadMap1 : MonoBehaviour
         {
             SpawnManager.SetSpawnPoint(spawnPointName);
 
-            SceneLoader.Instance.LoadScene(targetScene);
+            if (SceneLoader.Instance != null)
+                SceneLoader.Instance.LoadScene(targetScene);
         }
     }
 }

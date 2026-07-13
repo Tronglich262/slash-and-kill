@@ -26,11 +26,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        ResetAllGameData();
-    }
-
     private void Update()
     {
         if (notificationPanel != null && notificationPanel.activeSelf)
@@ -81,17 +76,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
-        // Reset stats
-        ResetAllStats();
-
-        // Reset inventory
-        if (InventoryManager.Instance != null)
-        {
-            InventoryManager.Instance.playerInventory.items.Clear();
-            InventoryManager.Instance.RefreshInventory();
-            SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
-        }
-
         // Reset equipment
         if (EquipmentManager.Instance != null)
         {
@@ -105,11 +89,24 @@ public class GameManager : MonoBehaviour
             EquipmentManager.Instance.SaveEquipment();
         }
 
+        // Reset stats after equipment is removed so equipment bonuses cannot
+        // leave the character with negative or stale values.
+        ResetAllStats();
+
+        // Reset inventory
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.playerInventory.items.Clear();
+            InventoryManager.Instance.RefreshInventory();
+            SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
+        }
+
         // Reset coin
         if (CoinManager.Instance != null)
         {
             CoinManager.Instance.coinCount = 0;
             CoinManager.Instance.UpdateCoinText();
+            CoinManager.Instance.SaveCoin();
         }
 
         Debug.Log("Đã reset tất cả dữ liệu game!");

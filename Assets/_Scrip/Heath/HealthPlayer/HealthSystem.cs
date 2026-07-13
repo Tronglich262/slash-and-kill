@@ -68,7 +68,10 @@ public class HealthSystem : MonoBehaviour
             return;
         }
 
-        currentHP -= damage;
+        // Defense uses diminishing returns; every successful hit still deals at least 1 damage.
+        int defense = LevelSystem.Instance != null ? Mathf.Max(0, LevelSystem.Instance.Phongthu) : 0;
+        int finalDamage = Mathf.Max(1, Mathf.CeilToInt(damage * 100f / (100f + defense)));
+        currentHP -= finalDamage;
         if (currentHP < 0) currentHP = 0;
         UpdateHPUI();
         SaveHP();
@@ -131,7 +134,8 @@ public class HealthSystem : MonoBehaviour
 
     public void UpdateMaxHP(int newMaxHP)
     {
-        maxHP = newMaxHP;
+        maxHP = Mathf.Max(1, newMaxHP);
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHPUI();
         SaveHP(); // Lưu currentHP sau khi cập nhật maxHP
     }
@@ -139,10 +143,9 @@ public class HealthSystem : MonoBehaviour
     // ================= MP System =================
     public void UpdateMaxMP(int newMaxMP)
     {
-        maxMP = newMaxMP;
-        // Nếu currentMP = 0 hoặc nhỏ hơn maxMP cũ, set về maxMP mới
-        if (currentMP == 0 || currentMP < maxMP)
-            currentMP = maxMP;
+        maxMP = Mathf.Max(1, newMaxMP);
+        // Raising an equipment/stat cap does not restore mana for free.
+        currentMP = Mathf.Clamp(currentMP, 0, maxMP);
         UpdateMPUI();
         SaveMP();
     }

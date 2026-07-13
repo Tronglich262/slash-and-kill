@@ -52,6 +52,16 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
+        // The player can be spawned after this enemy, or not exist in a test scene.
+        if (player == null)
+        {
+            GameObject foundPlayer = GameObject.FindWithTag("Player");
+            if (foundPlayer == null)
+                return;
+
+            player = foundPlayer.transform;
+        }
+
         // Dừng tấn công nếu player đã chết
         if (player != null)
         {

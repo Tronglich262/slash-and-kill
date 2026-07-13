@@ -115,21 +115,12 @@ public class EquipmentItemPanel : MonoBehaviour
     {
         if (currentSlot == null || currentSlot.currentItem == null) return;
 
-        InventoryItem invItem = currentSlot.currentItem;
+        // Keep all equipment changes in EquipmentManager so item stats are removed too.
+        if (EquipmentManager.Instance == null || InventoryManager.Instance == null)
+            return;
 
-        currentSlot.Unequip();
-        InventoryManager.Instance.playerInventory.items.Add(new InventoryItem
-        {
-            itemID = invItem.itemID,
-            itemData = invItem.itemData,
-            levelDo = invItem.levelDo,
-            quantity = 1
-        });
-
-        // lưu
-        EquipmentManager.Instance.SaveEquipment();
+        EquipmentManager.Instance.Unequip(currentSlot.slotType);
         SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
-
         InventoryManager.Instance.RefreshInventory();
         HidePanel();
     }

@@ -73,7 +73,28 @@ public class ForgeManager : MonoBehaviour
             return;
         }
 
+        // Equipment stats must be recalculated when an equipped item is forged.
+        bool isEquipped = false;
+        if (EquipmentManager.Instance != null && EquipmentManager.Instance.slots != null)
+        {
+            foreach (var slot in EquipmentManager.Instance.slots)
+            {
+                if (slot != null && slot.currentItem == currentItem)
+                {
+                    LevelSystem.Instance?.RemoveItemStats(currentItem);
+                    isEquipped = true;
+                    break;
+                }
+            }
+        }
+
         currentItem.levelDo++;
+
+        if (isEquipped)
+        {
+            LevelSystem.Instance?.ApplyItemStats(currentItem);
+            EquipmentManager.Instance.SaveEquipment();
+        }
 
         Debug.Log($"Item {currentItem.itemData.itemName} nâng cấp lên +{currentItem.levelDo}");
         RefreshUI();

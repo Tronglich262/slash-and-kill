@@ -9,7 +9,8 @@ public class LoadMapCuoiBoss : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Đã va chạm với Player");
-            SceneManager.LoadScene("MapBoss");
+            if (SceneLoader.Instance != null)
+                SceneLoader.Instance.LoadScene("MapBoss");
         }
     }
 }

@@ -13,7 +13,8 @@ public class CoinPickup : MonoBehaviour
                 FloatingTextManager.Instance.ShowGold(coinValue);
             }
 
-            CoinManager.Instance.AddCoin(coinValue);
+            if (CoinManager.Instance != null)
+                CoinManager.Instance.AddCoin(coinValue);
             Destroy(gameObject);
         }
     }

@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float currentHealth;
     public GameObject damageTextPrefab;
     private Animator animator;
+    private bool isDead;
 
     
     public float baseDame1 = 100f;
@@ -61,7 +62,7 @@ public class EnemyHealth : MonoBehaviour
     void CalculateDamageWithCritical(float baseDamage, out float finalDamage, out bool isCritical)
     {
         isCritical = Random.value < criticalChance;
-        finalDamage = baseDamage + levelSystem.attack;
+        finalDamage = baseDamage + (levelSystem != null ? levelSystem.attack : 0);
         
         if (isCritical)
         {
@@ -73,7 +74,7 @@ public class EnemyHealth : MonoBehaviour
     IEnumerator DameChieu2() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame2, out float damage2, out bool isCrit2); TakeDamage(damage2, isCrit2); }
     IEnumerator DameChieu3() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame3, out float damage3, out bool isCrit3); TakeDamage(damage3, isCrit3); }
     IEnumerator DameChieu4() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame4, out float damage4, out bool isCrit4); TakeDamage(damage4, isCrit4); }
-    IEnumerator DameChieu5() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(levelSystem.attack, out float damage5, out bool isCrit5); TakeDamage(damage5, isCrit5); }
+    IEnumerator DameChieu5() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame5, out float damage5, out bool isCrit5); TakeDamage(damage5, isCrit5); }
 
     IEnumerator hit()
     {
@@ -88,25 +89,16 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         // Hiển thị floating text Gold (EXP sẽ hiển thị từ LevelSystem)
-        if (FloatingTextManager.Instance != null)
-        {
-            FloatingTextManager.Instance.ShowGold(goldReward);
-        }
-
         // Cộng EXP cho player
         if (levelSystem != null)
         {
             levelSystem.GainExp(expReward);
         }
 
-        // Cộng Gold cho player
-        if (CoinManager.Instance != null)
-        {
-            CoinManager.Instance.AddCoin(goldReward);
-        }
-
-        // Spawn coin rải rác dưới đất
-        int coinCount = Random.Range(1, 11);
+        // Gold is awarded through pickups only. Split the configured reward
+        // across a few drops so the total remains exactly goldReward.
+        int remainingGold = Mathf.Max(0, goldReward);
+        int coinCount = Mathf.Min(remainingGold, Random.Range(1, 4));
         for (int i = 0; i < coinCount; i++)
         {
             Vector3 spawnOffset = new Vector3(
@@ -117,7 +109,16 @@ public class EnemyHealth : MonoBehaviour
 
             Vector3 spawnPos = transform.position + spawnOffset;
 
+            if (coinPrefab == null) break;
+
             GameObject coin = Instantiate(coinPrefab, spawnPos, Quaternion.identity);
+            CoinPickup pickup = coin.GetComponent<CoinPickup>();
+            if (pickup != null)
+            {
+                int value = Mathf.CeilToInt((float)remainingGold / (coinCount - i));
+                pickup.coinValue = value;
+                remainingGold -= value;
+            }
         }
 
         Destroy(gameObject);
@@ -127,6 +128,8 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage, bool isCritical = false)
     {
+        if (isDead) return;
+
         currentHealth -= damage;
         UpdateHealthBar();
         ShowDamageText(damage, isCritical);
@@ -140,7 +143,13 @@ public class EnemyHealth : MonoBehaviour
             StartCoroutine(Knockback(direction));
         }
 
-        if (currentHealth <= 0) StartCoroutine(Death());
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+            currentHealth = 0;
+            UpdateHealthBar();
+            StartCoroutine(Death());
+        }
     }
 
     // Coroutine xử lý knockback - đẩy lùi enemy khi nhận damage
@@ -185,8 +194,14 @@ public class EnemyHealth : MonoBehaviour
     {
         if (damageTextPrefab != null)
         {
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
-            GameObject text = Instantiate(damageTextPrefab, GameObject.Find("Canvas").transform);
+            GameObject canvas = GameObject.Find("Canvas");
+            if (canvas == null)
+            {
+                Debug.LogWarning("Damage text skipped: Canvas was not found.");
+                return;
+            }
+
+            GameObject text = Instantiate(damageTextPrefab, canvas.transform);
             text.GetComponent<DamageText>().Setup((int)damage, this.transform, isCritical);
         }
     }

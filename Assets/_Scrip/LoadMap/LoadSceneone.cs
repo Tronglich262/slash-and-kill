@@ -19,7 +19,8 @@ public class LoadSceneone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Map2");
+            if (SceneLoader.Instance != null)
+                SceneLoader.Instance.LoadScene("Map2");
         }
     }
 }
