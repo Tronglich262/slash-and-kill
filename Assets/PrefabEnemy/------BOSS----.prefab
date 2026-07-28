@@ -670,6 +670,7 @@ MonoBehaviour:
   rangedAttackRange: 8
   attackCooldown: 1.5
   attackDamage: 10
+  meleeHitPadding: 0.5
   jumpBackDistance: 2
   jumpSpeed: 4
   teleportPoints:
@@ -681,6 +682,33 @@ MonoBehaviour:
   attackProjectile: {fileID: 3344590919163537217, guid: 93d45cb0ee5cad54b8caf7f433173ecb, type: 3}
   attackSpawnPoint: {fileID: 9125449167873801186}
   rangedAttackCooldown: 4
+  projectileSpeed: 11
+  rangedBurstCount: 1
+  projectileBurstInterval: 0.16
+  projectilePredictionTime: 0.24
+  skyJumpCooldown: 9
+  skyJumpHeight: 4
+  skyJumpDuration: 1
+  skyJumpSpeed: 7
+  skyJumpChance: 0.18
+  enableCameraShake: 1
+  ascentShakeDuration: 0.38
+  ascentShakeIntensity: 0.09
+  apexShakeDuration: 0.55
+  apexShakeIntensity: 0.2
+  projectileShakeIntensity: 0.045
+  landingShakeIntensity: 0.15
+  decisionInterval: 0.12
+  meleeWindup: 0.22
+  rangedWindup: 0.3
+  recoveryTime: 0.35
+  verticalAttackTolerance: 1.7
+  maxChaseDistance: 14
+  phaseTwoHealthThreshold: 0.4
+  phaseTwoCooldownMultiplier: 0.65
+  allowedRepeatedActions: 1
+  showDebugLogs: 0
+  minYPosition: -2
 --- !u!114 &5812125289460453287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,6 +734,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
   knockbackForce: 3
   knockbackDuration: 0.2
+  allowKnockback: 0
 --- !u!114 &2391725288239301772
 MonoBehaviour:
   m_ObjectHideFlags: 0

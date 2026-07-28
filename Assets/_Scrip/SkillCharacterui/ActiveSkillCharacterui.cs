@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ActiveSkillCharacterui : MonoBehaviour
 {
+    private static readonly WaitForSeconds NotificationDuration = new WaitForSeconds(0.5f);
+    private Coroutine notificationRoutine;
     public LevelSystem levelSystem;
     public GameObject skill2;
     public GameObject skill3;
@@ -16,6 +18,9 @@ public class ActiveSkillCharacterui : MonoBehaviour
 
     void Start()
     {
+        if (levelSystem == null)
+            levelSystem = LevelSystem.Instance;
+
         // Load trạng thái skill đã mở
         if (PlayerPrefs.GetInt("Skill2_Active", 0) == 1)
             skill2.SetActive(true);
@@ -36,14 +41,13 @@ public class ActiveSkillCharacterui : MonoBehaviour
     {
         if (levelSystem.level >= 5)
         {
-            StartCoroutine(Dieukien());
+            ShowNotification(dudieukien);
             skill2.SetActive(true);
             PlayerPrefs.SetInt("Skill2_Active", 1); // Lưu trạng thái
         }
         else
         {
-            StartCoroutine(khongduDieukien());
-            Debug.Log("Không đủ điều kiện");
+            ShowNotification(khongdudieukien);
         }
     }
 
@@ -51,14 +55,13 @@ public class ActiveSkillCharacterui : MonoBehaviour
     {
         if (levelSystem.level >= 10)
         {
-            StartCoroutine(Dieukien());
+            ShowNotification(dudieukien);
             skill3.SetActive(true);
             PlayerPrefs.SetInt("Skill3_Active", 1);
         }
         else
         {
-            StartCoroutine(khongduDieukien());
-            Debug.Log("Không đủ điều kiện");
+            ShowNotification(khongdudieukien);
         }
     }
 
@@ -66,14 +69,13 @@ public class ActiveSkillCharacterui : MonoBehaviour
     {
         if (levelSystem.level >= 15)
         {
-            StartCoroutine(Dieukien());
+            ShowNotification(dudieukien);
             skill4.SetActive(true);
             PlayerPrefs.SetInt("Skill4_Active", 1);
         }
         else
         {
-            StartCoroutine(khongduDieukien());
-            Debug.Log("Không đủ điều kiện");
+            ShowNotification(khongdudieukien);
         }
     }
 
@@ -81,51 +83,54 @@ public class ActiveSkillCharacterui : MonoBehaviour
     {
         if (levelSystem.level >= 10)
         {
-            StartCoroutine(Dieukien());
+            ShowNotification(dudieukien);
             skill5.SetActive(true);
             PlayerPrefs.SetInt("Skill5_Active", 1);
         }
         else
         {
-            StartCoroutine(khongduDieukien());
-            Debug.Log("Không đủ điều kiện");
+            ShowNotification(khongdudieukien);
         }
     }
     public void ToggleSkill6()
     {
         if (levelSystem.level >= 1)
         {
-            StartCoroutine(Dieukien());
+            ShowNotification(dudieukien);
             skill6.SetActive(true);
             PlayerPrefs.SetInt("Skill6_Active", 1);
         }
         else
         {
-            StartCoroutine(khongduDieukien());
-            Debug.Log("Không đủ điều kiện");
+            ShowNotification(khongdudieukien);
         }
     }
 
-    IEnumerator Dieukien()
+    private void ShowNotification(GameObject notification)
     {
-        dudieukien.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        dudieukien.SetActive(false);
+        if (notificationRoutine != null)
+            StopCoroutine(notificationRoutine);
+
+        if (dudieukien != null)
+            dudieukien.SetActive(false);
+        if (khongdudieukien != null)
+            khongdudieukien.SetActive(false);
+
+        notificationRoutine = StartCoroutine(ShowNotificationRoutine(notification));
     }
 
-    IEnumerator khongduDieukien()
+    private IEnumerator ShowNotificationRoutine(GameObject notification)
     {
-        khongdudieukien.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        khongdudieukien.SetActive(false);
+        if (notification == null)
+        {
+            notificationRoutine = null;
+            yield break;
+        }
+
+        notification.SetActive(true);
+        yield return NotificationDuration;
+        notification.SetActive(false);
+        notificationRoutine = null;
     }
 
-    // Nếu muốn reset khi thoát game (tùy chọn)
-    void OnApplicationQuit()
-    {
-        PlayerPrefs.DeleteKey("Skill2_Active");
-        PlayerPrefs.DeleteKey("Skill3_Active");
-        PlayerPrefs.DeleteKey("Skill4_Active");
-        PlayerPrefs.DeleteKey("Skill5_Active");
-    }
 }

@@ -19,6 +19,7 @@ public class SkillHeath : MonoBehaviour
 
     public HealthSystem healthSystem;
     public bool ischeck = false;
+    private static readonly WaitForSeconds HealTickDelay = new WaitForSeconds(1f);
 
     void Start()
     {
@@ -35,10 +36,27 @@ public class SkillHeath : MonoBehaviour
             ButtonHeath.onClick.AddListener(UseSkill);
     }
 
+    private void OnDestroy()
+    {
+        if (ButtonHeath != null)
+            ButtonHeath.onClick.RemoveListener(UseSkill);
+    }
+
     void UseSkill()
     {
         if (!isOnCooldown)
         {
+            if (healthSystem == null)
+                healthSystem = HealthSystem.Instance;
+            if (healthSystem == null)
+            {
+                Debug.LogWarning("Heal skill requires a HealthSystem.");
+                return;
+            }
+
+            if (healthSystem.isDead)
+                return;
+
             // Kiểm tra đủ MP không
             if (healthSystem != null && healthSystem.currentMP < mpCost)
             {
@@ -70,9 +88,8 @@ public class SkillHeath : MonoBehaviour
         // Đặt vị trí skill theo offset
         if (heath != null)
         {
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player != null)
-                heath.transform.position = player.transform.position + skillPositionOffset;
+            if (healthSystem != null)
+                heath.transform.position = healthSystem.transform.position + skillPositionOffset;
             
             heath.SetActive(true);
         }
@@ -82,10 +99,11 @@ public class SkillHeath : MonoBehaviour
             if (healthSystem.currentHP < healthSystem.maxHP && healthSystem.check == false)
             {
                 healthSystem.Heal(5);
-                // Hiển text hồi HP
+#if UNITY_EDITOR
                 Debug.Log("Hồi 1 máu. HP hiện tại: " + healthSystem.currentHP);
+#endif
             }
-            yield return new WaitForSeconds(1f);
+            yield return HealTickDelay;
         }
 
         heath.SetActive(false);
@@ -96,17 +114,23 @@ public class SkillHeath : MonoBehaviour
     IEnumerator Cooldown()
     {
         isOnCooldown = true;
-        ButtonHeath.interactable = false;
+        if (ButtonHeath != null)
+            ButtonHeath.interactable = false;
 
         float cooldown = cooldownTime;
+        int lastDisplayedSeconds = -1;
         while (cooldown > 0)
         {
             cooldown -= Time.deltaTime;
             if (cooldownImage != null)
                 cooldownImage.fillAmount = cooldown / cooldownTime;
             
-            if (cooldownText != null)
-                cooldownText.text = Mathf.Ceil(cooldown).ToString();
+            int displayedSeconds = Mathf.Max(0, Mathf.CeilToInt(cooldown));
+            if (cooldownText != null && displayedSeconds != lastDisplayedSeconds)
+            {
+                cooldownText.text = displayedSeconds > 0 ? displayedSeconds.ToString() : "";
+                lastDisplayedSeconds = displayedSeconds;
+            }
 
             yield return null;
         }
@@ -117,7 +141,8 @@ public class SkillHeath : MonoBehaviour
         if (cooldownText != null)
             cooldownText.text = "";
 
-        ButtonHeath.interactable = true;
+        if (ButtonHeath != null)
+            ButtonHeath.interactable = true;
         isOnCooldown = false;
     }
 }

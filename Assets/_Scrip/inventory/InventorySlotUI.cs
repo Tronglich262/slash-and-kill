@@ -11,11 +11,20 @@ public class InventorySlotUI : MonoBehaviour
     private InventoryItem item;
     private ItemDetailPanel detailPanel;
 
+    private void Awake()
+    {
+        if (button == null)
+            button = GetComponent<Button>();
+
+        if (button != null)
+            button.onClick.AddListener(OnClickSlot);
+    }
+
     public void Setup(InventoryItem invItem, ItemDetailPanel panel)
     {
-        if (invItem.itemData == null)
+        if (invItem == null || invItem.itemData == null)
         {
-            Debug.LogError("itemData null! ItemID: " + invItem.itemID);
+            Debug.LogError("Inventory slot cannot display an item with missing data.");
             return;
         }
 
@@ -25,8 +34,6 @@ public class InventorySlotUI : MonoBehaviour
         icon.sprite = item.itemData.itemIcon;
         quantityText.text = item.quantity.ToString();
 
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(OnClickSlot);
     }
 
     private void OnClickSlot()
@@ -36,7 +43,11 @@ public class InventorySlotUI : MonoBehaviour
             detailPanel.ShowItemDetail(item);
         }
     }
-  
 
+    private void OnDestroy()
+    {
+        if (button != null)
+            button.onClick.RemoveListener(OnClickSlot);
+    }
 
 }

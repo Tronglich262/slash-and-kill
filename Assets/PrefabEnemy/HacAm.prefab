@@ -93,7 +93,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 86.12265, y: -0.8482987, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9198296405269406832}
@@ -188,6 +188,8 @@ GameObject:
   - component: {fileID: 1640768376670770649}
   - component: {fileID: 1007754998305577801}
   - component: {fileID: 6425358755997088351}
+  - component: {fileID: 9075301811234567890}
+  - component: {fileID: 9075301811234567891}
   - component: {fileID: 3615230362779721539}
   - component: {fileID: 5815578881619098213}
   m_Layer: 6
@@ -206,8 +208,8 @@ Transform:
   m_GameObject: {fileID: 1307696480706535912}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -95.524796, y: 4.1482987, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: -95.524796, y: 1.3582987, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8432539099102953781}
@@ -324,7 +326,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.465}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -334,7 +336,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.4, y: 0.93}
+  m_Size: {x: 0.55, y: 0.93}
   m_EdgeRadius: 0
 --- !u!50 &1640768376670770649
 Rigidbody2D:
@@ -344,7 +346,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307696480706535912}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -359,7 +361,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -372,25 +374,123 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307696480706535912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 371e270ca705cc44f8f87ac46d815276, type: 3}
+  m_Script: {fileID: 11500000, guid: b364cc213211c324eb58d5cb34385179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {fileID: 5633381404843331931}
-  pointB: {fileID: 9198296405269406832}
   player: {fileID: 0}
-  moveSpeed: 2
-  detectionRange: 8
-  teleportOffsetX: 2
+  speed: 2.6
+  attackRange: 2.2
+  rangedAttackRange: 10
+  attackCooldown: 1.7
+  attackDamage: 18
+  meleeHitPadding: 0.55
+  jumpBackDistance: 2.6
+  jumpSpeed: 6
+  autoStartBattle: 0
   teleportPoints:
   - {fileID: 3398085075056257172}
   - {fileID: 7406723992707768383}
   - {fileID: 5144999088989229538}
   - {fileID: 8160203495823045724}
   - {fileID: 1331764362150914726}
-  bombPrefab: {fileID: 3344590919163537217, guid: 93d45cb0ee5cad54b8caf7f433173ecb, type: 3}
-  bombCount: 10
-  bombRadius: 5
-  bombSpawnHeight: 8
+  teleportCooldown: 5.5
+  teleportNearPlayer: 1
+  teleportArrivalDistance: 3.25
+  maxTeleportTravelDistance: 5.5
+  minimumTeleportDisplacement: 2.5
+  attackProjectile: {fileID: 0}
+  attackSpawnPoint: {fileID: 5584359729110565733}
+  rangedAttackCooldown: 4.2
+  projectileSpeed: 9
+  rangedBurstCount: 2
+  projectileBurstInterval: 0.22
+  projectilePredictionTime: 0.3
+  useCastForRangedAttack: 1
+  useSpellForSkyAttack: 1
+  alternateNoEffectMelee: 1
+  useSpriteRendererFacing: 1
+  invertSpriteFacing: 1
+  useNoEffectSpellForTeleport: 1
+  enableVoidRiftCombo: 1
+  voidRiftRadius: 1.45
+  voidRiftWarningTime: 0.48
+  voidRiftDuration: 0.24
+  voidRiftDamageBonus: 10
+  voidRiftSpellChannelTime: 0.78
+  spellDamageArmTime: 0.16
+  spellEffectHeight: 0
+  teleportPortalHeight: 2.4
+  teleportPortalEffectDuration: 0.95
+  teleportArrivalRevealDelay: 0.72
+  voidRiftPhaseTwoCount: 2
+  voidRiftVolleyInterval: 0.26
+  enableShadowStepCombo: 1
+  shadowStepAfterSpellChance: 0.35
+  shadowStepAttackDistance: 1.35
+  shadowStepRetreatDistance: 3.8
+  spellImpactShakeDuration: 0.36
+  spellImpactShakeIntensity: 0.15
+  spellCastShakeDuration: 0.14
+  spellCastShakeIntensity: 0.045
+  shadowStepAttackCommitTime: 1
+  enableReactiveDefence: 1
+  reactiveHitPause: 0.06
+  reactiveRetreatDistance: 3.8
+  reactiveRetreatDuration: 0.9
+  reactiveCounterRange: 1.25
+  reactiveDefenceCooldown: 0.9
+  reactiveTeleportChance: 0.62
+  reactiveTeleportDistance: 4.5
+  enableShadowRain: 1
+  shadowRainCooldown: 8.5
+  shadowRainWaves: 5
+  shadowRainStartOffset: 3
+  shadowRainLaneSpacing: 3
+  shadowRainVisualScale: 0.64
+  shadowRainWaveInterval: 0.18
+  shadowRainHitDelay: 1.35
+  shadowRainLaneRadius: 0.7
+  summonEnemyPrefab: {fileID: 0}
+  summonMinCount: 1
+  summonMaxCount: 4
+  maxActiveSummons: 6
+  summonCooldown: 8.5
+  summonSpellDelay: 0.62
+  summonInterval: 0.3
+  summonSpread: 2.8
+  summonSpellVisualScale: 0.7
+  summonGroundOffset: 0.02
+  summonGroundProbeDepth: 3
+  summonHealOnPlayerHit: 40
+  skyJumpCooldown: 999
+  skyJumpHeight: 0
+  skyJumpDuration: 1.25
+  skyJumpSpeed: 6
+  skyJumpChance: 0.5
+  enableCameraShake: 1
+  ascentShakeDuration: 0.35
+  ascentShakeIntensity: 0.085
+  apexShakeDuration: 0.52
+  apexShakeIntensity: 0.19
+  projectileShakeIntensity: 0.05
+  landingShakeIntensity: 0.16
+  decisionInterval: 0.12
+  meleeWindup: 0.3
+  meleeAttackCommitTime: 1
+  rangedWindup: 0.82
+  recoveryTime: 0.42
+  verticalAttackTolerance: 2
+  maxChaseDistance: 18
+  phaseTwoHealthThreshold: 0.42
+  phaseTwoCooldownMultiplier: 0.68
+  allowedRepeatedActions: 1
+  showDebugLogs: 0
+  dodgeIncreasePerHealthReset: 0.03
+  enableTacticalPositioning: 1
+  preferredCombatDistance: 4.8
+  combatDistanceTolerance: 0.8
+  tacticalRepositionInterval: 1.1
+  minYPosition: -2
 --- !u!114 &6425358755997088351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,16 +506,39 @@ MonoBehaviour:
   healthBar: {fileID: 2465868999813832929}
   maxHealth: 3000
   currentHealth: 0
+  dodgeChance: 0.12
   damageTextPrefab: {fileID: 7885702528129701416, guid: 19dba504525ac91448c2e2e90ff3642d, type: 3}
+  nearDeathThreshold: 0.2
   baseDame1: 100
   baseDame2: 60
   baseDame3: 70
   baseDame4: 50
   baseDame5: 0
   levelSystem: {fileID: 0}
+  criticalChance: 0.2
+  criticalMultiplier: 2
   coinPrefab: {fileID: 7244624267330761666, guid: 0d3b08f10a7f26243a7125176ff60a47, type: 3}
+  expReward: 10
+  goldReward: 5
   knockbackForce: 3
   knockbackDuration: 0.2
+  allowKnockback: 1
+--- !u!114 &9075301811234567890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307696480706535912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f92e4a2b9c47d2a1c0974f3db6a551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarCount: 4
+  bossDisplayName: "H\u1eaeC \u00c1M — CH\u00daA T\u1ec2 H\u01af KH\u00d4NG"
+  finalLastWordsThreshold: 0.2
+  hudRevealDistance: 18
 --- !u!114 &3615230362779721539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,9 +564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecb384b89d39d74db124a7d2d3d6378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSystem: {fileID: 0}
-  min: 10000
-  max: 20000
 --- !u!1 &1857815974282833857
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,7 +920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.3684287, y: 0.11599994}
+  m_AnchoredPosition: {x: 0.3684287, y: 235}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1836940789052828334
@@ -875,7 +995,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3051301967572077152}
-  - component: {fileID: 1092358986961436454}
   - component: {fileID: 6921046712617353147}
   m_Layer: 6
   m_Name: GameObject (2)
@@ -899,29 +1018,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 567225857278505036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1092358986961436454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7223636773686056105}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 371e270ca705cc44f8f87ac46d815276, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 9198296405269406832}
-  pointB: {fileID: 3051301967572077152}
-  player: {fileID: 0}
-  moveSpeed: 2
-  detectionRange: 8
-  teleportOffsetX: 2
-  teleportPoints: []
-  bombPrefab: {fileID: 0}
-  bombCount: 10
-  bombRadius: 5
-  bombSpawnHeight: 8
 --- !u!95 &6921046712617353147
 Animator:
   serializedVersion: 7
@@ -1019,3 +1115,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+
+--- !u!114 &9075301811234567891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5161396299527591293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a3d3f3b4d8440aa3f9f8cd2e174bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDistance: 16
+  gateOffsetBehindPlayer: 1.15
+  gateHeight: 7
+  lines:
+  - Một kẻ phàm nhân lại dám bước vào hư không của ta?
+  - Ta là Hắc Ám — Chúa Tể Hư Không. Hãy để bóng tối nuốt chửng ngươi.
+  - Đến gần hơn đi... nếu ngươi còn đủ can đảm.

@@ -5,6 +5,13 @@
 /// </summary>
 public class NPCClick : MonoBehaviour
 {
+    private Camera mainCamera;
+
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
+
     void Update()
     {
         if (ActiveUI.instance != null && ActiveUI.instance.SkilCharacterUI != null && ActiveUI.instance.SkilCharacterUI.activeSelf)
@@ -19,16 +26,18 @@ public class NPCClick : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+            if (mainCamera == null)
+                return;
 
-            if (hit.collider != null)
+            Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D hit = Physics2D.OverlapPoint(mousePos);
+
+            if (hit != null && hit.TryGetComponent(out NPC npc))
             {
-                NPC npc = hit.collider.GetComponent<NPC>();
-                if (npc != null)
-                {
+                if (NPCManager.Instance != null)
                     NPCManager.Instance.ShowNPC(npc);
-                }
             }
         }
     }

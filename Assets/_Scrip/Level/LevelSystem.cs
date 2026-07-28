@@ -20,6 +20,7 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] public int tocdo;
 
     public HealthSystem healthSystem;
+    private PlayerController playerController;
 
     public TextMeshProUGUI levelText;
     public Slider expSlider;
@@ -35,6 +36,8 @@ public class LevelSystem : MonoBehaviour
     private bool checkqua3 = false;
     private bool checkqua4 = false;
     private bool checkqua5 = false;
+    private static readonly WaitForSeconds GiftMessageDuration = new WaitForSeconds(0.5f);
+    private Coroutine giftMessageRoutine;
 
     public Button qua1Button;
     public Button qua2Button;
@@ -50,7 +53,6 @@ public class LevelSystem : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -68,6 +70,10 @@ public class LevelSystem : MonoBehaviour
         {
             healthSystem.UpdateMaxHP(maxHP);
             healthSystem.Heal(maxHP);
+            healthSystem.UpdateMaxMP(maxMP);
+            // HP is restored when entering the game scene; MP must follow the
+            // same rule so a stale PlayerPrefs value cannot start the player at 0.
+            healthSystem.RestoreFullMPForNewScene();
         }
     }
 
@@ -169,14 +175,26 @@ public class LevelSystem : MonoBehaviour
 
     public void SaveLevelData()
     {
+        GetEquippedStatBonuses(
+            out int equippedAttack,
+            out int equippedHP,
+            out int equippedMP,
+            out int equippedDefense,
+            out int equippedEvasion,
+            out int equippedSpeed);
+
         PlayerPrefs.SetInt("Level", level);
         PlayerPrefs.SetInt("CurrentExp", currentExp);
         PlayerPrefs.SetInt("ExpToNextLevel", expToNextLevel);
         PlayerPrefs.SetInt("StatPoints", statPoints);
-        PlayerPrefs.SetInt("Attack", attack);
-        PlayerPrefs.SetInt("MaxHP", maxHP);
-        PlayerPrefs.SetInt("MaxMP", maxMP);
-        PlayerPrefs.SetInt("TocDo", tocdo);
+        // Runtime values include equipment. Persist only the character's base
+        // stats, otherwise every load applies the same equipment bonus again.
+        PlayerPrefs.SetInt("Attack", attack - equippedAttack);
+        PlayerPrefs.SetInt("MaxHP", maxHP - equippedHP);
+        PlayerPrefs.SetInt("MaxMP", maxMP - equippedMP);
+        PlayerPrefs.SetInt("PhongThu", Phongthu - equippedDefense);
+        PlayerPrefs.SetInt("NeTranh", netranh - equippedEvasion);
+        PlayerPrefs.SetInt("TocDo", tocdo - equippedSpeed);
 
         PlayerPrefs.SetInt("CheckQua1", checkqua1 ? 1 : 0);
         PlayerPrefs.SetInt("CheckQua2", checkqua2 ? 1 : 0);
@@ -184,7 +202,6 @@ public class LevelSystem : MonoBehaviour
         PlayerPrefs.SetInt("CheckQua4", checkqua4 ? 1 : 0);
         PlayerPrefs.SetInt("CheckQua5", checkqua5 ? 1 : 0);
 
-        PlayerPrefs.Save();
     }
 
     private void LoadLevelData()
@@ -198,6 +215,8 @@ public class LevelSystem : MonoBehaviour
             attack = PlayerPrefs.GetInt("Attack", 10);
             maxHP = PlayerPrefs.GetInt("MaxHP", 100);
             maxMP = PlayerPrefs.GetInt("MaxMP", 50);
+            Phongthu = PlayerPrefs.GetInt("PhongThu", 0);
+            netranh = PlayerPrefs.GetInt("NeTranh", 0);
             tocdo = PlayerPrefs.GetInt("TocDo", 0);
 
             checkqua1 = PlayerPrefs.GetInt("CheckQua1", 0) == 1;
@@ -247,6 +266,20 @@ public class LevelSystem : MonoBehaviour
         netranh = 0;
         tocdo = 0;
 
+        GetEquippedStatBonuses(
+            out int equippedAttack,
+            out int equippedHP,
+            out int equippedMP,
+            out int equippedDefense,
+            out int equippedEvasion,
+            out int equippedSpeed);
+        attack += equippedAttack;
+        maxHP += equippedHP;
+        maxMP += equippedMP;
+        Phongthu += equippedDefense;
+        netranh += equippedEvasion;
+        tocdo += equippedSpeed;
+
         // Reset quà
         checkqua1 = checkqua2 = checkqua3 = checkqua4 = checkqua5 = false;
 
@@ -291,7 +324,7 @@ public class LevelSystem : MonoBehaviour
     {
         if (level >= requiredLevel && !checkGift)
         {
-            StartCoroutine(ShowGift(dudieukien));
+            ShowGift(dudieukien);
             GainExp(expAmount);
             CoinManager.Instance?.AddCoin(coinAmount);
 
@@ -301,18 +334,33 @@ public class LevelSystem : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ShowGift(khongdudieukien));
+            ShowGift(khongdudieukien);
         }
     }
 
-    private IEnumerator ShowGift(GameObject giftObj)
+    private void ShowGift(GameObject giftObj)
+    {
+        if (giftMessageRoutine != null)
+            StopCoroutine(giftMessageRoutine);
+
+        if (dudieukien != null)
+            dudieukien.SetActive(false);
+        if (khongdudieukien != null)
+            khongdudieukien.SetActive(false);
+
+        giftMessageRoutine = StartCoroutine(ShowGiftRoutine(giftObj));
+    }
+
+    private IEnumerator ShowGiftRoutine(GameObject giftObj)
     {
         if (giftObj != null)
         {
             giftObj.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
+            yield return GiftMessageDuration;
             giftObj.SetActive(false);
         }
+
+        giftMessageRoutine = null;
     }
 
     //MỚI: CỘNG/TRỪ STAT THEO InventoryItem (có levelDo)
@@ -382,18 +430,64 @@ public class LevelSystem : MonoBehaviour
     // Áp dụng tốc độ di chuyển cho PlayerController
     public void ApplySpeedToPlayer()
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
+        if (playerController == null && healthSystem != null)
+            playerController = healthSystem.GetComponent<PlayerController>();
+
+        if (playerController == null)
         {
-            PlayerController pc = player.GetComponent<PlayerController>();
-            if (pc != null)
-            {
-                // Tốc độ cơ bản là 5, mỗi điểm tocdo thêm 1% (50 điểm = +50% speed)
-                float baseSpeed = 5f;
-                float percentBonus = 1f + (tocdo * 0.01f); // 1% per point
-                pc.speed = baseSpeed * percentBonus;
-                Debug.Log("Player speed updated: " + pc.speed);
-            }
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                playerController = player.GetComponent<PlayerController>();
+        }
+
+        if (playerController == null)
+            return;
+
+        // Tốc độ cơ bản là 5, mỗi điểm tocdo thêm 1%.
+        const float baseSpeed = 5f;
+        playerController.speed = baseSpeed * (1f + tocdo * 0.01f);
+#if UNITY_EDITOR
+        Debug.Log("Player speed updated: " + playerController.speed);
+#endif
+    }
+
+    private static void GetEquippedStatBonuses(
+        out int equippedAttack,
+        out int equippedHP,
+        out int equippedMP,
+        out int equippedDefense,
+        out int equippedEvasion,
+        out int equippedSpeed)
+    {
+        equippedAttack = 0;
+        equippedHP = 0;
+        equippedMP = 0;
+        equippedDefense = 0;
+        equippedEvasion = 0;
+        equippedSpeed = 0;
+
+        EquipmentManager equipment = EquipmentManager.Instance;
+        if (equipment == null || equipment.slots == null)
+            return;
+
+        foreach (EquipmentSlot slot in equipment.slots)
+        {
+            InventoryItem item = slot != null ? slot.currentItem : null;
+            if (item == null)
+                continue;
+
+            if (item.itemData == null && ItemDatabase.Instance != null)
+                item.itemData = ItemDatabase.Instance.GetItemByID(item.itemID);
+
+            if (item.itemData == null)
+                continue;
+
+            equippedAttack += item.GetAttack();
+            equippedHP += item.GetHP();
+            equippedMP += item.GetMP();
+            equippedDefense += item.GetPhongThu();
+            equippedEvasion += item.GetNeTranh();
+            equippedSpeed += item.GetTocDo();
         }
     }
 }

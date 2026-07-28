@@ -22,6 +22,19 @@ public class EnemyFSM : MonoBehaviour
     private bool isAttacking = false;
     private Transform target;
     private Animator animator;
+    private static readonly int WalkParameter = Animator.StringToHash("Walk1");
+    private static readonly int AttackParameter = Animator.StringToHash("Attack1");
+    private bool walkAnimationState;
+    private bool attackAnimationState;
+    private bool hasWalkAnimationState;
+    private bool hasAttackAnimationState;
+    private HealthSystem playerHealth;
+    private float nextPlayerSearchTime;
+    private const float PlayerSearchInterval = 0.5f;
+    private static readonly WaitForSeconds AttackAnimationDelay = new WaitForSeconds(1f);
+    private static readonly WaitForSeconds ChargeRepeatDelay = new WaitForSeconds(0.5f);
+    private WaitForSeconds skeletonAttackDelay;
+    private WaitForSeconds skeletonRecoveryDelay;
     public int attackDamage = 10; // Sát thương gây ra cho Player
     private Vector2 originalPosition; // Vị trí gốc để quái đất không bay lên
     private bool isUpgraded = false; // Đánh dấu quái bay đã nâng cấp
@@ -33,58 +46,46 @@ public class EnemyFSM : MonoBehaviour
 
     // Knockback state - kiểm tra xem enemy có đang bị đẩy không
     private bool isKnockback = false;
+    private bool chaseSummonerTarget;
+    public event Action<EnemyFSM> PlayerDamaged;
 
     void Start()
     {
         animator = GetComponent<Animator>(); 
+        skeletonAttackDelay = new WaitForSeconds(skeletonAttackInterval);
+        skeletonRecoveryDelay = new WaitForSeconds(skeletonWaitAfterAttack);
         target = pointB; 
         originalPosition = transform.position; 
-        animator.SetBool("Walk1", true);
+        SetWalk(true);
 
-        if (player == null)
-        {
-            GameObject foundPlayer = GameObject.FindWithTag("Player"); 
-            if (foundPlayer != null)
-                player = foundPlayer.transform;
-        }
-
+        TryResolvePlayer();
     }
 
     void Update()
     {
-        // The player can be spawned after this enemy, or not exist in a test scene.
-        if (player == null)
-        {
-            GameObject foundPlayer = GameObject.FindWithTag("Player");
-            if (foundPlayer == null)
-                return;
-
-            player = foundPlayer.transform;
-        }
+        if (!TryResolvePlayer())
+            return;
 
         // Dừng tấn công nếu player đã chết
-        if (player != null)
+        if (playerHealth != null && playerHealth.isDead)
         {
-            HealthSystem playerHealth = player.GetComponent<HealthSystem>();
-            if (playerHealth != null && playerHealth.isDead)
-            {
-                // Player đã chết, dừng mọi hành động
-                animator.SetBool("Walk1", false);
-                animator.SetBool("Attack1", false);
-                return;
-            }
+            // Player đã chết, dừng mọi hành động
+            SetWalk(false);
+            SetAttack(false);
+            return;
         }
 
         if (isAttacking || isKnockback) return; // Dừng lại nếu đang tấn công hoặc bị knockback
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float sqrDistanceToPlayer = SqrDistanceToPlayer();
+        float attackRangeSqr = attackRange * attackRange;
         float currentTime = Time.time;
 
         // Quái bay
         if (enemyType == EnemyType.Flying && !isUpgraded && target != null)
         {
-            float playerDistToTarget = Vector2.Distance(new Vector2(player.position.x, 0), new Vector2(target.position.x, 0));
-            float enemyDistToTarget = Vector2.Distance(new Vector2(transform.position.x, 0), new Vector2(target.position.x, 0));
+            float playerDistToTarget = Mathf.Abs(player.position.x - target.position.x);
+            float enemyDistToTarget = Mathf.Abs(transform.position.x - target.position.x);
             
             if (playerDistToTarget > enemyDistToTarget + 2f)
             {
@@ -100,7 +101,7 @@ public class EnemyFSM : MonoBehaviour
         if (enemyType == EnemyType.Flying)
         {
            
-            if (distanceToPlayer > attackRange)
+            if (sqrDistanceToPlayer > attackRangeSqr)
             {
                 MoveBetweenPoints();
                 return;
@@ -114,7 +115,7 @@ public class EnemyFSM : MonoBehaviour
             }
 
             // Chỉ tấn công khi player TRONG vùng tấn công VÀ hết cooldown
-            if (distanceToPlayer <= attackRange)
+            if (sqrDistanceToPlayer <= attackRangeSqr)
             {
                 lastAttackTime = currentTime;
                 StartCoroutine(ChargeAttack());
@@ -128,7 +129,7 @@ public class EnemyFSM : MonoBehaviour
         // Quái Skeleton
         if (enemyType == EnemyType.Skeleton)
         {
-            if (distanceToPlayer <= attackRange)
+            if (sqrDistanceToPlayer <= attackRangeSqr)
             {
                 if (!isAttacking)
                 {
@@ -140,15 +141,18 @@ public class EnemyFSM : MonoBehaviour
             {
                 if (!isAttacking)
                 {
-                    MoveBetweenPoints();
-                    animator.SetBool("Walk1", true);
+                    if (chaseSummonerTarget)
+                        ChaseAssignedPlayer();
+                    else
+                        MoveBetweenPoints();
+                    SetWalk(true);
                 }
             }
             return;
         }
 
         // Quái dưới đất: hành vi bình thường
-        if (distanceToPlayer <= attackRange)
+        if (sqrDistanceToPlayer <= attackRangeSqr)
         {
             StartCoroutine(ChargeAttack());
         }
@@ -169,7 +173,7 @@ public class EnemyFSM : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(transform.position, moveTarget, speed * Time.deltaTime);
 
-        if (Vector2.Distance(transform.position, moveTarget) < 0.1f)
+        if ((transform.position - moveTarget).sqrMagnitude < 0.01f)
         {
             target = (target == pointA) ? pointB : pointA; // Đổi hướng
             Flip(target.position.x);
@@ -185,6 +189,49 @@ public class EnemyFSM : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
 
+    private void ChaseAssignedPlayer()
+    {
+        if (player == null)
+            return;
+
+        Vector3 targetPosition = player.position;
+        // Summoned skeletons are ground units: chase horizontally and keep
+        // their feet at their own spawn height.
+        targetPosition.y = originalPosition.y;
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPosition,
+            speed * Time.deltaTime);
+        Flip(player.position.x);
+    }
+
+    public void SetSummonedTarget(Transform targetPlayer)
+    {
+        player = targetPlayer;
+        playerHealth = player != null ? player.GetComponent<HealthSystem>() : null;
+        chaseSummonerTarget = player != null;
+    }
+
+    private void SetWalk(bool value)
+    {
+        if (hasWalkAnimationState && walkAnimationState == value)
+            return;
+
+        walkAnimationState = value;
+        hasWalkAnimationState = true;
+        animator.SetBool(WalkParameter, value);
+    }
+
+    private void SetAttack(bool value)
+    {
+        if (hasAttackAnimationState && attackAnimationState == value)
+            return;
+
+        attackAnimationState = value;
+        hasAttackAnimationState = true;
+        animator.SetBool(AttackParameter, value);
+    }
+
     IEnumerator ChargeAttack()
     {
         isAttacking = true;
@@ -193,14 +240,15 @@ public class EnemyFSM : MonoBehaviour
         Flip(player.position.x);
 
        
-        animator.SetBool("Walk1", true);
-        while (Vector2.Distance(transform.position, player.position) > 0.5f)
+        SetWalk(true);
+        float attackRangeSqr = attackRange * attackRange;
+        while (SqrDistanceToPlayer() > 0.25f)
         {
             
-            if (Vector2.Distance(transform.position, player.position) > attackRange)
+            if (SqrDistanceToPlayer() > attackRangeSqr)
             {
                 isAttacking = false;
-                animator.SetBool("Walk1", true);
+                SetWalk(true);
                 yield break;
             }
 
@@ -214,15 +262,15 @@ public class EnemyFSM : MonoBehaviour
             yield return null;
         }
 
-        animator.SetBool("Walk1", false);
-        animator.SetBool("Attack1", true);
+        SetWalk(false);
+        SetAttack(true);
         
         DealDamageToPlayer();
         
-        yield return new WaitForSeconds(1f);
+        yield return AttackAnimationDelay;
         
         // Reset attack animation
-        animator.SetBool("Attack1", false);
+        SetAttack(false);
 
         // Bước 3: Lùi lại
         float direction = (transform.position.x > player.position.x) ? 1f : -1f;
@@ -237,10 +285,10 @@ public class EnemyFSM : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < retreatTime)
         {
-            if (Vector2.Distance(transform.position, player.position) > attackRange)
+            if (SqrDistanceToPlayer() > attackRangeSqr)
             {
                 isAttacking = false;
-                animator.SetBool("Walk1", true);
+                SetWalk(true);
                 yield break;
             }
 
@@ -252,20 +300,20 @@ public class EnemyFSM : MonoBehaviour
         // Quái bay: không tấn công liên tục, chờ cooldown
         if (enemyType == EnemyType.Flying)
         {
-            animator.SetBool("Walk1", true);
+            SetWalk(true);
             isAttacking = false;
         }
         else
         {
             // Quái đất: tấn công liên tục nếu player còn trong vùng
-            if (Vector2.Distance(transform.position, player.position) <= attackRange)
+            if (SqrDistanceToPlayer() <= attackRangeSqr)
             {
-                yield return new WaitForSeconds(0.5f); 
+                yield return ChargeRepeatDelay;
                 StartCoroutine(ChargeAttack()); 
             }
             else
             {
-                animator.SetBool("Walk1", true);
+                SetWalk(true);
                 isAttacking = false;
             }
         }
@@ -273,15 +321,43 @@ public class EnemyFSM : MonoBehaviour
 
     private void DealDamageToPlayer()
     {
+        if (playerHealth != null)
+        {
+            int healthBefore = playerHealth.currentHP;
+            playerHealth.TakeDamage(attackDamage);
+            if (playerHealth.currentHP < healthBefore)
+                PlayerDamaged?.Invoke(this);
+        }
+    }
+
+    private float SqrDistanceToPlayer()
+    {
+        return ((Vector2)(transform.position - player.position)).sqrMagnitude;
+    }
+
+    private bool TryResolvePlayer()
+    {
         if (player != null)
         {
-            HealthSystem playerHealth = player.GetComponent<HealthSystem>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(attackDamage);
-                Debug.Log("Enemy gây " + attackDamage + " damage cho Player!");
-            }
+            if (playerHealth == null)
+                player.TryGetComponent(out playerHealth);
+
+            return true;
         }
+
+        playerHealth = null;
+
+        if (Time.unscaledTime < nextPlayerSearchTime)
+            return false;
+
+        nextPlayerSearchTime = Time.unscaledTime + PlayerSearchInterval;
+        GameObject foundPlayer = GameObject.FindWithTag("Player");
+        if (foundPlayer == null)
+            return false;
+
+        player = foundPlayer.transform;
+        foundPlayer.TryGetComponent(out playerHealth);
+        return true;
     }
 
     // Skeleton Attack
@@ -289,23 +365,24 @@ public class EnemyFSM : MonoBehaviour
     {
         isAttacking = true;
 
-        while (Vector2.Distance(transform.position, player.position) <= attackRange)
+        float attackRangeSqr = attackRange * attackRange;
+        while (SqrDistanceToPlayer() <= attackRangeSqr)
         {
-            animator.SetBool("Walk1", false);
-            animator.SetBool("Attack1", true);
+            SetWalk(false);
+            SetAttack(true);
 
             // Gây sát thương cho Player
             DealDamageToPlayer();
 
-            yield return new WaitForSeconds(skeletonAttackInterval); // thời gian giữa các đòn đánh
+            yield return skeletonAttackDelay; // thời gian giữa các đòn đánh
 
-            animator.SetBool("Attack1", false); // chuyển về idle nhẹ
+            SetAttack(false); // chuyển về idle nhẹ
 
-            yield return new WaitForSeconds(skeletonWaitAfterAttack); // chờ thêm 1 lúc trước khi đánh tiếp
+            yield return skeletonRecoveryDelay; // chờ thêm 1 lúc trước khi đánh tiếp
         }
 
-        animator.SetBool("Walk1", true);
-        animator.SetBool("Attack1", false);
+        SetWalk(true);
+        SetAttack(false);
         isAttacking = false;
     }
 

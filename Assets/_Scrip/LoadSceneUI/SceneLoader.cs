@@ -13,7 +13,6 @@ public class SceneLoader : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -26,6 +25,14 @@ public class SceneLoader : MonoBehaviour
         if (string.IsNullOrWhiteSpace(sceneName))
         {
             Debug.LogError("Cannot load an empty scene name.");
+            return;
+        }
+
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            Debug.LogError($"Scene '{sceneName}' is not available in Build Settings.");
+            if (GameManager.Instance != null)
+                GameManager.Instance.ShowNotification($"Map '{sceneName}' chưa khả dụng.");
             return;
         }
 

@@ -4,12 +4,27 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
+    private static Transform damageTextCanvas;
+    private static readonly WaitForSeconds DamageDelay = new WaitForSeconds(0.3f);
+    private static readonly WaitForSeconds HitDuration = new WaitForSeconds(1f);
     public Slider healthBar;
     public float maxHealth = 100f;
     public float currentHealth;
     public GameObject damageTextPrefab;
+    [Header("Evasion")]
+    [Range(0f, 0.75f)] public float dodgeChance;
     private Animator animator;
     private bool isDead;
+    private bool damageLocked;
+    private bool nearDeathTriggered;
+
+    [Header("Boss Last Words")]
+    [Range(0.01f, 0.5f)] public float nearDeathThreshold = 0.2f;
+    public event System.Action<EnemyHealth> NearDeath;
+    public event System.Action<EnemyHealth> HealthChanged;
+    // Raised only after damage has actually been accepted. Boss AI uses this
+    // to react to a player hit instead of continuing a scripted attack.
+    public event System.Action<EnemyHealth, float> Damaged;
 
     
     public float baseDame1 = 100f;
@@ -33,29 +48,32 @@ public class EnemyHealth : MonoBehaviour
   
     public float knockbackForce = 3f; // Lực đẩy
     public float knockbackDuration = 0.2f; // Thời gian đẩy
+    [SerializeField] private bool allowKnockback = true;
     private bool isKnockback = false; // Trạng thái đang bị đẩy
-    private Vector2 knockbackDirection; // Hướng đẩy
+    private Transform playerTransform;
+    private EnemyFSM enemyFSM;
+    private Coroutine hitRoutine;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        enemyFSM = GetComponent<EnemyFSM>();
+        CachePlayer();
         currentHealth = maxHealth;
         UpdateHealthBar();
 
 
         if (levelSystem == null)
-        {
-            levelSystem = FindFirstObjectByType<LevelSystem>();
-        }
+            levelSystem = LevelSystem.Instance;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Chieu1")) StartCoroutine(DameChieu1());
-        if (other.CompareTag("Chieu2")) StartCoroutine(DameChieu2());
-        if (other.CompareTag("Chieu3")) StartCoroutine(DameChieu3());
-        if (other.CompareTag("Chieu4")) StartCoroutine(DameChieu4());
-        if (other.CompareTag("Chieu5")) StartCoroutine(DameChieu5());
+        if (other.CompareTag("Chieu1")) StartCoroutine(ApplyDelayedDamage(baseDame1));
+        else if (other.CompareTag("Chieu2")) StartCoroutine(ApplyDelayedDamage(baseDame2));
+        else if (other.CompareTag("Chieu3")) StartCoroutine(ApplyDelayedDamage(baseDame3));
+        else if (other.CompareTag("Chieu4")) StartCoroutine(ApplyDelayedDamage(baseDame4));
+        else if (other.CompareTag("Chieu5")) StartCoroutine(ApplyDelayedDamage(baseDame5));
     }
 
     // Hàm tính damage với khả năng chí mạng - trả về cả damage và isCritical
@@ -70,22 +88,41 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    IEnumerator DameChieu1() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame1, out float damage1, out bool isCrit1); TakeDamage(damage1, isCrit1); }
-    IEnumerator DameChieu2() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame2, out float damage2, out bool isCrit2); TakeDamage(damage2, isCrit2); }
-    IEnumerator DameChieu3() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame3, out float damage3, out bool isCrit3); TakeDamage(damage3, isCrit3); }
-    IEnumerator DameChieu4() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame4, out float damage4, out bool isCrit4); TakeDamage(damage4, isCrit4); }
-    IEnumerator DameChieu5() { yield return new WaitForSeconds(0.3f); StartCoroutine(hit()); CalculateDamageWithCritical(baseDame5, out float damage5, out bool isCrit5); TakeDamage(damage5, isCrit5); }
-
-    IEnumerator hit()
+    IEnumerator ApplyDelayedDamage(float baseDamage)
     {
-        animator.SetBool("Hit1", true);
-        yield return new WaitForSeconds(1f);
-        animator.SetBool("Hit1", false);
+        yield return DamageDelay;
+        if (isDead)
+            yield break;
+
+        if (hitRoutine != null)
+            StopCoroutine(hitRoutine);
+        hitRoutine = StartCoroutine(Hit());
+
+        CalculateDamageWithCritical(baseDamage, out float damage, out bool isCritical);
+        TakeDamage(damage, isCritical);
+    }
+
+    IEnumerator Hit()
+    {
+        if (animator != null)
+            animator.SetBool("Hit1", true);
+
+        yield return HitDuration;
+
+        if (animator != null)
+            animator.SetBool("Hit1", false);
+        hitRoutine = null;
     }
 
     IEnumerator Death()
     {
-        animator.SetBool("Death1", true);
+        if (animator != null)
+        {
+            if (HasAnimatorParameter(animator, "Death1"))
+                animator.SetBool("Death1", true);
+            else
+                animator.Play("Death", 0, 0f);
+        }
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         // Hiển thị floating text Gold (EXP sẽ hiển thị từ LevelSystem)
@@ -111,12 +148,10 @@ public class EnemyHealth : MonoBehaviour
 
             if (coinPrefab == null) break;
 
-            GameObject coin = Instantiate(coinPrefab, spawnPos, Quaternion.identity);
-            CoinPickup pickup = coin.GetComponent<CoinPickup>();
+            int value = Mathf.CeilToInt((float)remainingGold / (coinCount - i));
+            CoinPickup pickup = CoinPickup.Spawn(coinPrefab, spawnPos, value);
             if (pickup != null)
             {
-                int value = Mathf.CeilToInt((float)remainingGold / (coinCount - i));
-                pickup.coinValue = value;
                 remainingGold -= value;
             }
         }
@@ -128,17 +163,39 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage, bool isCritical = false)
     {
-        if (isDead) return;
+        if (isDead || damageLocked) return;
 
-        currentHealth -= damage;
+        if (dodgeChance > 0f && Random.value < dodgeChance)
+            return;
+
+        float nextHealth = currentHealth - damage;
+        if (!nearDeathTriggered && NearDeath != null &&
+            nextHealth <= maxHealth * nearDeathThreshold)
+        {
+            nearDeathTriggered = true;
+            damageLocked = true;
+            // Keep the boss alive long enough for its last words even if one
+            // very large hit would otherwise kill it immediately.
+            currentHealth = Mathf.Max(1f, nextHealth);
+            UpdateHealthBar();
+            ShowDamageText(damage, isCritical);
+            Damaged?.Invoke(this, damage);
+            NearDeath.Invoke(this);
+            return;
+        }
+
+        currentHealth = nextHealth;
         UpdateHealthBar();
         ShowDamageText(damage, isCritical);
+        Damaged?.Invoke(this, damage);
 
         // Tính hướng đẩy (hướng ngược lại với player)
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
+        if (playerTransform == null)
+            CachePlayer();
+
+        if (allowKnockback && playerTransform != null)
         {
-            Vector2 direction = transform.position - player.transform.position;
+            Vector2 direction = transform.position - playerTransform.position;
             direction.Normalize();
             StartCoroutine(Knockback(direction));
         }
@@ -160,7 +217,6 @@ public class EnemyHealth : MonoBehaviour
         isKnockback = true;
 
         // Đồng bộ trạng thái với EnemyFSM
-        EnemyFSM enemyFSM = GetComponent<EnemyFSM>();
         if (enemyFSM != null)
         {
             enemyFSM.SetKnockbackState(true);
@@ -190,19 +246,39 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    private void CachePlayer()
+    {
+        if (HealthSystem.Instance != null)
+        {
+            playerTransform = HealthSystem.Instance.transform;
+            return;
+        }
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+            playerTransform = player.transform;
+    }
+
     void ShowDamageText(float damage, bool isCritical = false)
     {
         if (damageTextPrefab != null)
         {
-            GameObject canvas = GameObject.Find("Canvas");
-            if (canvas == null)
+            if (damageTextCanvas == null)
+            {
+                GameObject canvas = GameObject.Find("Canvas");
+                if (canvas != null)
+                    damageTextCanvas = canvas.transform;
+            }
+
+            if (damageTextCanvas == null)
             {
                 Debug.LogWarning("Damage text skipped: Canvas was not found.");
                 return;
             }
 
-            GameObject text = Instantiate(damageTextPrefab, canvas.transform);
-            text.GetComponent<DamageText>().Setup((int)damage, this.transform, isCritical);
+            DamageText text = DamageText.Spawn(damageTextPrefab, damageTextCanvas);
+            if (text != null)
+                text.Setup((int)damage, transform, isCritical);
         }
     }
 
@@ -212,5 +288,43 @@ public class EnemyHealth : MonoBehaviour
         {
             healthBar.value = currentHealth / maxHealth;
         }
+
+        HealthChanged?.Invoke(this);
+    }
+
+    public void ReleaseNearDeathDamageLock()
+    {
+        damageLocked = false;
+    }
+
+    public void RestoreToFullHealth()
+    {
+        if (isDead)
+            return;
+
+        currentHealth = maxHealth;
+        damageLocked = false;
+        UpdateHealthBar();
+    }
+
+    public void RestoreHealth(float amount)
+    {
+        if (isDead || amount <= 0f || currentHealth >= maxHealth)
+            return;
+
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        UpdateHealthBar();
+    }
+
+    private static bool HasAnimatorParameter(Animator targetAnimator, string parameterName)
+    {
+        int parameterHash = Animator.StringToHash(parameterName);
+        foreach (AnimatorControllerParameter parameter in targetAnimator.parameters)
+        {
+            if (parameter.nameHash == parameterHash)
+                return true;
+        }
+
+        return false;
     }
 }

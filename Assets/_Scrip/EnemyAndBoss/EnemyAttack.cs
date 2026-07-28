@@ -1,19 +1,32 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyAttack : MonoBehaviour
 {
     public int damage = 10;
+    private readonly List<Collider2D> hitBuffer = new List<Collider2D>(8);
+    private ContactFilter2D contactFilter;
+
+    private void Awake()
+    {
+        contactFilter = new ContactFilter2D();
+        contactFilter.NoFilter();
+        contactFilter.useTriggers = true;
+    }
 
     private void DoDamage()
     {
         // Gây sát thương cho Player nếu còn trong vùng đánh
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.5f); // tùy theo game bạn chỉnh radius
-        foreach (Collider2D hit in hits)
+        hitBuffer.Clear();
+        Physics2D.OverlapCircle(transform.position, 1.5f, contactFilter, hitBuffer);
+
+        for (int i = 0; i < hitBuffer.Count; i++)
         {
-            if (hit.CompareTag("Player"))
+            if (hitBuffer[i].CompareTag("Player") &&
+                hitBuffer[i].TryGetComponent(out HealthSystem healthSystem))
             {
-                // Gọi hàm giảm máu của Player
-                hit.GetComponent<HealthSystem>().TakeDamage(damage);
+                healthSystem.TakeDamage(damage);
+                break;
             }
         }
     }

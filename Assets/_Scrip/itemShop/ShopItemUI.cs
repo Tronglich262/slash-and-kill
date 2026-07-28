@@ -9,6 +9,9 @@ public class ShopItemUI : MonoBehaviour
 
     public void Setup(ItemData data)
     {
+        if (data == null)
+            return;
+
         itemData = data;
         inventoryItem = null; 
         icon.sprite = data.itemIcon;
@@ -16,6 +19,9 @@ public class ShopItemUI : MonoBehaviour
 
     public void Setup(InventoryItem invItem)
     {
+        if (invItem == null || invItem.itemData == null)
+            return;
+
         itemData = invItem.itemData;
         inventoryItem = invItem;
         icon.sprite = invItem.itemData.itemIcon;
@@ -23,9 +29,12 @@ public class ShopItemUI : MonoBehaviour
 
     public void OnClick()
     {
+        if (ShopManager.Instance == null)
+            return;
+
         if (inventoryItem != null)
         {
-            ShopManager.Instance.ShowForgeItemDetail(inventoryItem);
+            ShopManager.Instance.SelectForgeItem(inventoryItem);
         }
         else
         {

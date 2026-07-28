@@ -9,14 +9,22 @@ public class AudioManager : MonoBehaviour
     {
         float savedVolume = PlayerPrefs.GetFloat("GameVolume", 1f);
         AudioListener.volume = savedVolume;
-        volumeSlider.value = savedVolume;
-        volumeSlider.onValueChanged.AddListener(SetVolume);
+        if (volumeSlider != null)
+        {
+            volumeSlider.SetValueWithoutNotify(savedVolume);
+            volumeSlider.onValueChanged.AddListener(SetVolume);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (volumeSlider != null)
+            volumeSlider.onValueChanged.RemoveListener(SetVolume);
     }
 
     public void SetVolume(float volume)
     {
         AudioListener.volume = volume;
         PlayerPrefs.SetFloat("GameVolume", volume); // Lưu lại
-        PlayerPrefs.Save();
     }
 }

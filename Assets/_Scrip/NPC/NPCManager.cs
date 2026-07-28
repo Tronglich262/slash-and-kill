@@ -19,13 +19,25 @@ public class NPCManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            enabled = false;
+            return;
+        }
+
+        Instance = this;
         npcInfoPanel.SetActive(false);
     }
 
 
     public void ShowNPC(NPC npc)
     {
+        if (npc == null || npc.npcData == null)
+            return;
+
+        if (currentNPC != null && currentNPC != npc && currentNPC.shopUI != null)
+            currentNPC.shopUI.SetActive(false);
+
         currentNPC = npc;
 
         npcInfoPanel.SetActive(true);
@@ -37,7 +49,8 @@ public class NPCManager : MonoBehaviour
         {
             npc.shopUI.SetActive(true);
         }
-        ShopManager.Instance.LoadShop(npc);
+        if (npc.shopUI != null && ShopManager.Instance != null)
+            ShopManager.Instance.LoadShop(npc);
 
     }
 

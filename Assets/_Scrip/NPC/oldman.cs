@@ -1,34 +1,39 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 
 public class oldman : MonoBehaviour
 {
     public Transform npc;
     public GameObject textMesh;
     public Vector3 offset = new Vector3(0, 2, 0);
+    private Vector3 lastNpcPosition;
 
     void Start()
     {
+        UpdatePosition(true);
         StartCoroutine(ShowShopText());
     }
 
-    void Update()
+    private void UpdatePosition(bool force)
     {
-        if (npc != null)
+        if (npc != null && (force || npc.position != lastNpcPosition))
         {
-            transform.position = npc.position + offset;
+            lastNpcPosition = npc.position;
+            transform.position = lastNpcPosition + offset;
         }
     }
 
     IEnumerator ShowShopText()
     {
+        WaitForSeconds visibleDuration = new WaitForSeconds(5f);
+        WaitForSeconds hiddenDuration = new WaitForSeconds(3f);
         while (true)
         {
+            UpdatePosition(false);
             textMesh.gameObject.SetActive(true); 
-            yield return new WaitForSeconds(5f);
+            yield return visibleDuration;
             textMesh.gameObject.SetActive(false); 
-            yield return new WaitForSeconds(3f);
+            yield return hiddenDuration;
         }
     }
 }

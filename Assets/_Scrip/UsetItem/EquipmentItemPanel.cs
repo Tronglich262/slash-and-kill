@@ -24,10 +24,22 @@ public class EquipmentItemPanel : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            enabled = false;
+            return;
+        }
+
         instance = this;
         panel.SetActive(false);
         if (emptySlotMessagePanel != null)
             emptySlotMessagePanel.SetActive(false);
+        unequipButton.onClick.AddListener(OnClickUnequip);
+    }
+
+    private void OnDestroy()
+    {
+        unequipButton.onClick.RemoveListener(OnClickUnequip);
     }
 
     public void ShowItem(EquipmentSlot slot)
@@ -63,13 +75,6 @@ public class EquipmentItemPanel : MonoBehaviour
 
         itemLevelDo.text = "Cấp: +" + invItem.levelDo;
         Price.text = "Price: " + data.price;
-        var invInBag = InventoryManager.Instance.playerInventory.items
-            .Find(x => x.itemID == invItem.itemID);
-
-        int qty = invInBag != null ? invInBag.quantity : 1;
-
-        unequipButton.onClick.RemoveAllListeners();
-        unequipButton.onClick.AddListener(OnClickUnequip);
     }
 
 

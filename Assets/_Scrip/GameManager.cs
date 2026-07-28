@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            enabled = false;
         }
         else
         {
@@ -34,7 +34,12 @@ public class GameManager : MonoBehaviour
             if (notificationTimer <= 0)
             {
                 notificationPanel.SetActive(false);
+                enabled = false;
             }
+        }
+        else
+        {
+            enabled = false;
         }
     }
 
@@ -46,6 +51,7 @@ public class GameManager : MonoBehaviour
             notificationText.text = message;
             notificationPanel.SetActive(true);
             notificationTimer = notificationDuration;
+            enabled = true;
         }
     }
 

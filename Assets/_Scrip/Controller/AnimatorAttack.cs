@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AnimatorAttack : MonoBehaviour
 {
@@ -13,7 +14,17 @@ public class AnimatorAttack : MonoBehaviour
     [Header("Critical Settings")]
     public float criticalChance = 0.2f; // 20% tỉ lệ chí mạng
     public float criticalMultiplier = 2f; // 2x damage khi chí mạng
+    private readonly List<Collider2D> hitEnemies = new List<Collider2D>(16);
+    private ContactFilter2D enemyFilter;
 
+    private void Awake()
+    {
+        enemyFilter = new ContactFilter2D();
+        enemyFilter.SetLayerMask(enemyLayer);
+        enemyFilter.useTriggers = true;
+    }
+
+#if UNITY_EDITOR
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
@@ -21,6 +32,7 @@ public class AnimatorAttack : MonoBehaviour
             TriggerAttack();
         }
     }
+#endif
 
     public void TriggerAttack()
     {
@@ -31,12 +43,12 @@ public class AnimatorAttack : MonoBehaviour
         }
 
         bool hitAnyEnemy = false;
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        hitEnemies.Clear();
+        Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyFilter, hitEnemies);
 
-        foreach (Collider2D enemy in hitEnemies)
+        for (int i = 0; i < hitEnemies.Count; i++)
         {
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            if (hitEnemies[i].TryGetComponent(out EnemyHealth enemyHealth))
             {
                 // tính dame và kiểm tra chí mạng
                 float baseDamage = levelSystem != null ? levelSystem.attack : 10f;
@@ -61,7 +73,9 @@ public class AnimatorAttack : MonoBehaviour
         if (HealthSystem.Instance != null && manaRestoreOnHit > 0)
         {
             HealthSystem.Instance.RestoreMP(manaRestoreOnHit);
+#if UNITY_EDITOR
             Debug.Log($"Hồi {manaRestoreOnHit} mana khi tấn công!");
+#endif
         }
     }
 

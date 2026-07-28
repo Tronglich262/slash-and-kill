@@ -12,8 +12,14 @@ public class EquipmentManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance != null && Instance != this)
+        {
+            enabled = false;
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
     private void Start()
@@ -22,14 +28,16 @@ public class EquipmentManager : MonoBehaviour
         UpdateChiSoText();
     }
 
-    public void EquipItem(InventoryItem invItem)
+    public bool EquipItem(InventoryItem invItem)
     {
-        if (invItem == null) return;
+        if (invItem == null || slots == null || ItemDatabase.Instance == null)
+            return false;
 
         if (invItem.itemData == null)
             invItem.itemData = ItemDatabase.Instance.GetItemByID(invItem.itemID);
 
-        if (invItem.itemData == null) return;
+        if (invItem.itemData == null)
+            return false;
 
         ItemData item = invItem.itemData;
 
@@ -41,20 +49,28 @@ public class EquipmentManager : MonoBehaviour
                     GameManager.Instance.ShowNotEnoughLevel(item.requiredLevel);
                 else
                     Debug.LogWarning("Required level: " + item.requiredLevel);
-                return;
+                return false;
             }
         }
 
         foreach (var slot in slots)
         {
-            if (slot.slotType == item.itemType)
+            if (slot != null && slot.slotType == item.itemType)
             {
+                if (LevelSystem.Instance == null || InventoryManager.Instance == null ||
+                    InventoryManager.Instance.playerInventory == null)
+                    return false;
+
                 if (slot.currentItem != null)
                 {
                     if (slot.currentItem.itemData == null)
                         slot.currentItem.itemData = ItemDatabase.Instance.GetItemByID(slot.currentItem.itemID);
 
-                    InventoryManager.Instance.playerInventory.AddItem(slot.currentItem.itemData, 1);
+                    if (slot.currentItem.itemData == null)
+                        return false;
+
+                    InventoryManager.Instance.playerInventory.AddItem(
+                        slot.currentItem.itemData, 1, slot.currentItem.levelDo);
                     LevelSystem.Instance.RemoveItemStats(slot.currentItem);
                 }
 
@@ -62,23 +78,33 @@ public class EquipmentManager : MonoBehaviour
                 LevelSystem.Instance.ApplyItemStats(invItem);
                 SaveEquipment();
                 UpdateChiSoText();
-                return;
+                return true;
             }
         }
+
+        return false;
     }
 
     public void Unequip(ItemType slotType)
     {
+        if (slots == null || InventoryManager.Instance == null ||
+            InventoryManager.Instance.playerInventory == null || LevelSystem.Instance == null)
+            return;
+
         foreach (var slot in slots)
         {
-            if (slot.slotType == slotType && slot.currentItem != null)
+            if (slot != null && slot.slotType == slotType && slot.currentItem != null)
             {
                 var removedItem = slot.currentItem;
 
                 if (removedItem.itemData == null)
                     removedItem.itemData = ItemDatabase.Instance.GetItemByID(removedItem.itemID);
 
-                InventoryManager.Instance.playerInventory.AddItem(removedItem.itemData, 1);
+                if (removedItem.itemData == null)
+                    return;
+
+                InventoryManager.Instance.playerInventory.AddItem(
+                    removedItem.itemData, 1, removedItem.levelDo);
                 LevelSystem.Instance.RemoveItemStats(removedItem);
 
                 slot.Unequip();
@@ -118,10 +144,16 @@ public class EquipmentManager : MonoBehaviour
     public void LoadEquipment()
     {
         List<EquipmentSaveData> saved = SaveSystem.LoadEquipment();
-        if (saved == null) return;
+        if (saved == null || slots == null || ItemDatabase.Instance == null ||
+            LevelSystem.Instance == null)
+            return;
 
+        HashSet<ItemType> loadedSlotTypes = new HashSet<ItemType>();
         foreach (var data in saved)
         {
+            if (!loadedSlotTypes.Add(data.slotType))
+                continue;
+
             ItemData item = ItemDatabase.Instance.GetItemByID(data.itemID);
             if (item == null) continue;
 
@@ -135,7 +167,7 @@ public class EquipmentManager : MonoBehaviour
 
             foreach (var slot in slots)
             {
-                if (slot.slotType == data.slotType)
+                if (slot != null && slot.slotType == data.slotType)
                 {
                     slot.Equip(invItem);
                     LevelSystem.Instance.ApplyItemStats(invItem);

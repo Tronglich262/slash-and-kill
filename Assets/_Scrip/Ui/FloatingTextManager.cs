@@ -42,12 +42,24 @@ public class FloatingTextManager : MonoBehaviour
 
     private int textQueueIndex = 0;
     private const int maxQueueSlots = 5;
-    private float[] queueOffsets = { 0f, 0.3f, 0.6f, 0.9f, 1.2f };
+    private static readonly float[] QueueOffsets = { 0f, 0.3f, 0.6f, 0.9f, 1.2f };
+    private Transform playerTransform;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            enabled = false;
+            return;
+        }
+
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     /// <summary>
@@ -68,11 +80,10 @@ public class FloatingTextManager : MonoBehaviour
             Debug.LogWarning("FloatingTextPrefab chưa được gán!");
             return;
         }
-        float yOffset = queueOffsets[textQueueIndex];
+        float yOffset = QueueOffsets[textQueueIndex];
         Vector3 spawnPos = worldPosition + new Vector3(0, yOffset, 0);
         textQueueIndex = (textQueueIndex + 1) % maxQueueSlots;
-        GameObject obj = Instantiate(floatingTextPrefab, spawnPos, Quaternion.identity);
-        FloatingText ft = obj.GetComponent<FloatingText>();
+        FloatingText ft = FloatingText.Spawn(floatingTextPrefab, spawnPos);
         if (ft != null)
         {
             ft.Setup(text, GetColor(type), floatSpeed, lifetime);
@@ -148,9 +159,16 @@ public class FloatingTextManager : MonoBehaviour
 
     Vector3 GetPlayerPosition()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-            return player.transform.position + Vector3.down * 0.5f; // Dưới player
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+                playerTransform = player.transform;
+        }
+
+        if (playerTransform != null)
+            return playerTransform.position + Vector3.down * 0.5f; // Dưới player
+
         return Vector3.zero;
     }
 

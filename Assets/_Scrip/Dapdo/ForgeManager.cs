@@ -20,11 +20,30 @@ public class ForgeManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            enabled = false;
+            return;
+        }
+
         Instance = this;
         forgePanel.SetActive(false);
 
         confirmButton.onClick.AddListener(OnConfirmForge);
-        cancelButton.onClick.AddListener(() => forgePanel.SetActive(false));
+        cancelButton.onClick.AddListener(CloseForge);
+    }
+
+    private void OnDestroy()
+    {
+        confirmButton.onClick.RemoveListener(OnConfirmForge);
+        cancelButton.onClick.RemoveListener(CloseForge);
+        if (Instance == this)
+            Instance = null;
+    }
+
+    private void CloseForge()
+    {
+        forgePanel.SetActive(false);
     }
 
     public void OpenForge(InventoryItem item)
@@ -34,7 +53,10 @@ public class ForgeManager : MonoBehaviour
         if (item.itemData == null)
             item.itemData = ItemDatabase.Instance.GetItemByID(item.itemID);
 
-        if (item.itemData == null) return;
+        if (item.itemData == null ||
+            item.itemData.itemType == ItemType.vatpham ||
+            item.itemData.itemType == ItemType.thoren)
+            return;
 
         currentItem = item;
 
@@ -65,7 +87,19 @@ public class ForgeManager : MonoBehaviour
 
     private void OnConfirmForge()
     {
-        if (currentItem == null) return;
+        if (currentItem == null || currentItem.itemData == null)
+            return;
+
+        Inventory inventory = ShopManager.Instance != null
+            ? ShopManager.Instance.playerInventory
+            : InventoryManager.Instance?.playerInventory;
+        if (inventory == null || inventory.items == null ||
+            !inventory.items.Contains(currentItem))
+        {
+            currentItem = null;
+            CloseForge();
+            return;
+        }
 
         if (currentItem.levelDo >= 10)
         {
@@ -99,8 +133,9 @@ public class ForgeManager : MonoBehaviour
         Debug.Log($"Item {currentItem.itemData.itemName} nâng cấp lên +{currentItem.levelDo}");
         RefreshUI();
         ShopManager.Instance?.ShowForgeItemDetail(currentItem);
-        InventoryManager.Instance.RefreshInventory();
-        SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
+        InventoryManager.Instance?.RefreshInventory();
+
+        SaveSystem.SaveInventory(inventory);
     }
 
 }

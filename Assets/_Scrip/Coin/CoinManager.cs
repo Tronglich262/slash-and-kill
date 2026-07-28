@@ -12,7 +12,6 @@ public class CoinManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(transform.root.gameObject);
         }
         else
         {
@@ -40,7 +39,6 @@ public class CoinManager : MonoBehaviour
     public void SaveCoin()
     {
         PlayerPrefs.SetInt("Coin", coinCount);
-        PlayerPrefs.Save();
     }
 
     public void LoadCoin()
@@ -48,8 +46,4 @@ public class CoinManager : MonoBehaviour
         coinCount = PlayerPrefs.GetInt("Coin", 0); 
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveCoin(); 
-    }
 }

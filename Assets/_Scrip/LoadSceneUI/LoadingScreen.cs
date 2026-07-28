@@ -35,14 +35,20 @@ public class LoadingScreen : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         operation.allowSceneActivation = false;
         bool activationRequested = false;
+        int lastDisplayedPercent = -1;
 
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             if (progressBar != null)
                 progressBar.value = progress;
-            if (loadingText != null)
-                loadingText.text = $"Đang tải... {progress * 100f:F0}%";
+
+            int displayedPercent = Mathf.RoundToInt(progress * 100f);
+            if (loadingText != null && displayedPercent != lastDisplayedPercent)
+            {
+                loadingText.SetText("Đang tải... {0}%", displayedPercent);
+                lastDisplayedPercent = displayedPercent;
+            }
 
             if (operation.progress >= 0.9f && !activationRequested)
             {

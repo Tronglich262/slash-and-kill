@@ -59,7 +59,6 @@ public class ActiveUI : MonoBehaviour
         return;
     }
     instance = this;
-    DontDestroyOnLoad(gameObject);
 }
 
 
@@ -140,7 +139,7 @@ public class ActiveUI : MonoBehaviour
     public void ToggleYes()
     {
         SpawnManager.nextSpawnPoint = spawnPointName;
-        SceneManager.LoadScene("ThiTran");
+        RequestSceneLoad("ThiTran");
         gohome.SetActive(false);
         Time.timeScale = 1f;
     }
@@ -156,7 +155,7 @@ public class ActiveUI : MonoBehaviour
     private void LoadSceneWithTimeScale(string sceneName)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneName);
+        RequestSceneLoad(sceneName);
     }
 
     // ================= Coin Maps =================
@@ -174,6 +173,17 @@ public class ActiveUI : MonoBehaviour
 
     private void TryEnterMap(GameObject coinPanel, int requiredLevel, string sceneName, string spawnPointName)
     {
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            if (GameManager.Instance != null)
+                GameManager.Instance.ShowNotification($"Map '{sceneName}' chưa khả dụng.");
+            else
+                Debug.LogWarning($"Scene '{sceneName}' is not available in Build Settings.");
+
+            CloseCoinPanel(coinPanel);
+            return;
+        }
+
         if (CoinManager.Instance != null && LevelSystem.Instance != null)
         {
             if (CoinManager.Instance.coinCount >= 500 && LevelSystem.Instance.level >= requiredLevel)
@@ -257,8 +267,23 @@ public class ActiveUI : MonoBehaviour
     {
         SpawnManager.nextSpawnPoint = spawnPointName; // Lưu vị trí spawn
         Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneName);
+        RequestSceneLoad(sceneName);
+    }
+
+    private void RequestSceneLoad(string sceneName)
+    {
+        if (SceneManager.GetActiveScene().name == sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+            return;
+        }
+
+        if (SceneLoader.Instance != null)
+            SceneLoader.Instance.LoadScene(sceneName);
+        else if (Application.CanStreamedLevelBeLoaded(sceneName))
+            SceneManager.LoadScene(sceneName);
+        else
+            Debug.LogError($"Scene '{sceneName}' is not available in Build Settings.");
     }
 
 }
-   

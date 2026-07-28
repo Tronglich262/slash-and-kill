@@ -21,6 +21,14 @@ public class ItemDetailPanel : MonoBehaviour
     private void Awake()
     {
         panel.SetActive(false);
+        useButton.onClick.AddListener(OnClickUse);
+        dropButton.onClick.AddListener(OnClickDrop);
+    }
+
+    private void OnDestroy()
+    {
+        useButton.onClick.RemoveListener(OnClickUse);
+        dropButton.onClick.RemoveListener(OnClickDrop);
     }
 
     public void ShowItemDetail(InventoryItem invItem)
@@ -62,11 +70,6 @@ public class ItemDetailPanel : MonoBehaviour
         itemPriceText.text = "Price: " + data.price;
         itemLevelDo.text = "Cấp: +" + invItem.levelDo;
 
-        useButton.onClick.RemoveAllListeners();
-        dropButton.onClick.RemoveAllListeners();
-
-        useButton.onClick.AddListener(OnClickUse);
-        dropButton.onClick.AddListener(OnClickDrop);
     }
 
 
@@ -86,7 +89,7 @@ public class ItemDetailPanel : MonoBehaviour
         if (data.itemType == ItemType.vatpham) // consumable
         {
             // Hồi máu cho player
-            HealthSystem playerHealth = FindObjectOfType<HealthSystem>();
+            HealthSystem playerHealth = HealthSystem.Instance;
             if (playerHealth != null)
             {
                 int healAmount = currentItem.GetHP(); 
@@ -125,19 +128,13 @@ public class ItemDetailPanel : MonoBehaviour
                 }
             }
 
-            // Tạo bản sao mới với quantity = 1
-            InventoryItem invItemToEquip = new InventoryItem
-            {
-                itemData = currentItem.itemData,
-                itemID = currentItem.itemID,
-                quantity = 1
-            };
-            EquipmentManager.Instance.EquipItem(invItemToEquip);
-            currentItem.quantity--;
-            if (currentItem.quantity <= 0)
-            {
-                InventoryManager.Instance.playerInventory.RemoveItem(currentItem);
-            }
+            // Remove the item from the bag only after the equipment transaction
+            // succeeds. Passing the same instance also preserves its forge level.
+            if (EquipmentManager.Instance == null ||
+                !EquipmentManager.Instance.EquipItem(currentItem))
+                return;
+
+            InventoryManager.Instance.playerInventory.RemoveItem(currentItem);
         }
 
 

@@ -1,11 +1,14 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 /// <summary>
 /// Component cho prefab floating text - tự động bay lên và mờ dần (world space)
 /// </summary>
 public class FloatingText : MonoBehaviour
 {
+    private static readonly Stack<FloatingText> Pool = new Stack<FloatingText>();
+
     [Header("Components")]
     public TextMeshProUGUI textMesh;
 
@@ -16,6 +19,27 @@ public class FloatingText : MonoBehaviour
     private Color textColor;
     private float timer;
     private bool isInitialized = false;
+
+    public static FloatingText Spawn(GameObject prefab, Vector3 position)
+    {
+        FloatingText instance = null;
+
+        while (Pool.Count > 0 && instance == null)
+            instance = Pool.Pop();
+
+        if (instance == null)
+        {
+            GameObject obj = Instantiate(prefab, position, Quaternion.identity);
+            instance = obj.GetComponent<FloatingText>();
+        }
+        else
+        {
+            instance.transform.SetPositionAndRotation(position, Quaternion.identity);
+            instance.gameObject.SetActive(true);
+        }
+
+        return instance;
+    }
 
     void Update()
     {
@@ -31,7 +55,7 @@ public class FloatingText : MonoBehaviour
         }
         if (timer >= lifetime)
         {
-            Destroy(gameObject);
+            Release();
         }
     }
 
@@ -54,6 +78,13 @@ public class FloatingText : MonoBehaviour
         lifetime = life;
         timer = 0f;
         isInitialized = true;
+    }
+
+    private void Release()
+    {
+        isInitialized = false;
+        gameObject.SetActive(false);
+        Pool.Push(this);
     }
 
     void SetAlpha(float alpha)

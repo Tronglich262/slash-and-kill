@@ -15,6 +15,7 @@ public class PlayerWallSlide : MonoBehaviour
 
     private Animator animator;
     private Rigidbody2D rb;
+    private LadderClimb ladderClimb;
 
     private bool isGrounded;
     private bool isTouchingWall;
@@ -26,12 +27,14 @@ public class PlayerWallSlide : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        ladderClimb = GetComponent<LadderClimb>();
         defaultGravity = rb.gravityScale;
     }
 
     void Update()
     {
-        if (isClimbing) return; 
+        if (isClimbing || (ladderClimb != null && ladderClimb.isClimbing))
+            return;
 
         CheckGrounded();
         CheckWallInteraction();
@@ -111,6 +114,32 @@ public class PlayerWallSlide : MonoBehaviour
         animator.SetBool("iswallidle", false);
         animator.SetBool("isWallSliding", false);
         rb.gravityScale = defaultGravity;
+    }
+
+    public void ResetStateForRevive()
+    {
+        StopAllCoroutines();
+        isClimbing = false;
+        isGrounded = false;
+        isTouchingWall = false;
+
+        if (animator != null)
+        {
+            animator.SetBool("iswallidle", false);
+            animator.SetBool("isWallSliding", false);
+            animator.SetBool("iswallgrab", false);
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.gravityScale = defaultGravity;
+        }
+    }
+
+    private void OnDisable()
+    {
+        ResetStateForRevive();
     }
 
     void TryClimbUp()

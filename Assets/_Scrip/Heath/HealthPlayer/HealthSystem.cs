@@ -21,22 +21,64 @@ public class HealthSystem : MonoBehaviour
     public TextMeshProUGUI mpText;
 
     private Animator animator;
+    private PlayerController playerController;
+    private PlayerAttack playerAttack;
+    private PlayerJump playerJump;
+    private PlayerWallSlide playerWallSlide;
+    private PlayerEdgeIdle playerEdgeIdle;
+    private LadderClimb ladderClimb;
+    private Rigidbody2D playerRigidbody;
+    private Coroutine hurtRoutine;
+    private static readonly WaitForSeconds HurtDuration = new WaitForSeconds(0.5f);
+    private static readonly int HurtParameter = Animator.StringToHash("Hurt");
+    private static readonly int HurtState = Animator.StringToHash("Base Layer.Hurt");
+    private static readonly int DeathParameter = Animator.StringToHash("Death");
+    private static readonly int IdleState = Animator.StringToHash("Idle");
+    private static readonly int SpeedParameter = Animator.StringToHash("Speed");
+    private static readonly int VerticalSpeedParameter = Animator.StringToHash("VerticalSpeed");
+    private static readonly int AttackIndexParameter = Animator.StringToHash("AttackIndex");
+    private float defaultGravityScale;
+    private bool isReviving;
+    private bool mpLoaded;
     public bool check = false;
 
     // Hồi sinh
     public GameObject Hoisinh;
     public bool isDead = false;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            enabled = false;
+            return;
+        }
+
+        Instance = this;
+    }
+
     private void Start()
     {
-        // Singleton
-        if (Instance == null) Instance = this;
-
         animator = GetComponent<Animator>();
+        playerController = GetComponent<PlayerController>();
+        playerAttack = GetComponent<PlayerAttack>();
+        playerJump = GetComponent<PlayerJump>();
+        playerWallSlide = GetComponent<PlayerWallSlide>();
+        playerEdgeIdle = GetComponent<PlayerEdgeIdle>();
+        ladderClimb = GetComponent<LadderClimb>();
+        playerRigidbody = GetComponent<Rigidbody2D>();
+        if (playerRigidbody != null)
+            defaultGravityScale = playerRigidbody.gravityScale;
         LoadHP(); 
         LoadMP();
         UpdateHPUI();
         UpdateMPUI();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     // Kiểm tra né đòn dựa trên netranh (Speed stat)
@@ -60,7 +102,6 @@ public class HealthSystem : MonoBehaviour
         // Kiểm tra né đòn dựa trên netranh (Speed stat)
         if (CheckDodge())
         {
-            Debug.Log("Né đòn thành công!");
             if (FloatingTextManager.Instance != null)
             {
                 FloatingTextManager.Instance.ShowDodge();
@@ -75,12 +116,13 @@ public class HealthSystem : MonoBehaviour
         if (currentHP < 0) currentHP = 0;
         UpdateHPUI();
         SaveHP();
-        PlayerAttack playerAttack = GetComponent<PlayerAttack>();
         if (playerAttack != null)
-        {
             playerAttack.ResetAttackState();
-        }
-        StartCoroutine(deleyhurt());
+
+        if (hurtRoutine != null)
+            StopCoroutine(hurtRoutine);
+        hurtRoutine = StartCoroutine(DelayHurt());
+
         if (currentHP == 0)
         {
             isDead = true; // Đánh dấu đã chết
@@ -88,22 +130,44 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    IEnumerator deleyhurt()
+    IEnumerator DelayHurt()
     {
-        animator.SetBool("Hurt", true);
-        yield return new WaitForSeconds(0.5f);
-        animator.SetBool("Hurt", false);
+        if (animator != null)
+        {
+            animator.ResetTrigger(HurtParameter);
+            animator.SetTrigger(HurtParameter);
+            // Some action states can interrupt or consume the trigger before the
+            // Any State transition evaluates. Force the visual hit reaction too.
+            if (animator.HasState(0, HurtState))
+                animator.CrossFade(HurtState, 0.04f, 0, 0f);
+        }
+        yield return HurtDuration;
+        hurtRoutine = null;
     }
 
     IEnumerator Die()
     {
         check = true;
-        animator.SetBool("Death", true);
-        GetComponent<PlayerController>().enabled = false;
-        GetComponent<PlayerAttack>().enabled = false;
-        GetComponent<PlayerJump>().enabled = false;
+        isReviving = false;
 
-        Hoisinh.SetActive(true);
+        if (hurtRoutine != null)
+        {
+            StopCoroutine(hurtRoutine);
+            hurtRoutine = null;
+        }
+
+        SetGameplayEnabled(false);
+        ResetPlayerMotionAndTraversal();
+
+        if (animator != null)
+        {
+            animator.ResetTrigger(HurtParameter);
+            animator.ResetTrigger(DeathParameter);
+            animator.SetTrigger(DeathParameter);
+        }
+
+        if (Hoisinh != null)
+            Hoisinh.SetActive(true);
         //SceneManager.LoadScene("ThiTran");
         yield break;
     }
@@ -147,7 +211,11 @@ public class HealthSystem : MonoBehaviour
         // Raising an equipment/stat cap does not restore mana for free.
         currentMP = Mathf.Clamp(currentMP, 0, maxMP);
         UpdateMPUI();
-        SaveMP();
+
+        // LevelSystem applies base stats during Awake, before Start has loaded
+        // saved mana. Do not overwrite a valid save with the default value 0.
+        if (mpLoaded)
+            SaveMP();
     }
 
     public void UseMP(int amount)
@@ -193,35 +261,41 @@ public class HealthSystem : MonoBehaviour
     public void SaveMP()
     {
         PlayerPrefs.SetInt("CurrentMP", currentMP);
-        PlayerPrefs.Save();
     }
 
     public void LoadMP()
     {
         if (PlayerPrefs.HasKey("CurrentMP"))
         {
-            currentMP = PlayerPrefs.GetInt("CurrentMP");
-            // Đảm bảo không bị 0
-            if (currentMP <= 0) currentMP = maxMP;
+            currentMP = Mathf.Clamp(PlayerPrefs.GetInt("CurrentMP"), 0, maxMP);
         }
         else
         {
             currentMP = maxMP;
         }
+
+        mpLoaded = true;
+    }
+
+    public void RestoreFullMPForNewScene()
+    {
+        currentMP = maxMP;
+        mpLoaded = true;
+        UpdateMPUI();
+        SaveMP();
     }
 
     // Thêm hàm SaveHP() và LoadHP()
     public void SaveHP()
     {
         PlayerPrefs.SetInt("CurrentHP", currentHP);
-        PlayerPrefs.Save();
     }
 
     public void LoadHP()
     {
         if (PlayerPrefs.HasKey("CurrentHP"))
         {
-            currentHP = PlayerPrefs.GetInt("CurrentHP");
+            currentHP = Mathf.Clamp(PlayerPrefs.GetInt("CurrentHP"), 0, maxHP);
         }
         else
         {
@@ -232,15 +306,17 @@ public class HealthSystem : MonoBehaviour
     //Hồi sinh
     public void ToggleYeshoisinh()
     {
+        if (!isDead || isReviving)
+            return;
+
         if (CoinManager.Instance != null) // check tiền
         {
             if (CoinManager.Instance.coinCount >= 500)
             {
                 CoinManager.Instance.AddCoin(-500);
-                Hoisinh.SetActive(false);
-                animator.SetBool("Death", false);
-                Heal(maxHP);
-                isDead = false;
+                if (Hoisinh != null)
+                    Hoisinh.SetActive(false);
+                isReviving = true;
                 StartCoroutine(ReviveSequence());
             }
             else
@@ -252,10 +328,89 @@ public class HealthSystem : MonoBehaviour
 
     IEnumerator ReviveSequence()
     {
-        yield return new WaitForSeconds(0.5f);
-        GetComponent<PlayerController>().enabled = true;
-        GetComponent<PlayerAttack>().enabled = true;
-        GetComponent<PlayerJump>().enabled = true;
+        Heal(maxHP);
+        ResetPlayerMotionAndTraversal();
+        ResetAnimatorToIdle();
+
+        yield return HurtDuration;
+
+        check = false;
+        isDead = false;
+        SetGameplayEnabled(true);
+        isReviving = false;
+    }
+
+    private void SetGameplayEnabled(bool value)
+    {
+        if (playerController != null)
+        {
+            if (!value)
+                playerController.SetCanMove(false);
+            playerController.enabled = value;
+        }
+
+        if (playerAttack != null)
+        {
+            if (!value)
+                playerAttack.ResetAttackState();
+            playerAttack.enabled = value;
+        }
+
+        if (playerJump != null) playerJump.enabled = value;
+        if (playerWallSlide != null) playerWallSlide.enabled = value;
+        if (playerEdgeIdle != null) playerEdgeIdle.enabled = value;
+        if (ladderClimb != null) ladderClimb.enabled = value;
+    }
+
+    private void ResetPlayerMotionAndTraversal()
+    {
+        if (playerRigidbody != null)
+        {
+            playerRigidbody.linearVelocity = Vector2.zero;
+            playerRigidbody.angularVelocity = 0f;
+            playerRigidbody.gravityScale = defaultGravityScale;
+        }
+
+        if (playerJump != null)
+            playerJump.ResetStateForRevive();
+        if (playerWallSlide != null)
+            playerWallSlide.ResetStateForRevive();
+        if (playerEdgeIdle != null)
+            playerEdgeIdle.ResetStateForRevive();
+    }
+
+    private void ResetAnimatorToIdle()
+    {
+        if (animator == null)
+            return;
+
+        animator.ResetTrigger(HurtParameter);
+        animator.ResetTrigger(DeathParameter);
+        animator.ResetTrigger("Jump");
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Dash");
+
+        animator.SetFloat(SpeedParameter, 0f);
+        animator.SetFloat(VerticalSpeedParameter, 0f);
+        animator.SetInteger(AttackIndexParameter, 0);
+        animator.SetBool("Run", false);
+        animator.SetBool("IsJumping", false);
+        animator.SetBool("Fall", false);
+        animator.SetBool("Ladder", false);
+        animator.SetBool("isEdgeIdle", false);
+        animator.SetBool("isWallSliding", false);
+        animator.SetBool("iswallidle", false);
+        animator.SetBool("iswallgrab", false);
+        animator.SetBool("skill", false);
+        animator.SetBool("Attackskill", false);
+        animator.SetBool("AttackSkill1", false);
+
+        // Death has no outgoing transition, so clearing its trigger is not enough.
+        animator.Play(IdleState, 0, 0f);
+        animator.Update(0f);
+
+        if (playerController != null)
+            playerController.ResetStateForRevive();
     }
 
     public void ToggleNoHoisinh()

@@ -29,7 +29,26 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI detailPrice;
 
     private ItemData currentItem;
+    private InventoryItem currentForgeItem;
     public Inventory playerInventory;
+    private sealed class ShopSlotCache
+    {
+        public readonly GameObject GameObject;
+        public readonly ShopItemUI ItemUI;
+
+        public ShopSlotCache(GameObject gameObject, ShopItemUI itemUI)
+        {
+            GameObject = gameObject;
+            ItemUI = itemUI;
+        }
+    }
+
+    private readonly System.Collections.Generic.List<ShopSlotCache> itemSlotPool =
+        new System.Collections.Generic.List<ShopSlotCache>();
+    private bool isSlotPoolInitialized;
+    private int usedSlotCount;
+    private static readonly WaitForSeconds PurchaseMessageDuration = new WaitForSeconds(2f);
+    private Coroutine purchaseMessageRoutine;
 
     [Header("Dap do")]
     public Button dapdo;
@@ -47,6 +66,12 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            enabled = false;
+            return;
+        }
+
         Instance = this;
         if (playerInventory == null)
         {
@@ -60,9 +85,15 @@ public class ShopManager : MonoBehaviour
     public void LoadShop(NPC npc)
     {
         ClearItemDetail();
-        // Xóa slot cũ
-        foreach (Transform child in itemContainer)
-            Destroy(child.gameObject);
+        BeginSlotRefresh();
+        dapdo.onClick.RemoveListener(ForgeSelectedItem);
+
+        if (!SaveSystem.EnsureInventoryLoaded(playerInventory))
+        {
+            Debug.LogWarning("Shop đang chờ inventory và ItemDatabase khởi tạo.");
+            HideUnusedSlots();
+            return;
+        }
 
         // Khi load shop
         if (npc.sellTypes != null && npc.sellTypes.Length == 1 && npc.sellTypes[0] == ItemType.thoren)
@@ -73,42 +104,25 @@ public class ShopManager : MonoBehaviour
 
             foreach (var invItem in playerInventory.items)
             {
-                if (invItem.itemData == null) continue;
+                if (invItem == null || !CanForge(invItem.itemData))
+                    continue;
 
                 if (firstItem == null)
                     firstItem = invItem;
 
-                var slot = Instantiate(itemSlotPrefab, itemContainer);
-                var shopItemUI = slot.GetComponent<ShopItemUI>();
-                shopItemUI.Setup(invItem);
-
-                InventoryItem cachedItem = invItem;
-                slot.GetComponent<Button>().onClick.AddListener(() =>
-                {
-                    shopItemUI.OnClick();
-                    dapdo.onClick.RemoveAllListeners();
-                    dapdo.onClick.AddListener(() =>
-                    {
-                        ForgeManager.Instance.OpenForge(cachedItem);
-                    });
-                });
+                ShopSlotCache slot = GetNextSlot();
+                slot.ItemUI.Setup(invItem);
             }
 
             Dapdo.text = "Đập";
             desdapdo.text = "Nâng cấp item từ +0 → +10";
             textthongbaobuy.text = "";
+            dapdo.onClick.AddListener(ForgeSelectedItem);
+            dapdo.interactable = firstItem != null;
 
             // AUTO TARGET ITEM ĐẦU TIÊN
             if (firstItem != null)
-            {
-                ShowForgeItemDetail(firstItem);
-
-                dapdo.onClick.RemoveAllListeners();
-                dapdo.onClick.AddListener(() =>
-                {
-                    ForgeManager.Instance.OpenForge(firstItem);
-                });
-            }
+                SelectForgeItem(firstItem);
         }
 
 
@@ -126,30 +140,84 @@ public class ShopManager : MonoBehaviour
                 if (firstItem == null)
                     firstItem = item;
 
-                var slot = Instantiate(itemSlotPrefab, itemContainer);
-                slot.GetComponent<ShopItemUI>().Setup(item);
+                ShopSlotCache slot = GetNextSlot();
+                slot.ItemUI.Setup(item);
 
-                ItemData cachedItem = item; //  tránh closure bug
-                slot.GetComponent<Button>().onClick.AddListener(() =>
-                {
-                    ShowItemDetail(cachedItem);
-
-                    dapdo.onClick.RemoveAllListeners();
-                    dapdo.onClick.AddListener(BuyItem);
-                });
             }
 
             Dapdo.text = "Buy";
             desdapdo.text = "";
+            dapdo.interactable = firstItem != null;
 
             // AUTO TARGET ITEM ĐẦU TIÊN
             if (firstItem != null)
-            {
                 ShowItemDetail(firstItem);
+        }
 
-                dapdo.onClick.RemoveAllListeners();
-                dapdo.onClick.AddListener(BuyItem);
+        HideUnusedSlots();
+    }
+
+    private void BeginSlotRefresh()
+    {
+        if (!isSlotPoolInitialized)
+        {
+            foreach (Transform child in itemContainer)
+            {
+                if (TryCreateSlotCache(child.gameObject, out ShopSlotCache slot))
+                    itemSlotPool.Add(slot);
+                else
+                    child.gameObject.SetActive(false);
             }
+
+            isSlotPoolInitialized = true;
+        }
+
+        usedSlotCount = 0;
+    }
+
+    private ShopSlotCache GetNextSlot()
+    {
+        ShopSlotCache slot;
+        if (usedSlotCount < itemSlotPool.Count)
+        {
+            slot = itemSlotPool[usedSlotCount];
+            slot.GameObject.SetActive(true);
+        }
+        else
+        {
+            GameObject slotObject = Instantiate(itemSlotPrefab, itemContainer);
+            if (!TryCreateSlotCache(slotObject, out slot))
+            {
+                Destroy(slotObject);
+                throw new MissingComponentException(
+                    $"Shop slot prefab '{itemSlotPrefab.name}' requires ShopItemUI.");
+            }
+
+            itemSlotPool.Add(slot);
+        }
+
+        usedSlotCount++;
+        return slot;
+    }
+
+    private static bool TryCreateSlotCache(GameObject slotObject, out ShopSlotCache slot)
+    {
+        if (slotObject.TryGetComponent(out ShopItemUI itemUI))
+        {
+            slot = new ShopSlotCache(slotObject, itemUI);
+            return true;
+        }
+
+        slot = null;
+        return false;
+    }
+
+    private void HideUnusedSlots()
+    {
+        for (int i = usedSlotCount; i < itemSlotPool.Count; i++)
+        {
+            ShopSlotCache slot = itemSlotPool[i];
+            slot.GameObject.SetActive(false);
         }
     }
 
@@ -188,6 +256,32 @@ public class ShopManager : MonoBehaviour
                 $"Né Tránh: {invItem.GetNeTranh()}\n" +
                 $"Tốc Độ: {invItem.GetTocDo()}";
         }
+    }
+
+    public void SelectForgeItem(InventoryItem invItem)
+    {
+        currentForgeItem = invItem;
+        ShowForgeItemDetail(invItem);
+    }
+
+    private void ForgeSelectedItem()
+    {
+        if (currentMode == ShopMode.Forge &&
+            currentForgeItem != null &&
+            playerInventory != null &&
+            playerInventory.items != null &&
+            playerInventory.items.Contains(currentForgeItem) &&
+            ForgeManager.Instance != null)
+        {
+            ForgeManager.Instance.OpenForge(currentForgeItem);
+        }
+    }
+
+    private static bool CanForge(ItemData item)
+    {
+        return item != null &&
+               item.itemType != ItemType.vatpham &&
+               item.itemType != ItemType.thoren;
     }
 
 
@@ -235,26 +329,8 @@ public class ShopManager : MonoBehaviour
         detailDescription.text = "Description";
         detailPrice.text = "Price";
         currentItem = null;
+        currentForgeItem = null;
     }
-    private string BuildItemStatsBase(ItemData item)
-    {
-        if (item == null) return "Không có chỉ số";
-
-        string stats = "";
-
-        if (item.baseHP != 0) stats += $"HP: {item.baseHP}\n";
-        if (item.baseAttack != 0) stats += $"Tấn công: {item.baseAttack}\n";
-        if (item.basePhongThu != 0) stats += $"Phòng thủ: {item.basePhongThu}\n";
-        if (item.baseNeTranh != 0) stats += $"Né tránh: {item.baseNeTranh}\n";
-        if (item.baseTocDo != 0) stats += $"Tốc độ: {item.baseTocDo}\n";
-
-        return string.IsNullOrEmpty(stats)
-            ? "Không có chỉ số"
-            : stats.TrimEnd('\n');
-    }
-
-
-
     // Nút mua
     public void BuyItem()
     {
@@ -268,31 +344,31 @@ public class ShopManager : MonoBehaviour
         {
             CoinManager.Instance.AddCoin(-currentItem.price);
 
-            InventoryManager.Instance.playerInventory.AddItem(currentItem, 1);
-            InventoryManager.Instance.RefreshInventory();
-            SaveSystem.SaveInventory(InventoryManager.Instance.playerInventory);
+            playerInventory.AddItem(currentItem, 1);
+            InventoryManager.Instance?.RefreshInventory();
+            SaveSystem.SaveInventory(playerInventory);
 
-            StartCoroutine(Thongbaotc());
+            ShowPurchaseMessage("Đã mua thành công");
         }
         else
         {
-            StartCoroutine(Thongbaotctb());
+            ShowPurchaseMessage("Không đủ vàng, mua thất bại!");
         }
     }
 
-    IEnumerator Thongbaotc()
+    private void ShowPurchaseMessage(string message)
     {
-        
-        textthongbaobuy.text = "Đã mua thành công";
-        yield return new WaitForSeconds(2f);
-        textthongbaobuy.text = "";
+        if (purchaseMessageRoutine != null)
+            StopCoroutine(purchaseMessageRoutine);
+        purchaseMessageRoutine = StartCoroutine(ShowPurchaseMessageRoutine(message));
     }
-    IEnumerator Thongbaotctb()
-    {
 
-        textthongbaobuy.text = "Không đủ vàng, mua thất bại!";
-        yield return new WaitForSeconds(2f);
+    private IEnumerator ShowPurchaseMessageRoutine(string message)
+    {
+        textthongbaobuy.text = message;
+        yield return PurchaseMessageDuration;
         textthongbaobuy.text = "";
+        purchaseMessageRoutine = null;
     }
 
 }

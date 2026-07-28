@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class BossControllerTwo : MonoBehaviour
 {
+    private static readonly WaitForSeconds WaitPointOne = new WaitForSeconds(0.1f);
+    private static readonly WaitForSeconds WaitPointOneFive = new WaitForSeconds(0.15f);
+    private static readonly WaitForSeconds WaitPointTwo = new WaitForSeconds(0.2f);
+    private static readonly WaitForSeconds WaitPointTwoFive = new WaitForSeconds(0.25f);
+    private static readonly WaitForSeconds WaitPointThree = new WaitForSeconds(0.3f);
+    private static readonly WaitForSeconds WaitPointFive = new WaitForSeconds(0.5f);
+
     [Header("References")]
     public Transform player;
     public Transform[] teleportPoints;
@@ -54,11 +61,9 @@ public class BossControllerTwo : MonoBehaviour
     private enum BossState { Idle, Thinking, Chasing, MeleeAttacking, RangedAttacking, Dashing, Teleporting, Defensive, JumpingBack }
     private BossState currentState = BossState.Idle;
 
-    private int patrolIndex = 0;
     private float aggressionLevel = 1f;
 
     // Track player health state
-    private bool playerWasLowHealth = false;
     private bool bossIsLowHealth = false;
 
     void Start()
@@ -70,11 +75,11 @@ public class BossControllerTwo : MonoBehaviour
         {
             GameObject foundPlayer = GameObject.FindWithTag("Player");
             if (foundPlayer != null)
-            {
                 player = foundPlayer.transform;
-                playerHealth = foundPlayer.GetComponent<HealthSystem>();
-            }
         }
+
+        if (player != null)
+            playerHealth = player.GetComponent<HealthSystem>();
 
         ResetAnimations();
     }
@@ -330,7 +335,7 @@ public class BossControllerTwo : MonoBehaviour
             case 2: animator.SetBool("Attack2", true); break;
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitPointThree;
 
         // Chỉ gây damage khi player thực sự gần (trong tầm chém)
         if (Vector2.Distance(transform.position, player.position) <= meleeAttackMinDistance + 0.1f)
@@ -338,7 +343,7 @@ public class BossControllerTwo : MonoBehaviour
             DealDamageToPlayer();
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitPointThree;
         ResetAnimations();
         
         // Jump back sau khi đánh
@@ -363,14 +368,14 @@ public class BossControllerTwo : MonoBehaviour
             case 2: animator.SetBool("Attack2", true); break;
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitPointThree;
 
         if (Vector2.Distance(transform.position, player.position) <= meleeAttackMinDistance + 0.1f)
         {
             DealDamageToPlayer();
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return WaitPointTwo;
         ResetAnimations();
 
         // Nhảy lui ngay lập tức sau khi đánh
@@ -391,13 +396,13 @@ public class BossControllerTwo : MonoBehaviour
         // Bắn 3 đạn với delay
         for (int i = 0; i < 3; i++)
         {
-            yield return new WaitForSeconds(0.25f);
+            yield return WaitPointTwoFive;
             if (player == null || !IsPlayerInArea()) yield break;
             
             SpawnProjectile(1f);
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitPointThree;
         animator.SetBool("Attack", false);
         lastRangedAttackTime = Time.time;
         isFiring = false;
@@ -408,7 +413,7 @@ public class BossControllerTwo : MonoBehaviour
         // Khi boss yếu, có thể teleport sau khi bắn
         if (bossIsLowHealth && Random.value < 0.5f && Time.time - lastTeleportTime >= teleportCooldown)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return WaitPointFive;
             StartCoroutine(TeleportToSafety());
             lastTeleportTime = Time.time;
         }
@@ -423,13 +428,13 @@ public class BossControllerTwo : MonoBehaviour
         // Bắn nhiều đạn hơn và nhanh hơn
         for (int i = 0; i < 5; i++)
         {
-            yield return new WaitForSeconds(0.15f);
+            yield return WaitPointOneFive;
             if (player == null || !IsPlayerInArea()) yield break;
             
             SpawnProjectile(1.2f);
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitPointThree;
         animator.SetBool("Attack", false);
         lastRangedAttackTime = Time.time;
         isFiring = false;
@@ -437,7 +442,7 @@ public class BossControllerTwo : MonoBehaviour
         // Sau khi bắn, teleport ra xa
         if (Time.time - lastTeleportTime >= teleportCooldown)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return WaitPointThree;
             StartCoroutine(TeleportToSafety());
             lastTeleportTime = Time.time;
         }
@@ -450,13 +455,12 @@ public class BossControllerTwo : MonoBehaviour
     {
         if (attackProjectile != null && attackSpawnPoint != null)
         {
-            GameObject projectile = Instantiate(attackProjectile, attackSpawnPoint.position, Quaternion.identity);
-            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                Vector2 direction = (player.position - transform.position).normalized;
-                rb.linearVelocity = direction * 10f * speedMultiplier * aggressionLevel;
-            }
+            Vector2 direction = (player.position - attackSpawnPoint.position).normalized;
+            Dan.Spawn(
+                attackProjectile,
+                attackSpawnPoint.position,
+                direction * 10f * speedMultiplier * aggressionLevel,
+                attackDamage);
         }
     }
 
@@ -484,9 +488,9 @@ public class BossControllerTwo : MonoBehaviour
         if (Vector2.Distance(transform.position, player.position) <= meleeAttackMinDistance + 0.15f && IsPlayerInArea())
         {
             animator.SetBool("Attack", true);
-            yield return new WaitForSeconds(0.2f);
+            yield return WaitPointTwo;
             DealDamageToPlayer();
-            yield return new WaitForSeconds(0.2f);
+            yield return WaitPointTwo;
             animator.SetBool("Attack", false);
         }
 
@@ -522,11 +526,11 @@ public class BossControllerTwo : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             animator.SetBool(i == 0 ? "Attack" : "Attack1", true);
-            yield return new WaitForSeconds(0.15f);
+            yield return WaitPointOneFive;
             DealDamageToPlayer();
-            yield return new WaitForSeconds(0.15f);
+            yield return WaitPointOneFive;
             ResetAnimations();
-            yield return new WaitForSeconds(0.1f);
+            yield return WaitPointOne;
         }
 
         // Nhảy lui
@@ -589,7 +593,7 @@ public class BossControllerTwo : MonoBehaviour
     IEnumerator TeleportRandomly()
     {
         animator.SetBool("Jump", true);
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitPointThree;
 
         if (teleportPoints.Length > 0)
         {
@@ -598,7 +602,7 @@ public class BossControllerTwo : MonoBehaviour
         }
         
         FlipTowardsPlayer();
-        yield return new WaitForSeconds(0.2f);
+        yield return WaitPointTwo;
         animator.SetBool("Jump", false);
         
         isAttacking = false;
@@ -608,7 +612,7 @@ public class BossControllerTwo : MonoBehaviour
         // Có thể bắn sau khi teleport
         if (Random.value < 0.4f && Time.time - lastRangedAttackTime >= rangedAttackCooldown)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return WaitPointThree;
             StartCoroutine(FireMultipleProjectiles());
         }
     }
@@ -634,7 +638,7 @@ public class BossControllerTwo : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitPointThree;
 
         if (safestPoint != null)
         {
@@ -648,7 +652,7 @@ public class BossControllerTwo : MonoBehaviour
         }
 
         FlipTowardsPlayer();
-        yield return new WaitForSeconds(0.2f);
+        yield return WaitPointTwo;
         animator.SetBool("Jump", false);
         
         isAttacking = false;
@@ -662,7 +666,7 @@ public class BossControllerTwo : MonoBehaviour
         if (player == null) yield break;
         
         animator.SetBool("Jump", true);
-        yield return new WaitForSeconds(0.2f);
+        yield return WaitPointTwo;
 
         // Teleport ra sau player
         float direction = player.position.x > transform.position.x ? -1f : 1f;
@@ -679,13 +683,13 @@ public class BossControllerTwo : MonoBehaviour
         transform.position = targetPos;
         
         FlipTowardsPlayer();
-        yield return new WaitForSeconds(0.15f);
+        yield return WaitPointOneFive;
         
         // Tấn công ngay
         animator.SetBool("Attack", true);
-        yield return new WaitForSeconds(0.2f);
+        yield return WaitPointTwo;
         DealDamageToPlayer();
-        yield return new WaitForSeconds(0.2f);
+        yield return WaitPointTwo;
         
         animator.SetBool("Attack", false);
         animator.SetBool("Jump", false);
@@ -697,14 +701,10 @@ public class BossControllerTwo : MonoBehaviour
 
     void DealDamageToPlayer()
     {
-        if (player != null)
+        if (playerHealth != null)
         {
-            HealthSystem playerHealthSystem = player.GetComponent<HealthSystem>();
-            if (playerHealthSystem != null)
-            {
-                playerHealthSystem.TakeDamage(attackDamage);
-                if (showDebugLogs) Debug.Log($"Boss dealt {attackDamage} damage to player!");
-            }
+            playerHealth.TakeDamage(attackDamage);
+            if (showDebugLogs) Debug.Log($"Boss dealt {attackDamage} damage to player!");
         }
     }
 

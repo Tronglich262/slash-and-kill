@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 
 public class NPCShopText : MonoBehaviour
 {
     public Transform npc;
     public GameObject textMesh;
     public Vector3 offset = new Vector3(0, 2, 0);
+    private Vector3 lastNpcPosition;
 
     [Header("Time")]
     [SerializeField] 
@@ -16,25 +16,32 @@ public class NPCShopText : MonoBehaviour
 
     void Start()
     {
+        UpdatePosition(true);
         StartCoroutine(ShowShopText());
     }
 
-    void Update()
+    private void UpdatePosition(bool force)
     {
-        if (npc != null)
+        if (npc != null && (force || npc.position != lastNpcPosition))
         {
-            transform.position = npc.position + offset;
+            lastNpcPosition = npc.position;
+            transform.position = lastNpcPosition + offset;
         }
     }
 
     IEnumerator ShowShopText()
     {
+        WaitForSeconds visibleDuration = new WaitForSeconds(time1);
+        WaitForSeconds hiddenDuration = new WaitForSeconds(time2);
         while (true)
         {
+            // NPCs are normally static. Refresh only when the label becomes
+            // visible instead of polling the transform every frame.
+            UpdatePosition(false);
             textMesh.gameObject.SetActive(true); 
-            yield return new WaitForSeconds(time1);
+            yield return visibleDuration;
             textMesh.gameObject.SetActive(false); 
-            yield return new WaitForSeconds(time2);
+            yield return hiddenDuration;
         }
     }
 }
