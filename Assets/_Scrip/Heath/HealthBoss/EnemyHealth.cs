@@ -54,6 +54,12 @@ public class EnemyHealth : MonoBehaviour
     private EnemyFSM enemyFSM;
     private Coroutine hitRoutine;
 
+    [Header("Regular Enemy Death Reaction")]
+    [SerializeField, Min(0f)] private float deathPushDuration = 0.18f;
+    [SerializeField, Min(0f)] private float deathPushImpulse = 2.2f;
+    [SerializeField, Min(0.1f)] private float deathLifetime = 1.35f;
+    private static readonly int SkeletonDeathState = Animator.StringToHash("Base Layer.death");
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -116,54 +122,96 @@ public class EnemyHealth : MonoBehaviour
 
     IEnumerator Death()
     {
+        Vector3 rewardPosition = transform.position;
+        bool useEnemyDeathReaction = enemyFSM != null;
+
         if (animator != null)
         {
+            if (HasAnimatorParameter(animator, "Walk1")) animator.SetBool("Walk1", false);
+            if (HasAnimatorParameter(animator, "Attack1")) animator.SetBool("Attack1", false);
+            if (HasAnimatorParameter(animator, "Hit1")) animator.SetBool("Hit1", false);
+
             if (HasAnimatorParameter(animator, "Death1"))
                 animator.SetBool("Death1", true);
-            else
+
+            if (animator.HasState(0, SkeletonDeathState))
+                animator.CrossFade(SkeletonDeathState, 0.04f, 0, 0f);
+            else if (!HasAnimatorParameter(animator, "Death1"))
                 animator.Play("Death", 0, 0f);
         }
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // Hiển thị floating text Gold (EXP sẽ hiển thị từ LevelSystem)
-        // Cộng EXP cho player
-        if (levelSystem != null)
+        if (healthBar != null)
+            healthBar.gameObject.SetActive(false);
+
+        if (useEnemyDeathReaction)
         {
-            levelSystem.GainExp(expReward);
+            Rigidbody2D body = GetComponent<Rigidbody2D>();
+            if (body != null)
+            {
+                body.bodyType = RigidbodyType2D.Dynamic;
+                body.simulated = true;
+                body.gravityScale = 0f;
+                body.constraints |= RigidbodyConstraints2D.FreezeRotation;
+                body.linearVelocity = Vector2.zero;
+
+                float pushDirection = playerTransform != null &&
+                                      transform.position.x < playerTransform.position.x
+                    ? -1f
+                    : 1f;
+                body.AddForce(
+                    Vector2.right * pushDirection * deathPushImpulse,
+                    ForceMode2D.Impulse);
+                body.WakeUp();
+            }
+
+            yield return new WaitForSeconds(deathPushDuration);
+            if (body != null)
+                body.linearVelocity = Vector2.zero;
+
+            yield return new WaitForSeconds(Mathf.Max(
+                0.05f,
+                deathLifetime - deathPushDuration));
+        }
+        else
+        {
+            yield return null;
+            float animationLength = animator != null
+                ? animator.GetCurrentAnimatorStateInfo(0).length
+                : deathLifetime;
+            yield return new WaitForSeconds(Mathf.Max(0.1f, animationLength));
         }
 
-        // Gold is awarded through pickups only. Split the configured reward
-        // across a few drops so the total remains exactly goldReward.
+        if (levelSystem != null)
+            levelSystem.GainExp(expReward);
+
         int remainingGold = Mathf.Max(0, goldReward);
         int coinCount = Mathf.Min(remainingGold, Random.Range(1, 4));
         for (int i = 0; i < coinCount; i++)
         {
             Vector3 spawnOffset = new Vector3(
-                Random.Range(-1f, 1f),    
-                Random.Range(-1f, -0.5f), 
-                0
-            );
+                Random.Range(-1f, 1f),
+                Random.Range(-1f, -0.5f),
+                0f);
 
-            Vector3 spawnPos = transform.position + spawnOffset;
-
-            if (coinPrefab == null) break;
+            if (coinPrefab == null)
+                break;
 
             int value = Mathf.CeilToInt((float)remainingGold / (coinCount - i));
-            CoinPickup pickup = CoinPickup.Spawn(coinPrefab, spawnPos, value);
+            CoinPickup pickup = CoinPickup.Spawn(
+                coinPrefab,
+                rewardPosition + spawnOffset,
+                value);
             if (pickup != null)
-            {
                 remainingGold -= value;
-            }
         }
 
         Destroy(gameObject);
     }
 
-
-
     public void TakeDamage(float damage, bool isCritical = false)
     {
-        if (isDead || damageLocked) return;
+        if (isDead || damageLocked)
+            return;
 
         if (dodgeChance > 0f && Random.value < dodgeChance)
             return;
@@ -174,8 +222,6 @@ public class EnemyHealth : MonoBehaviour
         {
             nearDeathTriggered = true;
             damageLocked = true;
-            // Keep the boss alive long enough for its last words even if one
-            // very large hit would otherwise kill it immediately.
             currentHealth = Mathf.Max(1f, nextHealth);
             UpdateHealthBar();
             ShowDamageText(damage, isCritical);
@@ -189,23 +235,32 @@ public class EnemyHealth : MonoBehaviour
         ShowDamageText(damage, isCritical);
         Damaged?.Invoke(this, damage);
 
-        // Tính hướng đẩy (hướng ngược lại với player)
+        if (currentHealth <= 0f)
+        {
+            isDead = true;
+            currentHealth = 0f;
+            UpdateHealthBar();
+
+            if (hitRoutine != null)
+            {
+                StopCoroutine(hitRoutine);
+                hitRoutine = null;
+            }
+
+            isKnockback = false;
+            enemyFSM?.EnterDeathState();
+            StartCoroutine(Death());
+            return;
+        }
+
         if (playerTransform == null)
             CachePlayer();
 
-        if (allowKnockback && playerTransform != null)
+        if (allowKnockback && playerTransform != null && !isKnockback)
         {
             Vector2 direction = transform.position - playerTransform.position;
             direction.Normalize();
             StartCoroutine(Knockback(direction));
-        }
-
-        if (currentHealth <= 0)
-        {
-            isDead = true;
-            currentHealth = 0;
-            UpdateHealthBar();
-            StartCoroutine(Death());
         }
     }
 
@@ -228,7 +283,7 @@ public class EnemyHealth : MonoBehaviour
 
         float elapsed = 0f;
 
-        while (elapsed < knockbackDuration)
+        while (elapsed < knockbackDuration && !isDead)
         {
             // Di chuyển enemy theo hướng ngang, giữ nguyên Y
             float newX = transform.position.x + (knockbackDirectionX * knockbackForce * Time.deltaTime);

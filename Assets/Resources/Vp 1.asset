@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fbe87cbc4ae0f4eb42f51057a4de5e, type: 3}
   m_Name: Vp 1
   m_EditorClassIdentifier: 
-  itemID: 31
+  itemID: 61
   itemName: MP
   itemDescription: "H\u1ED3i Mana"
   baseHP: 0

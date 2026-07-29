@@ -31,9 +31,15 @@ public class EnemyFSM : MonoBehaviour
     private HealthSystem playerHealth;
     private float nextPlayerSearchTime;
     private const float PlayerSearchInterval = 0.5f;
-    private static readonly WaitForSeconds AttackAnimationDelay = new WaitForSeconds(1f);
+    [Header("Attack Hit Window")]
+    [SerializeField, Min(0f)] private float attackHitDelay = 0.5f;
+    [SerializeField, Min(0.1f)] private float attackAnimationDuration = 1f;
+    [SerializeField, Min(0.1f)] private float attackHitRangeMultiplier = 1.2f;
+    [SerializeField, Min(0.1f)] private float attackVerticalTolerance = 0.85f;
+    private WaitForSeconds attackWindupDelay;
+    private WaitForSeconds attackFollowThroughDelay;
+    private WaitForSeconds skeletonFollowThroughDelay;
     private static readonly WaitForSeconds ChargeRepeatDelay = new WaitForSeconds(0.5f);
-    private WaitForSeconds skeletonAttackDelay;
     private WaitForSeconds skeletonRecoveryDelay;
     public int attackDamage = 10; // Sát thương gây ra cho Player
     private Vector2 originalPosition; // Vị trí gốc để quái đất không bay lên
@@ -47,13 +53,19 @@ public class EnemyFSM : MonoBehaviour
     // Knockback state - kiểm tra xem enemy có đang bị đẩy không
     private bool isKnockback = false;
     private bool chaseSummonerTarget;
+    private bool attackDamageApplied;
+    private bool isDead;
     public event Action<EnemyFSM> PlayerDamaged;
 
     void Start()
     {
         animator = GetComponent<Animator>(); 
-        skeletonAttackDelay = new WaitForSeconds(skeletonAttackInterval);
         skeletonRecoveryDelay = new WaitForSeconds(skeletonWaitAfterAttack);
+        attackWindupDelay = new WaitForSeconds(attackHitDelay);
+        attackFollowThroughDelay = new WaitForSeconds(
+            Mathf.Max(0.02f, attackAnimationDuration - attackHitDelay));
+        skeletonFollowThroughDelay = new WaitForSeconds(
+            Mathf.Max(0.02f, skeletonAttackInterval - attackHitDelay));
         target = pointB; 
         originalPosition = transform.position; 
         SetWalk(true);
@@ -63,6 +75,9 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+            return;
+
         if (!TryResolvePlayer())
             return;
 
@@ -227,6 +242,9 @@ public class EnemyFSM : MonoBehaviour
         if (hasAttackAnimationState && attackAnimationState == value)
             return;
 
+        if (value)
+            attackDamageApplied = false;
+
         attackAnimationState = value;
         hasAttackAnimationState = true;
         animator.SetBool(AttackParameter, value);
@@ -264,10 +282,11 @@ public class EnemyFSM : MonoBehaviour
 
         SetWalk(false);
         SetAttack(true);
-        
-        DealDamageToPlayer();
-        
-        yield return AttackAnimationDelay;
+
+        // Body contact is harmless. Damage is evaluated only at the weapon hit frame.
+        yield return attackWindupDelay;
+        TryDealAttackDamage();
+        yield return attackFollowThroughDelay;
         
         // Reset attack animation
         SetAttack(false);
@@ -319,15 +338,52 @@ public class EnemyFSM : MonoBehaviour
         }
     }
 
-    private void DealDamageToPlayer()
+    private void TryDealAttackDamage()
     {
-        if (playerHealth != null)
+        if (playerHealth == null)
+            TryResolvePlayer();
+        if (playerHealth == null)
+            playerHealth = HealthSystem.Instance;
+
+        if (!isAttacking || !attackAnimationState || attackDamageApplied ||
+            playerHealth == null || playerHealth.isDead ||
+            !IsPlayerInsideAttackHitbox())
+            return;
+
+        attackDamageApplied = true;
+        int healthBefore = playerHealth.currentHP;
+        playerHealth.TakeDamage(attackDamage);
+        if (playerHealth.currentHP < healthBefore)
+            PlayerDamaged?.Invoke(this);
+    }
+
+    private bool IsPlayerInsideAttackHitbox()
+    {
+        if (player == null)
+            return false;
+
+        Collider2D enemyCollider = GetComponent<Collider2D>();
+        Collider2D targetCollider = player.GetComponent<Collider2D>();
+        if (targetCollider == null)
+            targetCollider = player.GetComponentInChildren<Collider2D>();
+
+        float hitRange = Mathf.Max(0.1f, attackRange * attackHitRangeMultiplier);
+        if (enemyCollider != null && targetCollider != null &&
+            enemyCollider.enabled && targetCollider.enabled)
         {
-            int healthBefore = playerHealth.currentHP;
-            playerHealth.TakeDamage(attackDamage);
-            if (playerHealth.currentHP < healthBefore)
-                PlayerDamaged?.Invoke(this);
+            ColliderDistance2D distance = enemyCollider.Distance(targetCollider);
+            return distance.isOverlapped || distance.distance <= hitRange;
         }
+
+        Vector2 delta = player.position - transform.position;
+        return Mathf.Abs(delta.x) <= hitRange &&
+               Mathf.Abs(delta.y) <= Mathf.Max(attackVerticalTolerance, hitRange);
+    }
+
+    // Animation Event on skill_1 calls this at the sword contact frame.
+    public void ApplyAttackHit()
+    {
+        TryDealAttackDamage();
     }
 
     private float SqrDistanceToPlayer()
@@ -371,11 +427,10 @@ public class EnemyFSM : MonoBehaviour
             SetWalk(false);
             SetAttack(true);
 
-            // Gây sát thương cho Player
-            DealDamageToPlayer();
-
-            yield return skeletonAttackDelay; // thời gian giữa các đòn đánh
-
+            // The slash can miss if the player leaves the hitbox during wind-up.
+            yield return attackWindupDelay;
+            TryDealAttackDamage();
+            yield return skeletonFollowThroughDelay;
             SetAttack(false); // chuyển về idle nhẹ
 
             yield return skeletonRecoveryDelay; // chờ thêm 1 lúc trước khi đánh tiếp
@@ -386,9 +441,24 @@ public class EnemyFSM : MonoBehaviour
         isAttacking = false;
     }
 
-    // Phương thức để EnemyHealth gọi khi bắt đầu knockback
+    // Called by EnemyHealth at the exact lethal-damage frame.
     public void SetKnockbackState(bool knockback)
     {
-        isKnockback = knockback;
+        if (!isDead)
+            isKnockback = knockback;
+    }
+
+    public void EnterDeathState()
+    {
+        if (isDead)
+            return;
+
+        isDead = true;
+        StopAllCoroutines();
+        isAttacking = false;
+        isKnockback = false;
+        SetWalk(false);
+        SetAttack(false);
+        enabled = false;
     }
 }
